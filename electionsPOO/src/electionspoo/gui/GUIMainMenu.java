@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package projfinal1.pkg0.GUI;
+package electionspoo.gui;
 
 import java.awt.Dialog.ModalityType;
 import javax.swing.JDialog;
@@ -11,12 +11,12 @@ import javax.swing.JDialog;
  *
  * @author 0102388
  */
-public class Menu extends javax.swing.JFrame {
+public class GUIMainMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public GUIMainMenu() {
         initComponents();
     }
 
@@ -53,6 +53,11 @@ public class Menu extends javax.swing.JFrame {
 
         MainMenuBtnVotar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/vote.png"))); // NOI18N
         MainMenuBtnVotar.setText("Votar");
+        MainMenuBtnVotar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MainMenuBtnVotarActionPerformed(evt);
+            }
+        });
         MainMenu.add(MainMenuBtnVotar);
 
         MainMenuBtnResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/results.png"))); // NOI18N
@@ -79,6 +84,11 @@ public class Menu extends javax.swing.JFrame {
         MenuBarEleicoesResults.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         MenuBarEleicoesResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/results_24.png"))); // NOI18N
         MenuBarEleicoesResults.setText("Resultados");
+        MenuBarEleicoesResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuBarEleicoesResultsActionPerformed(evt);
+            }
+        });
         MenuBarEleicoes.add(MenuBarEleicoesResults);
         MenuBarEleicoes.add(MenuBarEleicoesSepara);
 
@@ -131,12 +141,18 @@ public class Menu extends javax.swing.JFrame {
 
     private void MenuBarEleicoesVotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarEleicoesVotarActionPerformed
         // TODO add your handling code here:
+         try {
+            GUIVote dialog = new GUIVote(this, true);
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_MenuBarEleicoesVotarActionPerformed
 
     private void MenuBarAppAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarAppAcercaActionPerformed
         // TODO add your handling code here:
         try {
-            AcercaDe dialog = new AcercaDe(this, true);
+            GUIAbout dialog = new GUIAbout(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -147,6 +163,20 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_MenuBarEleicoesSairActionPerformed
+
+    private void MainMenuBtnVotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuBtnVotarActionPerformed
+        // TODO add your handling code here:
+        try {
+            GUIVote dialog = new GUIVote(this, true);
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_MainMenuBtnVotarActionPerformed
+
+    private void MenuBarEleicoesResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarEleicoesResultsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuBarEleicoesResultsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,20 +195,21 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new GUIMainMenu().setVisible(true);
             }
         });
     }

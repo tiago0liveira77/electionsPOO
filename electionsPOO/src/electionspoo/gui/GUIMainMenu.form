@@ -44,6 +44,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Resultados"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuBarEleicoesResultsActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="MenuBarEleicoesSepara">
             </MenuItem>
@@ -148,6 +151,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Votar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MainMenuBtnVotarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="MainMenuBtnResults">
           <Properties>
