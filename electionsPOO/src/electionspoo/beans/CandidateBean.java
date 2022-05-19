@@ -4,10 +4,14 @@
  */
 package electionspoo.beans;
 
+import java.awt.Image;
+
 /**
  *
  * @author User
  */
 public class CandidateBean {
-    
+    private String name;
+    private String initials;
+    private Image photo;
 }
