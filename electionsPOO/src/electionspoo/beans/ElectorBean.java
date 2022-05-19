@@ -4,10 +4,18 @@
  */
 package electionspoo.beans;
 
+import java.awt.Image;
+import java.util.Date;
+
 /**
  *
  * @author User
  */
 public class ElectorBean {
-    
+    private String name;
+    private String CC;
+    private char gender;
+    private Date birthDate;
+    private String password;
+    private Image photo;
 }
