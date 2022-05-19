@@ -14,4 +14,40 @@ public class CandidateBean {
     private String name;
     private String initials;
     private Image photo;
+    
+    public CandidateBean(){
+        this.name = null;
+        this.initials = null;
+        this.photo = null;
+    }
+    
+    public CandidateBean(String name, String initials, Image photo){
+        this.name = name;
+        this.initials = initials;
+        this.photo = photo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+
+    public void setInitials(String initials) {
+        this.initials = initials;
+    }
+
+    public Image getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Image photo) {
+        this.photo = photo;
+    }
 }
