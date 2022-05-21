@@ -5,7 +5,10 @@
 package electionspoo.beans;
 
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.Icon;
 
 /**
  *
@@ -17,7 +20,8 @@ public class ElectorBean {
     private char gender;
     private Date birthDate;
     private String password;
-    private Image photo;
+    private Icon photo;
+    //private Image photo;
     
     public ElectorBean(){
         this.name = null;
@@ -28,7 +32,7 @@ public class ElectorBean {
         this.photo = null;
     }
     
-    public ElectorBean(String name, String cc, char gender, Date birthDate, String password, Image photo){
+    public ElectorBean(String name, String cc, char gender, Date birthDate, String password, Icon photo){
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -77,11 +81,20 @@ public class ElectorBean {
         this.password = password;
     }
 
-    public Image getPhoto() {
+    public Icon getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(Icon photo) {
         this.photo = photo;
+    }
+    
+    
+    //TESTS
+    public void printElector(){
+        SimpleDateFormat formatter1=new SimpleDateFormat("dd/mm/yyyy");
+        String date = formatter1.format(this.birthDate);
+        String photo = this.photo.toString();
+        System.out.println("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);
     }
 }
