@@ -26,21 +26,326 @@ public class GUIConfig extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        GUIConfigBtnSave = new javax.swing.JButton();
+        GUIConfigBtnOpen = new javax.swing.JButton();
+        GUIConfigBtnNew = new javax.swing.JButton();
+        GUIConfigBtnClose = new javax.swing.JButton();
+        GUIConfigPanelElection = new javax.swing.JPanel();
+        GUIConfigTxtBoxElectionName = new javax.swing.JTextField();
+        GUIConfigTxtBoxElectionStartDate = new javax.swing.JTextField();
+        GUIConfigTxtBoxElectionEndDate = new javax.swing.JTextField();
+        GUIConfigBtnStartElection = new javax.swing.JButton();
+        GUIConfigPanelPhoto = new javax.swing.JPanel();
+        GUIConfigPanelCandidates = new javax.swing.JPanel();
+        GUIConfigBtnOpenCandidateFile = new javax.swing.JButton();
+        GUIConfigBtnOpenCandidateMenu = new javax.swing.JButton();
+        GUIConfigPanelCandidateList = new javax.swing.JPanel();
+        GUIConfigPanelElectors = new javax.swing.JPanel();
+        GUIConfigBtnOpenElectorFile = new javax.swing.JButton();
+        GUIConfigBtnOpenjElectorMenu = new javax.swing.JButton();
+        GUIConfigPanelElectorList = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        GUIConfigBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/save_file.png"))); // NOI18N
+        GUIConfigBtnSave.setText("Guardar");
+        GUIConfigBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnSave.setVerifyInputWhenFocusTarget(false);
+        GUIConfigBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        GUIConfigBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
+        GUIConfigBtnOpen.setText("Abrir");
+        GUIConfigBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnOpen.setVerifyInputWhenFocusTarget(false);
+        GUIConfigBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        GUIConfigBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/newElection.png"))); // NOI18N
+        GUIConfigBtnNew.setText("Nova Eleição");
+        GUIConfigBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnNew.setVerifyInputWhenFocusTarget(false);
+        GUIConfigBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        GUIConfigBtnClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tiago\\Documents\\GitHub\\electionsPOO\\electionsPOO\\src\\electionspoo\\multimedia\\exit.png")); // NOI18N
+        GUIConfigBtnClose.setText("Sair");
+        GUIConfigBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnClose.setVerifyInputWhenFocusTarget(false);
+        GUIConfigBtnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnCloseActionPerformed(evt);
+            }
+        });
+
+        GUIConfigPanelElection.setBorder(javax.swing.BorderFactory.createTitledBorder("Eleição"));
+
+        GUIConfigTxtBoxElectionName.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+
+        GUIConfigTxtBoxElectionStartDate.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Ínicio"));
+        GUIConfigTxtBoxElectionStartDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigTxtBoxElectionStartDateActionPerformed(evt);
+            }
+        });
+
+        GUIConfigTxtBoxElectionEndDate.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Fim"));
+        GUIConfigTxtBoxElectionEndDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigTxtBoxElectionEndDateActionPerformed(evt);
+            }
+        });
+
+        GUIConfigBtnStartElection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/start_election.png"))); // NOI18N
+        GUIConfigBtnStartElection.setText("Iniciar Eleição");
+        GUIConfigBtnStartElection.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnStartElection.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        GUIConfigPanelPhoto.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
+
+        javax.swing.GroupLayout GUIConfigPanelPhotoLayout = new javax.swing.GroupLayout(GUIConfigPanelPhoto);
+        GUIConfigPanelPhoto.setLayout(GUIConfigPanelPhotoLayout);
+        GUIConfigPanelPhotoLayout.setHorizontalGroup(
+            GUIConfigPanelPhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 184, Short.MAX_VALUE)
+        );
+        GUIConfigPanelPhotoLayout.setVerticalGroup(
+            GUIConfigPanelPhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 413, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout GUIConfigPanelElectionLayout = new javax.swing.GroupLayout(GUIConfigPanelElection);
+        GUIConfigPanelElection.setLayout(GUIConfigPanelElectionLayout);
+        GUIConfigPanelElectionLayout.setHorizontalGroup(
+            GUIConfigPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GUIConfigPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIConfigTxtBoxElectionName)
+                    .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
+                        .addGroup(GUIConfigPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(GUIConfigTxtBoxElectionStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GUIConfigTxtBoxElectionEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(GUIConfigBtnStartElection, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(GUIConfigPanelPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        GUIConfigPanelElectionLayout.setVerticalGroup(
+            GUIConfigPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(GUIConfigTxtBoxElectionName, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(GUIConfigPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(GUIConfigPanelPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(GUIConfigTxtBoxElectionStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(GUIConfigTxtBoxElectionEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(GUIConfigBtnStartElection)))
+                .addContainerGap(136, Short.MAX_VALUE))
+        );
+
+        GUIConfigPanelCandidates.setBorder(javax.swing.BorderFactory.createTitledBorder("Candidatos"));
+
+        GUIConfigBtnOpenCandidateFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
+        GUIConfigBtnOpenCandidateFile.setText("Abrir");
+        GUIConfigBtnOpenCandidateFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnOpenCandidateFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnOpenCandidateFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnOpenCandidateFileActionPerformed(evt);
+            }
+        });
+
+        GUIConfigBtnOpenCandidateMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_candidates.png"))); // NOI18N
+        GUIConfigBtnOpenCandidateMenu.setText("Candidatos");
+        GUIConfigBtnOpenCandidateMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnOpenCandidateMenu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnOpenCandidateMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnOpenCandidateMenuActionPerformed(evt);
+            }
+        });
+
+        GUIConfigPanelCandidateList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Candidatos"));
+
+        javax.swing.GroupLayout GUIConfigPanelCandidateListLayout = new javax.swing.GroupLayout(GUIConfigPanelCandidateList);
+        GUIConfigPanelCandidateList.setLayout(GUIConfigPanelCandidateListLayout);
+        GUIConfigPanelCandidateListLayout.setHorizontalGroup(
+            GUIConfigPanelCandidateListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        GUIConfigPanelCandidateListLayout.setVerticalGroup(
+            GUIConfigPanelCandidateListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout GUIConfigPanelCandidatesLayout = new javax.swing.GroupLayout(GUIConfigPanelCandidates);
+        GUIConfigPanelCandidates.setLayout(GUIConfigPanelCandidatesLayout);
+        GUIConfigPanelCandidatesLayout.setHorizontalGroup(
+            GUIConfigPanelCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIConfigPanelCandidatesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GUIConfigPanelCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIConfigPanelCandidateList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(GUIConfigPanelCandidatesLayout.createSequentialGroup()
+                        .addComponent(GUIConfigBtnOpenCandidateFile, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(GUIConfigBtnOpenCandidateMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        GUIConfigPanelCandidatesLayout.setVerticalGroup(
+            GUIConfigPanelCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIConfigPanelCandidatesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GUIConfigPanelCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GUIConfigBtnOpenCandidateMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigBtnOpenCandidateFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GUIConfigPanelCandidateList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        GUIConfigPanelElectors.setBorder(javax.swing.BorderFactory.createTitledBorder("Eleitores"));
+
+        GUIConfigBtnOpenElectorFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
+        GUIConfigBtnOpenElectorFile.setText("Abrir");
+        GUIConfigBtnOpenElectorFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnOpenElectorFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        GUIConfigBtnOpenjElectorMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_electos.png"))); // NOI18N
+        GUIConfigBtnOpenjElectorMenu.setText("Eleitores");
+        GUIConfigBtnOpenjElectorMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIConfigBtnOpenjElectorMenu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnOpenjElectorMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnOpenjElectorMenuActionPerformed(evt);
+            }
+        });
+
+        GUIConfigPanelElectorList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Eleitores"));
+
+        javax.swing.GroupLayout GUIConfigPanelElectorListLayout = new javax.swing.GroupLayout(GUIConfigPanelElectorList);
+        GUIConfigPanelElectorList.setLayout(GUIConfigPanelElectorListLayout);
+        GUIConfigPanelElectorListLayout.setHorizontalGroup(
+            GUIConfigPanelElectorListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        GUIConfigPanelElectorListLayout.setVerticalGroup(
+            GUIConfigPanelElectorListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout GUIConfigPanelElectorsLayout = new javax.swing.GroupLayout(GUIConfigPanelElectors);
+        GUIConfigPanelElectors.setLayout(GUIConfigPanelElectorsLayout);
+        GUIConfigPanelElectorsLayout.setHorizontalGroup(
+            GUIConfigPanelElectorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIConfigPanelElectorsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GUIConfigPanelElectorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIConfigPanelElectorList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(GUIConfigPanelElectorsLayout.createSequentialGroup()
+                        .addComponent(GUIConfigBtnOpenElectorFile, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(GUIConfigBtnOpenjElectorMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        GUIConfigPanelElectorsLayout.setVerticalGroup(
+            GUIConfigPanelElectorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIConfigPanelElectorsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GUIConfigPanelElectorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GUIConfigBtnOpenjElectorMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigBtnOpenElectorFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GUIConfigPanelElectorList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(GUIConfigPanelElection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(GUIConfigPanelCandidates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GUIConfigPanelElectors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(GUIConfigBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GUIConfigBtnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GUIConfigBtnNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GUIConfigBtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GUIConfigBtnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigBtnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigBtnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIConfigPanelCandidates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigPanelElection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigPanelElectors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void GUIConfigBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnCloseActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_GUIConfigBtnCloseActionPerformed
+
+    private void GUIConfigTxtBoxElectionStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigTxtBoxElectionStartDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIConfigTxtBoxElectionStartDateActionPerformed
+
+    private void GUIConfigTxtBoxElectionEndDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigTxtBoxElectionEndDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIConfigTxtBoxElectionEndDateActionPerformed
+
+    private void GUIConfigBtnOpenCandidateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenCandidateMenuActionPerformed
+        // TODO add your handling code here:
+        try {
+            GUICandidate dialog = new GUICandidate(this, true);
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_GUIConfigBtnOpenCandidateMenuActionPerformed
+
+    private void GUIConfigBtnOpenjElectorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenjElectorMenuActionPerformed
+        // TODO add your handling code here:
+        try {
+            GUIElector dialog = new GUIElector(this, true);
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_GUIConfigBtnOpenjElectorMenuActionPerformed
+
+    private void GUIConfigBtnOpenCandidateFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenCandidateFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIConfigBtnOpenCandidateFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +383,23 @@ public class GUIConfig extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton GUIConfigBtnClose;
+    private javax.swing.JButton GUIConfigBtnNew;
+    private javax.swing.JButton GUIConfigBtnOpen;
+    private javax.swing.JButton GUIConfigBtnOpenCandidateFile;
+    private javax.swing.JButton GUIConfigBtnOpenCandidateMenu;
+    private javax.swing.JButton GUIConfigBtnOpenElectorFile;
+    private javax.swing.JButton GUIConfigBtnOpenjElectorMenu;
+    private javax.swing.JButton GUIConfigBtnSave;
+    private javax.swing.JButton GUIConfigBtnStartElection;
+    private javax.swing.JPanel GUIConfigPanelCandidateList;
+    private javax.swing.JPanel GUIConfigPanelCandidates;
+    private javax.swing.JPanel GUIConfigPanelElection;
+    private javax.swing.JPanel GUIConfigPanelElectorList;
+    private javax.swing.JPanel GUIConfigPanelElectors;
+    private javax.swing.JPanel GUIConfigPanelPhoto;
+    private javax.swing.JTextField GUIConfigTxtBoxElectionEndDate;
+    private javax.swing.JTextField GUIConfigTxtBoxElectionName;
+    private javax.swing.JTextField GUIConfigTxtBoxElectionStartDate;
     // End of variables declaration//GEN-END:variables
 }
