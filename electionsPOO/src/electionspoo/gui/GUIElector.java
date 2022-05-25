@@ -5,7 +5,12 @@
 package electionspoo.gui;
 
 import electionspoo.beans.ElectorBean;
+import electionspoo.bo.ElectorBO;
 import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -327,8 +332,16 @@ public class GUIElector extends javax.swing.JDialog {
     }//GEN-LAST:event_GUIElectorTxtBoxCCActionPerformed
 
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
-        // TODO add your handling code here:
-        saveElector();
+        
+         try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+           
+            ElectorBO.saveElectorOnFile(new ElectorBean(GUIElectorTxtBoxName.getText(), GUIElectorTxtBoxCC.getText(), GUIElectorGender.toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon()));
+
+            
+        } catch (ParseException | IOException  ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GUIElectorBtnNewElectorActionPerformed
 
     private void GUIElectorTxtBoxPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPwActionPerformed
@@ -377,7 +390,7 @@ public class GUIElector extends javax.swing.JDialog {
         });
     }
     
-    public void saveElector(){
+    public void saveElector() throws FileNotFoundException, IOException, ClassNotFoundException{
         try {
             SimpleDateFormat formatter1=new SimpleDateFormat("dd/mm/yyyy");
             String nome = GUIElectorTxtBoxName.getText();
@@ -387,9 +400,13 @@ public class GUIElector extends javax.swing.JDialog {
             String pw = GUIElectorTxtBoxPw.getText();
             String pw2 = GUIElectorTxtBoxPw2.getText();
             Icon photo = GUIElectorLabel2Image.getIcon();
-            
+           
             ElectorBean elector = new ElectorBean(nome, CC, 'M', birth, pw, photo);
-            elector.printElector();
+            
+            
+            ElectorBO.saveElectorOnFile(elector);
+            ElectorBO.getElectorFromFile();
+            
         } catch (ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }

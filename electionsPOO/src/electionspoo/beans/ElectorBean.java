@@ -5,6 +5,7 @@
 package electionspoo.beans;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -14,7 +15,9 @@ import javax.swing.Icon;
  *
  * @author User
  */
-public class ElectorBean {
+public class ElectorBean implements Serializable {
+    
+    private int id;
     private String name;
     private String CC;
     private char gender;
