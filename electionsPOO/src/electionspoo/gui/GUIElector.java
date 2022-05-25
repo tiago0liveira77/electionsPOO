@@ -6,6 +6,8 @@ package electionspoo.gui;
 
 import electionspoo.beans.ElectorBean;
 import electionspoo.bo.ElectorBO;
+import electionspoo.utils.enums.FirstNamesEnum;
+import electionspoo.utils.enums.LastNamesEnum;
 import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,6 +17,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -101,7 +105,6 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorBtnSearch.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        GUIElectorBtnClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tiago\\Documents\\GitHub\\electionsPOO\\electionsPOO\\src\\electionspoo\\multimedia\\exit.png")); // NOI18N
         GUIElectorBtnClose.setText("Sair");
         GUIElectorBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnClose.setVerifyInputWhenFocusTarget(false);
@@ -172,7 +175,6 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F", " " }));
 
-        GUIElectorBtnNewElector.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tiago\\Documents\\GitHub\\electionsPOO\\electionsPOO\\src\\electionspoo\\multimedia\\nav_add.png")); // NOI18N
         GUIElectorBtnNewElector.setText("Novo");
         GUIElectorBtnNewElector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +187,11 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnRandomElector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_update.png"))); // NOI18N
         GUIElectorBtnRandomElector.setText("Gerar Aleatório");
+        GUIElectorBtnRandomElector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnRandomElectorActionPerformed(evt);
+            }
+        });
 
         GUIElectorPanelImage.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -336,7 +343,7 @@ public class GUIElector extends javax.swing.JDialog {
          try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
            
-            ElectorBO.saveElectorOnFile(new ElectorBean(GUIElectorTxtBoxName.getText(), GUIElectorTxtBoxCC.getText(), GUIElectorGender.toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon()));
+            ElectorBO.saveElectorOnFile(new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon()));
 
             
         } catch (ParseException | IOException  ex) {
@@ -347,6 +354,29 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorTxtBoxPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPwActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GUIElectorTxtBoxPwActionPerformed
+
+    private void GUIElectorBtnRandomElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnRandomElectorActionPerformed
+        // TODO add your handling code here:
+        Random rd = new Random();
+        StringBuilder nome = new StringBuilder();
+        GregorianCalendar gc = new GregorianCalendar();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        
+        FirstNamesEnum fne = ElectorBO.getRandomFirstName(rd);
+        nome.append(fne.toString()).append(" ");
+        nome.append(ElectorBO.getRandomLastName(rd).toString());
+        int cc = ElectorBO.getRandom8DigitNumber(rd);
+        char gender = fne.getGender();
+        gc = ElectorBO.getRandomBirthDate(gc);
+        int password = ElectorBO.getRandom8DigitNumber(rd);
+        
+        try {
+            ElectorBO.saveElectorOnFile(new ElectorBean(nome.toString(), cc, gender, gc.getTime(), String.valueOf(password)));
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_GUIElectorBtnRandomElectorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,7 +424,7 @@ public class GUIElector extends javax.swing.JDialog {
         try {
             SimpleDateFormat formatter1=new SimpleDateFormat("dd/mm/yyyy");
             String nome = GUIElectorTxtBoxName.getText();
-            String CC = GUIElectorTxtBoxCC.getText();
+            int CC = Integer.parseInt(GUIElectorTxtBoxCC.getText());
             String gender = GUIElectorGender.getItemAt(0);
             Date birth = formatter1.parse(GUIElectorTxtBoxBirth.getText());
             String pw = GUIElectorTxtBoxPw.getText();

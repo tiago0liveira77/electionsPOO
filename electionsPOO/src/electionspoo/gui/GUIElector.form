@@ -387,6 +387,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Gerar Aleat&#xf3;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnRandomElectorActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="GUIElectorPanelImage">
           <Properties>

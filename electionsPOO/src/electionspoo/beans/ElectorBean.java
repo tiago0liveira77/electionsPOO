@@ -19,7 +19,7 @@ public class ElectorBean implements Serializable {
     
     private int id;
     private String name;
-    private String CC;
+    private int CC;
     private char gender;
     private Date birthDate;
     private String password;
@@ -28,14 +28,14 @@ public class ElectorBean implements Serializable {
     
     public ElectorBean(){
         this.name = null;
-        this.CC = null;
+        this.CC = 0;
         this.gender = 0;
         this.birthDate = null;
         this.password = null;
         this.photo = null;
     }
     
-    public ElectorBean(String name, String cc, char gender, Date birthDate, String password, Icon photo){
+    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, Icon photo){
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -44,6 +44,15 @@ public class ElectorBean implements Serializable {
         this.photo = photo;
     }
 
+     public ElectorBean(String name, int cc, char gender, Date birthDate, String password){
+        this.name = name;
+        this.CC = cc;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.password = password;
+        this.photo = null;
+    }
+    
     public String getName() {
         return name;
     }
@@ -52,11 +61,11 @@ public class ElectorBean implements Serializable {
         this.name = name;
     }
 
-    public String getCC() {
+    public int getCC() {
         return CC;
     }
 
-    public void setCC(String CC) {
+    public void setCC(int CC) {
         this.CC = CC;
     }
 
