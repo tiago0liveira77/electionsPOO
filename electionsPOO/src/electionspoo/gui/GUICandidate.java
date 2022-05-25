@@ -44,25 +44,20 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnClose = new javax.swing.JButton();
         GUICandPanelCandList = new javax.swing.JScrollPane();
         GUICandList = new javax.swing.JList<>();
-        GUICandLabelCandList = new javax.swing.JLabel();
         GUICandPanelBottomNav = new javax.swing.JPanel();
         GUIElectorBtnFirst = new javax.swing.JButton();
         GUIElectorBtnPrev = new javax.swing.JButton();
         GUIElectorBtnNext = new javax.swing.JButton();
         GUIElectorBtnLast = new javax.swing.JButton();
         GUICandPanelElector = new javax.swing.JPanel();
-        GUICandLabelName = new javax.swing.JLabel();
         GUICandTxtBoxName = new javax.swing.JTextField();
-        GUICandLabelInitials = new javax.swing.JLabel();
         GUICandTxtBoxInitials = new javax.swing.JTextField();
         GUICandBtnNewCand = new javax.swing.JButton();
         GUICandBtnDeleteCand = new javax.swing.JButton();
         GUICandPanelImage = new javax.swing.JPanel();
         GUICandLabel2Image = new javax.swing.JLabel();
-        GUICandLabelPhoto = new javax.swing.JLabel();
         GUICandBtnUp = new javax.swing.JButton();
         GUICandBtnDown = new javax.swing.JButton();
-        GUICandLabelElector = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,7 +96,7 @@ public class GUICandidate extends javax.swing.JDialog {
             }
         });
 
-        GUICandPanelCandList.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        GUICandPanelCandList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Candidatos"));
 
         GUICandList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -109,8 +104,6 @@ public class GUICandidate extends javax.swing.JDialog {
             public String getElementAt(int i) { return strings[i]; }
         });
         GUICandPanelCandList.setViewportView(GUICandList);
-
-        GUICandLabelCandList.setText("Lista Eleitoral");
 
         GUICandPanelBottomNav.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -150,12 +143,11 @@ public class GUICandidate extends javax.swing.JDialog {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        GUICandPanelElector.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        GUICandPanelElector.setBorder(javax.swing.BorderFactory.createTitledBorder("Candidato"));
 
-        GUICandLabelName.setText("Nome");
+        GUICandTxtBoxName.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
 
-        GUICandLabelInitials.setText("Sigla");
-
+        GUICandTxtBoxInitials.setBorder(javax.swing.BorderFactory.createTitledBorder("Sigla"));
         GUICandTxtBoxInitials.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUICandTxtBoxInitialsActionPerformed(evt);
@@ -173,7 +165,7 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnDeleteCand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_delete.png"))); // NOI18N
         GUICandBtnDeleteCand.setText("Eliminar");
 
-        GUICandPanelImage.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        GUICandPanelImage.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 
         GUICandLabel2Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         GUICandLabel2Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/about.png"))); // NOI18N
@@ -188,8 +180,6 @@ public class GUICandidate extends javax.swing.JDialog {
             GUICandPanelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(GUICandLabel2Image, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        GUICandLabelPhoto.setText("Fotografia");
 
         GUICandBtnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_up.png"))); // NOI18N
         GUICandBtnUp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -206,54 +196,41 @@ public class GUICandidate extends javax.swing.JDialog {
                 .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GUICandTxtBoxName)
                     .addGroup(GUICandPanelElectorLayout.createSequentialGroup()
-                        .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(GUICandLabelName)
-                            .addGroup(GUICandPanelElectorLayout.createSequentialGroup()
-                                .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(GUICandBtnNewCand, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                    .addComponent(GUICandTxtBoxInitials, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(GUICandLabelInitials, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, GUICandPanelElectorLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(GUICandBtnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(GUICandBtnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(GUICandPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(GUICandLabelPhoto)
-                                    .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))))
+                        .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(GUICandBtnNewCand, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(GUICandTxtBoxInitials, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, GUICandPanelElectorLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(GUICandBtnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(GUICandBtnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(GUICandPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         GUICandPanelElectorLayout.setVerticalGroup(
             GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GUICandPanelElectorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GUICandLabelName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GUICandTxtBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GUICandLabelInitials)
-                    .addComponent(GUICandLabelPhoto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(33, 33, 33)
+                .addComponent(GUICandTxtBoxName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(GUICandPanelElectorLayout.createSequentialGroup()
-                        .addComponent(GUICandTxtBoxInitials, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
+                        .addComponent(GUICandTxtBoxInitials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
                         .addComponent(GUICandBtnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(GUICandBtnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GUICandPanelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnNewCand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        GUICandLabelElector.setText("Eleitor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -274,17 +251,11 @@ public class GUICandidate extends javax.swing.JDialog {
                         .addComponent(GUICandBtnClose))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(GUICandLabelCandList)
                             .addComponent(GUICandPanelCandList)
                             .addComponent(GUICandPanelBottomNav, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(GUICandLabelElector)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(GUICandPanelElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(1, 1, 1)))))
+                        .addComponent(GUICandPanelElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -297,11 +268,7 @@ public class GUICandidate extends javax.swing.JDialog {
                     .addComponent(GUICandBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GUICandLabelCandList)
-                    .addComponent(GUICandLabelElector))
-                .addGap(2, 2, 2)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(GUICandPanelCandList, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -383,11 +350,6 @@ public class GUICandidate extends javax.swing.JDialog {
     private javax.swing.JButton GUICandBtnSearch;
     private javax.swing.JButton GUICandBtnUp;
     private javax.swing.JLabel GUICandLabel2Image;
-    private javax.swing.JLabel GUICandLabelCandList;
-    private javax.swing.JLabel GUICandLabelElector;
-    private javax.swing.JLabel GUICandLabelInitials;
-    private javax.swing.JLabel GUICandLabelName;
-    private javax.swing.JLabel GUICandLabelPhoto;
     private javax.swing.JList<String> GUICandList;
     private javax.swing.JPanel GUICandPanelBottomNav;
     private javax.swing.JScrollPane GUICandPanelCandList;

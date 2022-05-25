@@ -36,26 +36,17 @@
                       <Component id="GUIElectorBtnSort" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="GUIElectorBtnSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" pref="357" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" pref="359" max="32767" attributes="0"/>
                       <Component id="GUIElectorBtnClose" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="GUIElectorLabelElectorList" min="-2" max="-2" attributes="0"/>
                           <Component id="GUIElectorPanelElectorList" alignment="0" max="32767" attributes="0"/>
                           <Component id="GUIElectorPanelBottomNav" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="GUIElectorLabelElector" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="GUIElectorPanelElector" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="GUIElectorPanelElector" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -74,12 +65,7 @@
                   <Component id="GUIElectorBtnNew" alignment="0" max="32767" attributes="0"/>
                   <Component id="GUIElectorBtnClose" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="GUIElectorLabelElectorList" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="GUIElectorLabelElector" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="GUIElectorPanelElectorList" min="-2" pref="411" max="-2" attributes="0"/>
@@ -88,7 +74,7 @@
                   </Group>
                   <Component id="GUIElectorPanelElector" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -167,7 +153,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder/>
+            <TitledBorder title="Lista de Eleitores"/>
           </Border>
         </Property>
       </Properties>
@@ -197,11 +183,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="GUIElectorLabelElectorList">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Lista Eleitoral"/>
-      </Properties>
-    </Component>
     <Container class="javax.swing.JPanel" name="GUIElectorPanelBottomNav">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -231,11 +212,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="GUIElectorBtnFirst" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
-                      <Component id="GUIElectorBtnPrev" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="GUIElectorBtnNext" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
                       <Component id="GUIElectorBtnLast" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="GUIElectorBtnFirst" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                          <Component id="GUIElectorBtnPrev" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="13" max="32767" attributes="0"/>
               </Group>
@@ -277,7 +260,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder/>
+            <TitledBorder title="Eleitor"/>
           </Border>
         </Property>
       </Properties>
@@ -290,29 +273,20 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="GUIElectorTxtBoxName" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="GUIElectorLabelName" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="GUIElectorBtnNewElector" max="32767" attributes="0"/>
-                                      <Component id="GUIElectorTxtBoxCC" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="GUIElectorGender" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="GUIElectorTxtBoxBirth" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="GUIElectorTxtBoxPw" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="GUIElectorLabelPw" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GUIElectorLabelCC" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GUIElectorLabelBirth" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GUIElectorLabelPw2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GUIElectorTxtBoxPw2" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="GUIElectorBtnRandomElector" alignment="1" pref="179" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="GUIElectorPanelImage" max="32767" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GUIElectorBtnDeleteElector" alignment="0" pref="175" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="GUIElectorBtnNewElector" max="32767" attributes="0"/>
+                              <Component id="GUIElectorTxtBoxCC" alignment="0" max="32767" attributes="0"/>
+                              <Component id="GUIElectorGender" alignment="0" max="32767" attributes="0"/>
+                              <Component id="GUIElectorTxtBoxBirth" alignment="0" max="32767" attributes="0"/>
+                              <Component id="GUIElectorTxtBoxPw" alignment="0" max="32767" attributes="0"/>
+                              <Component id="GUIElectorTxtBoxPw2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="GUIElectorBtnRandomElector" alignment="1" pref="179" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="GUIElectorPanelImage" max="32767" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <Component id="GUIElectorBtnDeleteElector" alignment="0" pref="175" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -324,35 +298,26 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="GUIElectorLabelName" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="GUIElectorTxtBoxName" min="-2" pref="36" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="GUIElectorLabelCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="GUIElectorTxtBoxName" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="GUIElectorTxtBoxCC" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="GUIElectorGender" min="-2" pref="34" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="GUIElectorLabelBirth" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          <Component id="GUIElectorTxtBoxBirth" min="-2" pref="36" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="GUIElectorLabelPw" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="GUIElectorTxtBoxPw" min="-2" pref="36" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="GUIElectorLabelPw2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="GUIElectorTxtBoxPw2" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="GUIElectorPanelImage" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="GUIElectorPanelImage" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="GUIElectorTxtBoxCC" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="GUIElectorGender" min="-2" pref="34" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="GUIElectorTxtBoxBirth" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="GUIElectorTxtBoxPw" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="GUIElectorTxtBoxPw2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="GUIElectorBtnRandomElector" min="-2" max="-2" attributes="0"/>
@@ -367,19 +332,23 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="GUIElectorLabelName">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nome"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="GUIElectorTxtBoxName">
-        </Component>
-        <Component class="javax.swing.JLabel" name="GUIElectorLabelCC">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Cidad&#xe3;o"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Nome"/>
+              </Border>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="GUIElectorTxtBoxCC">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Cart&#xe3;o de Cidad&#xe3;o"/>
+              </Border>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorTxtBoxCCActionPerformed"/>
           </Events>
@@ -397,21 +366,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="GUIElectorLabelBirth">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Data de Nascimento"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="GUIElectorLabelPw">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Password"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="GUIElectorLabelPw2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Confirmar Password"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="GUIElectorBtnNewElector">
           <Properties>
@@ -478,17 +432,36 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="GUIElectorTxtBoxBirth">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Data de Nascimento"/>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="GUIElectorTxtBoxPw">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Password"/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorTxtBoxPwActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="GUIElectorTxtBoxPw2">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Confirmar Password"/>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="GUIElectorLabelElector">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Eleitor"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

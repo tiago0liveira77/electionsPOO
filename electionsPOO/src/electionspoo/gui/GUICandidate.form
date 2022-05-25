@@ -39,21 +39,12 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="GUICandLabelCandList" min="-2" max="-2" attributes="0"/>
                           <Component id="GUICandPanelCandList" alignment="0" max="32767" attributes="0"/>
                           <Component id="GUICandPanelBottomNav" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="GUICandLabelElector" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="GUICandPanelElector" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="GUICandPanelElector" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -71,12 +62,7 @@
                   <Component id="GUICandBtnNew" alignment="0" max="32767" attributes="0"/>
                   <Component id="GUICandBtnClose" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="GUICandLabelCandList" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="GUICandLabelElector" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="GUICandPanelCandList" min="-2" pref="411" max="-2" attributes="0"/>
@@ -153,7 +139,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder/>
+            <TitledBorder title="Lista de Candidatos"/>
           </Border>
         </Property>
       </Properties>
@@ -183,11 +169,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="GUICandLabelCandList">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Lista Eleitoral"/>
-      </Properties>
-    </Component>
     <Container class="javax.swing.JPanel" name="GUICandPanelBottomNav">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -265,7 +246,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder/>
+            <TitledBorder title="Candidato"/>
           </Border>
         </Property>
       </Properties>
@@ -278,28 +259,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="GUICandTxtBoxName" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="GUICandLabelName" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="GUICandBtnNewCand" pref="179" max="32767" attributes="0"/>
+                              <Component id="GUICandTxtBoxInitials" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="GUICandBtnNewCand" pref="179" max="32767" attributes="0"/>
-                                      <Component id="GUICandTxtBoxInitials" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="GUICandLabelInitials" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="GUICandBtnDown" min="-2" pref="53" max="-2" attributes="0"/>
-                                              <Component id="GUICandBtnUp" min="-2" pref="53" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="GUICandPanelImage" max="32767" attributes="0"/>
-                                      <Component id="GUICandLabelPhoto" min="-2" max="-2" attributes="0"/>
-                                      <Component id="GUICandBtnDeleteCand" alignment="0" pref="175" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="GUICandBtnDown" min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Component id="GUICandBtnUp" min="-2" pref="53" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="GUICandPanelImage" max="32767" attributes="0"/>
+                              <Component id="GUICandBtnDeleteCand" alignment="0" pref="175" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -311,27 +285,20 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="GUICandLabelName" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="GUICandTxtBoxName" min="-2" pref="36" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="GUICandLabelInitials" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="GUICandLabelPhoto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="GUICandTxtBoxName" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="GUICandTxtBoxInitials" min="-2" pref="36" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="GUICandTxtBoxInitials" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="GUICandBtnUp" min="-2" pref="47" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="GUICandBtnDown" min="-2" pref="47" max="-2" attributes="0"/>
                       </Group>
                       <Component id="GUICandPanelImage" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="140" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="GUICandBtnDeleteCand" max="32767" attributes="0"/>
                       <Component id="GUICandBtnNewCand" max="32767" attributes="0"/>
@@ -342,19 +309,23 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="GUICandLabelName">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nome"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="GUICandTxtBoxName">
-        </Component>
-        <Component class="javax.swing.JLabel" name="GUICandLabelInitials">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sigla"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Nome"/>
+              </Border>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="GUICandTxtBoxInitials">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Sigla"/>
+              </Border>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandTxtBoxInitialsActionPerformed"/>
           </Events>
@@ -382,7 +353,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder/>
+                <TitledBorder title="Fotografia"/>
               </Border>
             </Property>
           </Properties>
@@ -410,11 +381,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="GUICandLabelPhoto">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fotografia"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="GUICandBtnUp">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -433,10 +399,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="GUICandLabelElector">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Eleitor"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>
