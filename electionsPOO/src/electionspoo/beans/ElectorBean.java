@@ -16,7 +16,7 @@ import javax.swing.Icon;
  * @author User
  */
 public class ElectorBean implements Serializable {
-    
+
     private int id;
     private String name;
     private int CC;
@@ -25,8 +25,8 @@ public class ElectorBean implements Serializable {
     private String password;
     private Icon photo;
     //private Image photo;
-    
-    public ElectorBean(){
+
+    public ElectorBean() {
         this.name = null;
         this.CC = 0;
         this.gender = 0;
@@ -34,8 +34,8 @@ public class ElectorBean implements Serializable {
         this.password = null;
         this.photo = null;
     }
-    
-    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, Icon photo){
+
+    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, Icon photo) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -44,7 +44,7 @@ public class ElectorBean implements Serializable {
         this.photo = photo;
     }
 
-     public ElectorBean(String name, int cc, char gender, Date birthDate, String password){
+    public ElectorBean(String name, int cc, char gender, Date birthDate, String password) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -52,7 +52,7 @@ public class ElectorBean implements Serializable {
         this.password = password;
         this.photo = null;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -100,11 +100,23 @@ public class ElectorBean implements Serializable {
     public void setPhoto(Icon photo) {
         this.photo = photo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/mm/yyyy");
+        String date = formatter1.format(this.birthDate);
+        String photo = "";
+        if(this.photo == null)
+             photo= "FOTO";
+        else
+            photo= this.photo.toString();
+            
+        return ("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);
+    }
+
     //TESTS
-    public void printElector(){
-        SimpleDateFormat formatter1=new SimpleDateFormat("dd/mm/yyyy");
+    public void printElector() {
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/mm/yyyy");
         String date = formatter1.format(this.birthDate);
         String photo = this.photo.toString();
         System.out.println("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);

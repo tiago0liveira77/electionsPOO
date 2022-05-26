@@ -23,7 +23,7 @@ import java.util.Random;
 public class ElectorBO {
     
     
-    private static String electorFilePath="C:\\Users\\User\\OneDrive\\Documents\\Teste file\\object.txt";
+    private static String electorFilePath="C:\\Users\\Tiago\\OneDrive\\Documentos\\Teste file\\object.txt";
     
     private static int maxCCNumber = 99999999;
     private static int minCCNumber = 1000000;
