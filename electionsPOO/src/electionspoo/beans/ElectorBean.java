@@ -110,8 +110,11 @@ public class ElectorBean implements Serializable {
              photo= "FOTO";
         else
             photo= this.photo.toString();
+        
+        String end= String.format("000 | %c | %s | %-20s", this.gender, date, this.name);  
             
-        return ("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);
+        //return ("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);
+        return end;
     }
 
     //TESTS

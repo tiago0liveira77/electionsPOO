@@ -25,6 +25,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -47,7 +49,7 @@ public class GUIElector extends javax.swing.JDialog {
             listaGUI.removeAllElements();
             ArrayList<ElectorBean> listaElectors = ElectorBOOliveira.readFile();
             for (int i = 0; i < listaElectors.size(); i++) {
-                
+
                 listaGUI.addElement(listaElectors.get(i).toString());
             }
 
@@ -147,6 +149,12 @@ public class GUIElector extends javax.swing.JDialog {
         });
 
         GUIElectorPanelElectorList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Eleitores"));
+
+        GUIElectorList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                GUIElectorListValueChanged(evt);
+            }
+        });
         GUIElectorPanelElectorList.setViewportView(GUIElectorList);
 
         GUIElectorPanelBottomNav.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -364,8 +372,8 @@ public class GUIElector extends javax.swing.JDialog {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(GUIElectorPanelElectorList, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GUIElectorPanelElectorList, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(GUIElectorPanelBottomNav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GUIElectorPanelElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -376,7 +384,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnCloseActionPerformed
         // TODO add your handling code here:
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_GUIElectorBtnCloseActionPerformed
 
     private void GUIElectorTxtBoxCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxCCActionPerformed
@@ -387,7 +395,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-            ElectorBean temp = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon());
+            ElectorBean temp = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon());
             //ElectorBO.saveElectorOnFile(temp);
             try {
                 ElectorBOOliveira.saveToFile(temp);
@@ -447,16 +455,59 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_GUIElectorBtnLastActionPerformed
 
     private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
-        // TODO add your handling code here:
-        GUIElectorList.setModel(listaGUI);
-        
-        System.out.println(GUIElectorList.getSelectedValue());
-        GUIElectorList.setSelectedIndex(GUIElectorList.getSelectedIndex() + 1);
+
     }//GEN-LAST:event_GUIElectorBtnNextActionPerformed
+
+    private void GUIElectorListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GUIElectorListValueChanged
+        // TODO add your handling code here:
+        //System.out.println("First index: " + evt.getFirstIndex());
+        //System.out.println(", Last index: " + evt.getLastIndex());
+        boolean adjust = evt.getValueIsAdjusting();
+        //System.out.println(", Adjusting? " + adjust);
+        if (!adjust) {
+            try {
+                ArrayList<ElectorBean> listaElectors = ElectorBOOliveira.readFile();
+                JList list = (JList) evt.getSource();
+                int selections[] = list.getSelectedIndices();
+                Object selectionValues[] = list.getSelectedValues();
+                for (int i = 0, n = selections.length; i < n; i++) {
+                    if (i == 0) {
+                        //System.out.println(" Selections: ");
+                    }
+                    //System.out.println("I=" + selections[i] + "/" + selectionValues[i] + " ");
+                    //System.out.println("I=" + selections[i] + "-" + listaElectors.get(selections[i]).getName());
+                    
+                    SimpleDateFormat formatter1 = new SimpleDateFormat("dd/mm/yyyy");
+                    String date = formatter1.format(listaElectors.get(selections[i]).getBirthDate());
+                    
+                    GUIElectorTxtBoxName.setText(listaElectors.get(selections[i]).getName());
+                    GUIElectorTxtBoxCC.setText(""+listaElectors.get(selections[i]).getCC());
+                    
+                    if(listaElectors.get(selections[i]).getGender() == ('M')){
+                        GUIElectorGender.setSelectedIndex(0);
+                    } else {
+                        GUIElectorGender.setSelectedIndex(1);
+                    }
+                    
+                    GUIElectorTxtBoxBirth.setText(date);
+                    GUIElectorTxtBoxPw.setText(listaElectors.get(selections[i]).getPassword());
+                    GUIElectorTxtBoxPw2.setText(listaElectors.get(selections[i]).getPassword());
+                    
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_GUIElectorListValueChanged
 
     /**
      * @param args the command line arguments
@@ -492,6 +543,7 @@ public class GUIElector extends javax.swing.JDialog {
         } catch (ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
