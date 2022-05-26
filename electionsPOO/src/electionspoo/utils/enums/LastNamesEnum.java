@@ -14,6 +14,26 @@ public enum LastNamesEnum {
     Pereira,
     Oliveira,
     Silva,
-    Marques;
+    Marques,
+    Sá,
+    Araújo,
+    Tavares,
+    Simões,
+    Batista,
+    Esteves,
+    Jesus,
+    Andrade,
+    Sampaio,
+    Amaral,
+    Faria,
+    Almeida,
+    Loureiro,
+    Paiva,
+    Figueiredo,
+    Gaspar,
+    Azevedo,
+    Silveira,
+    Morais,
+    Cruz;
      
 }

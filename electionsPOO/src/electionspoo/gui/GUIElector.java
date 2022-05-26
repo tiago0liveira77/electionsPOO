@@ -4,9 +4,10 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.ElectorBean;
 import electionspoo.bo.ElectorBO;
-import electionspoo.bo.ElectorBOOliveira;
+import electionspoo.utils.GenerateUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
 import electionspoo.utils.enums.LastNamesEnum;
 import java.awt.Image;
@@ -24,9 +25,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.JList;
-import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -34,40 +33,30 @@ import javax.swing.ListSelectionModel;
  */
 public class GUIElector extends javax.swing.JDialog {
 
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+    private int GUIListSelectedIndex = 0;
     DefaultListModel<String> listaGUI = new DefaultListModel<>();
-
-    //adiciona o ultimo eleitor criado à listaGUI
-    private void addNewElectorToList(String elector) {
-        GUIElectorList.setModel(listaGUI);
-        listaGUI.addElement(elector);
-    }
-
+    ArrayList<ElectorBean> electorList = new ArrayList<>();
+    
     //lista todos os electors guardados no ficheiro
-    private void addElectorsToList() {
-        try {
-            GUIElectorList.setModel(listaGUI);
-            listaGUI.removeAllElements();
-            ArrayList<ElectorBean> listaElectors = ElectorBOOliveira.readFile();
-            for (int i = 0; i < listaElectors.size(); i++) {
-
-                listaGUI.addElement(listaElectors.get(i).toString());
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+    private void updateGUIList() {
+        listaGUI.removeAllElements();
+        for (int i = 0; i < electorList.size(); i++) {
+            listaGUI.addElement(ElectorBO.getGUIListLine(electorList.get(i)));
         }
     }
 
     /**
      * Creates new form GUIElector
      */
-    public GUIElector(java.awt.Frame parent, boolean modal) {
+    public GUIElector(java.awt.Frame parent, boolean modal) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         super(parent, modal);
         initComponents();
+        GUIElectorList.setModel(listaGUI);
+        electorList.add(ElectorBeanBuilder.buildRandomElectorBean(electorList));
+        electorList = ElectorBO.getElectorsFromFile(electorList);
+        updateGUIList();
+        GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
     }
 
     /**
@@ -113,6 +102,11 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnSave.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIElectorBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnSaveActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUIElectorBtnOpen.setText("Abrir");
@@ -160,8 +154,18 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorPanelBottomNav.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         GUIElectorBtnFirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_first.png"))); // NOI18N
+        GUIElectorBtnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnFirstActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_prev.png"))); // NOI18N
+        GUIElectorBtnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnPrevActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_next.png"))); // NOI18N
         GUIElectorBtnNext.addActionListener(new java.awt.event.ActionListener() {
@@ -394,19 +398,12 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
 
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-            ElectorBean temp = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon());
-            //ElectorBO.saveElectorOnFile(temp);
-            try {
-                ElectorBOOliveira.saveToFile(temp);
-                addNewElectorToList(temp.toString());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            ElectorBean electorBean = new ElectorBean(GenerateUtils.getLastIDFromArrayList(electorList) ,GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon());    
+            electorList.add(electorBean);
+            updateGUIList();
+            GUIElectorList.setSelectedIndex(electorList.size()-1);
 
-        } catch (ParseException | IOException ex) {
+        } catch (ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIElectorBtnNewElectorActionPerformed
@@ -416,98 +413,106 @@ public class GUIElector extends javax.swing.JDialog {
     }//GEN-LAST:event_GUIElectorTxtBoxPwActionPerformed
 
     private void GUIElectorBtnRandomElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnRandomElectorActionPerformed
-        // TODO add your handling code here:
-        Random rd = new Random();
-        StringBuilder nome = new StringBuilder();
-        GregorianCalendar gc = new GregorianCalendar();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        try {                                                           
+            // TODO add your handling code here:
+            
+            //Create Elector bean
+            ElectorBean electorBean = ElectorBeanBuilder.buildRandomElectorBean(electorList);
+            
+            //Save elector to the list
+            electorList.add(electorBean);
 
-        FirstNamesEnum fne = ElectorBO.getRandomFirstName(rd);
-        nome.append(fne.toString()).append(" ");
-        nome.append(ElectorBO.getRandomLastName(rd).toString());
-        int cc = ElectorBO.getRandom8DigitNumber(rd);
-        char gender = fne.getGender();
-        gc = ElectorBO.getRandomBirthDate(gc);
-        int password = ElectorBO.getRandom8DigitNumber(rd);
-
-        try {
-            //ElectorBO.saveElectorOnFile(new ElectorBean(nome.toString(), cc, gender, gc.getTime(), String.valueOf(password)));
-            ElectorBean temp = new ElectorBean(nome.toString(), cc, gender, gc.getTime(), String.valueOf(password));
-            try {
-                ElectorBOOliveira.saveToFile(temp);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            addNewElectorToList(temp.toString());
-        } catch (IOException ex) {
+            updateGUIList();
+            GUIElectorList.setSelectedIndex(electorList.size()-1);
+ 
+        } catch (ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+       
 
     }//GEN-LAST:event_GUIElectorBtnRandomElectorActionPerformed
 
     private void GUIElectorBtnDeleteElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnDeleteElectorActionPerformed
-        addElectorsToList();
+        try {
+            ElectorBO.deleteElectorFromFile(electorList, GUIListSelectedIndex);
+            updateGUIList();
+            GUIElectorList.setSelectedIndex(0);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GUIElectorBtnDeleteElectorActionPerformed
 
     private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
         // TODO add your handling code here:
-
+        GUIElectorList.setSelectedIndex(electorList.size()-1);
     }//GEN-LAST:event_GUIElectorBtnLastActionPerformed
 
     private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
-
+        if(GUIListSelectedIndex<electorList.size()-1){
+            GUIListSelectedIndex++;
+            GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
+        }
     }//GEN-LAST:event_GUIElectorBtnNextActionPerformed
 
     private void GUIElectorListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GUIElectorListValueChanged
         // TODO add your handling code here:
-        //System.out.println("First index: " + evt.getFirstIndex());
-        //System.out.println(", Last index: " + evt.getLastIndex());
+
         boolean adjust = evt.getValueIsAdjusting();
-        //System.out.println(", Adjusting? " + adjust);
+        
         if (!adjust) {
-            try {
-                ArrayList<ElectorBean> listaElectors = ElectorBOOliveira.readFile();
-                JList list = (JList) evt.getSource();
-                int selections[] = list.getSelectedIndices();
-                Object selectionValues[] = list.getSelectedValues();
-                for (int i = 0, n = selections.length; i < n; i++) {
-                    if (i == 0) {
-                        //System.out.println(" Selections: ");
-                    }
-                    //System.out.println("I=" + selections[i] + "/" + selectionValues[i] + " ");
-                    //System.out.println("I=" + selections[i] + "-" + listaElectors.get(selections[i]).getName());
-                    
-                    SimpleDateFormat formatter1 = new SimpleDateFormat("dd/mm/yyyy");
-                    String date = formatter1.format(listaElectors.get(selections[i]).getBirthDate());
-                    
-                    GUIElectorTxtBoxName.setText(listaElectors.get(selections[i]).getName());
-                    GUIElectorTxtBoxCC.setText(""+listaElectors.get(selections[i]).getCC());
-                    
-                    if(listaElectors.get(selections[i]).getGender() == ('M')){
-                        GUIElectorGender.setSelectedIndex(0);
-                    } else {
-                        GUIElectorGender.setSelectedIndex(1);
-                    }
-                    
-                    GUIElectorTxtBoxBirth.setText(date);
-                    GUIElectorTxtBoxPw.setText(listaElectors.get(selections[i]).getPassword());
-                    GUIElectorTxtBoxPw2.setText(listaElectors.get(selections[i]).getPassword());
-                    
+            int selections[] = GUIElectorList.getSelectedIndices();
+            GUIListSelectedIndex = GUIElectorList.getSelectedIndex();
+            for (int i = 0, n = selections.length; i < n; i++) {
+                
+                GUIElectorTxtBoxName.setText(electorList.get(selections[i]).getName());
+                GUIElectorTxtBoxCC.setText(String.valueOf(electorList.get(selections[i]).getCC()));
+                
+                
+                if(electorList.get(selections[i]).getGender() == ('M')){
+                    GUIElectorGender.setSelectedIndex(0);
+                } else {
+                    GUIElectorGender.setSelectedIndex(1);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+                
+                GUIElectorTxtBoxBirth.setText(electorList.get(selections[i]).getBirthDate());
+                GUIElectorTxtBoxPw.setText(electorList.get(selections[i]).getPassword());
+                GUIElectorTxtBoxPw2.setText(electorList.get(selections[i]).getPassword());
             }
 
         }
     }//GEN-LAST:event_GUIElectorListValueChanged
+
+    private void GUIElectorBtnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnPrevActionPerformed
+        // TODO add your handling code here:
+        if(GUIListSelectedIndex>0){
+            GUIListSelectedIndex--;
+            GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
+        }
+        
+    }//GEN-LAST:event_GUIElectorBtnPrevActionPerformed
+
+    private void GUIElectorBtnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnFirstActionPerformed
+        // TODO add your handling code here:
+        GUIElectorList.setSelectedIndex(0);
+    }//GEN-LAST:event_GUIElectorBtnFirstActionPerformed
+
+    private void GUIElectorBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSaveActionPerformed
+        try {
+            // TODO add your handling code here:
+            ElectorBO.saveElectorsToFile(electorList);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_GUIElectorBtnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -536,19 +541,20 @@ public class GUIElector extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        try {
-            ElectorBOOliveira.createFile();
-        } catch (IOException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GUIElector dialog = new GUIElector(new javax.swing.JFrame(), true);
+                GUIElector dialog = null;
+                try {
+                    dialog = new GUIElector(new javax.swing.JFrame(), true);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

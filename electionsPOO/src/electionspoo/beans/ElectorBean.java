@@ -35,7 +35,8 @@ public class ElectorBean implements Serializable {
         this.photo = null;
     }
 
-    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, Icon photo) {
+    public ElectorBean(int id, String name, int cc, char gender, Date birthDate, String password, Icon photo) {
+        this.id = id;
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -44,7 +45,8 @@ public class ElectorBean implements Serializable {
         this.photo = photo;
     }
 
-    public ElectorBean(String name, int cc, char gender, Date birthDate, String password) {
+    public ElectorBean(int id, String name, int cc, char gender, Date birthDate, String password) {
+        this.id = id;
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -52,7 +54,15 @@ public class ElectorBean implements Serializable {
         this.password = password;
         this.photo = null;
     }
-
+    
+    public int getID(){
+        return id;
+    }
+    
+     public void setID(){
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }
@@ -77,8 +87,9 @@ public class ElectorBean implements Serializable {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getBirthDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        return sdf.format(this.birthDate);
     }
 
     public void setBirthDate(Date birthDate) {
@@ -101,21 +112,7 @@ public class ElectorBean implements Serializable {
         this.photo = photo;
     }
 
-    @Override
-    public String toString() {
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/mm/yyyy");
-        String date = formatter1.format(this.birthDate);
-        String photo = "";
-        if(this.photo == null)
-             photo= "FOTO";
-        else
-            photo= this.photo.toString();
-        
-        String end= String.format("000 | %c | %s | %-20s", this.gender, date, this.name);  
-            
-        //return ("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);
-        return end;
-    }
+    
 
     //TESTS
     public void printElector() {

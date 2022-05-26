@@ -7,14 +7,19 @@ package electionspoo.bo;
 import electionspoo.beans.ElectorBean;
 import electionspoo.utils.enums.FirstNamesEnum;
 import electionspoo.utils.enums.LastNamesEnum;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.GregorianCalendar;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -23,60 +28,66 @@ import java.util.Random;
 public class ElectorBO {
     
     
-    private static String electorFilePath="C:\\Users\\Tiago\\OneDrive\\Documentos\\Teste file\\object.txt";
-    
-    private static int maxCCNumber = 99999999;
-    private static int minCCNumber = 1000000;
-    
-    public static void saveElectorOnFile(ElectorBean electorBean) throws FileNotFoundException, IOException{
-        FileOutputStream fos = new FileOutputStream(electorFilePath);
-                
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+    private static String electorFilePath = "electors.txt";
+    private static File electorsFile = new File(electorFilePath);
 
-        oos.writeObject(electorBean);
+  
+    public static void createFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ParseException {
 
+        if (!electorsFile.exists()) {
+            FileOutputStream fi = new FileOutputStream(electorsFile);
+            ObjectOutputStream oi = new ObjectOutputStream(fi);
+            
+            oi.writeObject(electorList);
+            
+            oi.close();
+            fi.close();
+        }
+    }
+
+    public static ArrayList<ElectorBean> getElectorsFromFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ClassNotFoundException{
+        try {
+            createFile(electorList);
+            FileInputStream fi = new FileInputStream(electorsFile);
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            
+            electorList = (ArrayList<ElectorBean>) oi.readObject();
+            
+            oi.close();
+            fi.close();
+            
+            return electorList;
+        } catch (ParseException ex) {
+            Logger.getLogger(ElectorBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return electorList;
     }
     
-    public static void getElectorFromFile() throws FileNotFoundException, IOException, ClassNotFoundException{
-        
-        FileInputStream fileIn = new FileInputStream(electorFilePath);
-        
-        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+    public static void saveElectorsToFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
+        try {
+            FileOutputStream fi = new FileOutputStream(electorsFile);
+            ObjectOutputStream oi = new ObjectOutputStream(fi);
 
-        ElectorBean electorBean = (ElectorBean) objectIn.readObject();
-        
-        electorBean.printElector();
-        System.out.println("Nome : " + electorBean.getName());
-        objectIn.close();
-        
+            oi.writeObject(electorList);
+
+            oi.close();
+            fi.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        }
     }
     
-    public static FirstNamesEnum getRandomFirstName(Random rd){
-        return FirstNamesEnum.values()[rd.nextInt(5)];
+    public static String getGUIListLine(ElectorBean electorBean) {
+        return String.format("%3d | %c | %s | %-20s", electorBean.getID() ,electorBean.getGender(), electorBean.getBirthDate(), electorBean.getName());  
     }
     
-     public static LastNamesEnum getRandomLastName(Random rd){
-        return LastNamesEnum.values()[rd.nextInt(5)];
-    }
-     
-    public static int getRandom8DigitNumber(Random rd){  
-        return randBetween(minCCNumber, maxCCNumber);
+    public static void deleteElectorFromFile(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
+        electorList.remove(id);
     }
     
-    public static GregorianCalendar getRandomBirthDate(GregorianCalendar gc){
-       
-       int year = randBetween(1900, 2010);
-
-       gc.set(gc.YEAR, year);
-
-       int dayOfYear = randBetween(1, gc.getActualMaximum(gc.DAY_OF_YEAR));
-
-       gc.set(gc.DAY_OF_YEAR, dayOfYear);
-
-       return gc;
-    }
     
-    public static int randBetween(int start, int end) {
-        return start + (int)Math.round(Math.random() * (end - start));
-    }
+    
 }
+

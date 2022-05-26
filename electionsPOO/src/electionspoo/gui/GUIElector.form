@@ -90,6 +90,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnSaveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUIElectorBtnOpen">
       <Properties>
@@ -216,6 +219,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/nav_first.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnFirstActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GUIElectorBtnPrev">
           <Properties>
@@ -223,6 +229,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/nav_prev.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnPrevActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GUIElectorBtnNext">
           <Properties>
