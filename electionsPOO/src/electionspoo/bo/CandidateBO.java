@@ -76,11 +76,11 @@ public class CandidateBO {
     }
     
     public static String getGUIListLine(CandidateBean candidateBean) {
-        return String.format("%20d | %c ", candidateBean.getName(),candidateBean.getInitials());  
+        return String.format("%20s | %s ", candidateBean.getName(),candidateBean.getInitials());  
     }
     
-    public static void deleteElectorFromFile(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
-        electorList.remove(id);
+    public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
+        candidateList.remove(id);
     }
     
 }

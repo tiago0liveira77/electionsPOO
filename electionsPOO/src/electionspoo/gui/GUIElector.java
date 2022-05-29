@@ -456,7 +456,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnDeleteElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnDeleteElectorActionPerformed
         try {
-            ElectorBO.deleteElectorFromFile(electorList, GUIListSelectedIndex);
+            ElectorBO.deleteElectorFromList(electorList, GUIListSelectedIndex);
             updateGUIList();
             GUIElectorList.setSelectedIndex(0);
         } catch (IOException ex) {
@@ -483,27 +483,24 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GUIElectorListValueChanged
         // TODO add your handling code here:
 
-        boolean adjust = evt.getValueIsAdjusting();
-        
-        if (!adjust) {
-            int selections[] = GUIElectorList.getSelectedIndices();
-            GUIListSelectedIndex = GUIElectorList.getSelectedIndex();
-            for (int i = 0, n = selections.length; i < n; i++) {
-                
-                GUIElectorTxtBoxName.setText(electorList.get(selections[i]).getName());
-                GUIElectorTxtBoxCC.setText(String.valueOf(electorList.get(selections[i]).getCC()));
-                if(electorList.get(selections[i]).getGender() == ('M')){
-                    GUIElectorGender.setSelectedIndex(0);
-                } else {
-                    GUIElectorGender.setSelectedIndex(1);
-                }
-                GUIElectorTxtBoxBirth.setText(electorList.get(selections[i]).getBirthDate());
-                GUIElectorTxtBoxPw.setText(electorList.get(selections[i]).getPassword());
-                GUIElectorTxtBoxPw2.setText(electorList.get(selections[i]).getPassword());
-                GUIElectorIdadeLbl.setText(String.valueOf(electorList.get(selections[i]).getAge()));
-            }
+        int selections[] = GUIElectorList.getSelectedIndices();
+        GUIListSelectedIndex = GUIElectorList.getSelectedIndex();
+        for (int i = 0, n = selections.length; i < n; i++) {
 
+            GUIElectorTxtBoxName.setText(electorList.get(selections[i]).getName());
+            GUIElectorTxtBoxCC.setText(String.valueOf(electorList.get(selections[i]).getCC()));
+            if(electorList.get(selections[i]).getGender() == ('M')){
+                GUIElectorGender.setSelectedIndex(0);
+            } else {
+                GUIElectorGender.setSelectedIndex(1);
+            }
+            GUIElectorTxtBoxBirth.setText(electorList.get(selections[i]).getBirthDate());
+            GUIElectorTxtBoxPw.setText(electorList.get(selections[i]).getPassword());
+            GUIElectorTxtBoxPw2.setText(electorList.get(selections[i]).getPassword());
+            GUIElectorIdadeLbl.setText(String.valueOf(electorList.get(selections[i]).getAge()));
         }
+
+        
     }//GEN-LAST:event_GUIElectorListValueChanged
 
     private void GUIElectorBtnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnPrevActionPerformed

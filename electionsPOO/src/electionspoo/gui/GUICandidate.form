@@ -87,6 +87,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandBtnSaveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUICandBtnOpen">
       <Properties>
@@ -109,6 +112,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandBtnNewActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUICandBtnSearch">
       <Properties>
@@ -160,6 +166,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="GUICandListValueChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -215,6 +224,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/nav_first.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnFirstActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GUIElectorBtnPrev">
           <Properties>
@@ -222,6 +234,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/nav_prev.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnPrevActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GUIElectorBtnNext">
           <Properties>
@@ -229,6 +244,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/nav_last.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnNextActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GUIElectorBtnLast">
           <Properties>
@@ -236,6 +254,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/nav_next.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnLastActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -342,6 +363,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandBtnDeleteCandActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="GUICandPanelImage">
           <Properties>

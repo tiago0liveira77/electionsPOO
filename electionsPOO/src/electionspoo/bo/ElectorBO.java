@@ -83,7 +83,7 @@ public class ElectorBO {
         return String.format("%8d | %c | %s | %-20s", electorBean.getCC() ,electorBean.getGender(), electorBean.getBirthDate(), electorBean.getName());  
     }
     
-    public static void deleteElectorFromFile(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
+    public static void deleteElectorFromList(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
         electorList.remove(id);
     }
     

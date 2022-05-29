@@ -4,12 +4,14 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.CandidateBean;
 import electionspoo.beans.ElectorBean;
 import electionspoo.bo.CandidateBO;
 import electionspoo.bo.ElectorBO;
 import electionspoo.utils.MainUtils;
 import java.awt.Image;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -44,7 +46,17 @@ public class GUICandidate extends javax.swing.JDialog {
      */
     public GUICandidate(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
+        try {
+            initComponents();
+            GUICandList.setModel(listaGUI);
+            candidatesList = CandidateBO.getCandidatesFromFile(candidatesList);
+            updateGUIList();
+            GUICandList.setSelectedIndex(GUIListSelectedIndex);
+        } catch (IOException ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -85,6 +97,11 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUICandBtnSave.setVerifyInputWhenFocusTarget(false);
         GUICandBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUICandBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnSaveActionPerformed(evt);
+            }
+        });
 
         GUICandBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUICandBtnOpen.setText("Abrir");
@@ -97,6 +114,11 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUICandBtnNew.setVerifyInputWhenFocusTarget(false);
         GUICandBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUICandBtnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnNewActionPerformed(evt);
+            }
+        });
 
         GUICandBtnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_find.png"))); // NOI18N
         GUICandBtnSearch.setText("Pesquisar");
@@ -104,7 +126,6 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnSearch.setVerifyInputWhenFocusTarget(false);
         GUICandBtnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        GUICandBtnClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tiago\\Documents\\GitHub\\electionsPOO\\electionsPOO\\src\\electionspoo\\multimedia\\exit.png")); // NOI18N
         GUICandBtnClose.setText("Sair");
         GUICandBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUICandBtnClose.setVerifyInputWhenFocusTarget(false);
@@ -122,17 +143,42 @@ public class GUICandidate extends javax.swing.JDialog {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        GUICandList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                GUICandListValueChanged(evt);
+            }
+        });
         GUICandPanelCandList.setViewportView(GUICandList);
 
         GUICandPanelBottomNav.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         GUIElectorBtnFirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_first.png"))); // NOI18N
+        GUIElectorBtnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnFirstActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_prev.png"))); // NOI18N
+        GUIElectorBtnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnPrevActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_last.png"))); // NOI18N
+        GUIElectorBtnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnNextActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnLast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_next.png"))); // NOI18N
+        GUIElectorBtnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnLastActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout GUICandPanelBottomNavLayout = new javax.swing.GroupLayout(GUICandPanelBottomNav);
         GUICandPanelBottomNav.setLayout(GUICandPanelBottomNavLayout);
@@ -173,7 +219,6 @@ public class GUICandidate extends javax.swing.JDialog {
             }
         });
 
-        GUICandBtnNewCand.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tiago\\Documents\\GitHub\\electionsPOO\\electionsPOO\\src\\electionspoo\\multimedia\\nav_add.png")); // NOI18N
         GUICandBtnNewCand.setText("Novo");
         GUICandBtnNewCand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,6 +228,11 @@ public class GUICandidate extends javax.swing.JDialog {
 
         GUICandBtnDeleteCand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_delete.png"))); // NOI18N
         GUICandBtnDeleteCand.setText("Eliminar");
+        GUICandBtnDeleteCand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnDeleteCandActionPerformed(evt);
+            }
+        });
 
         GUICandPanelImage.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 
@@ -316,6 +366,78 @@ public class GUICandidate extends javax.swing.JDialog {
     private void GUICandTxtBoxInitialsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandTxtBoxInitialsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GUICandTxtBoxInitialsActionPerformed
+
+    private void GUICandBtnDeleteCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnDeleteCandActionPerformed
+        // TODO add your handling code here:
+        try {
+            CandidateBO.deleteCandidateFromList(candidatesList, GUIListSelectedIndex);
+            updateGUIList();
+            GUICandList.setSelectedIndex(0);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_GUICandBtnDeleteCandActionPerformed
+
+    private void GUICandListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GUICandListValueChanged
+        // TODO add your handling code here:
+        int selections[] = GUICandList.getSelectedIndices();
+        GUIListSelectedIndex = GUICandList.getSelectedIndex();
+        for (int i = 0, n = selections.length; i < n; i++) {
+            GUICandTxtBoxName.setText(candidatesList.get(selections[i]).getName());
+            GUICandTxtBoxInitials.setText(candidatesList.get(selections[i]).getInitials());
+        }
+    }//GEN-LAST:event_GUICandListValueChanged
+
+    private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
+        // TODO add your handling code here:
+        if(GUIListSelectedIndex<candidatesList.size()-1){
+            GUIListSelectedIndex++;
+            GUICandList.setSelectedIndex(GUIListSelectedIndex);
+        }
+        
+    }//GEN-LAST:event_GUIElectorBtnLastActionPerformed
+
+    private void GUIElectorBtnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnFirstActionPerformed
+        // TODO add your handling code here:
+        GUICandList.setSelectedIndex(0);
+    }//GEN-LAST:event_GUIElectorBtnFirstActionPerformed
+
+    private void GUIElectorBtnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnPrevActionPerformed
+        // TODO add your handling code here:
+         if(GUIListSelectedIndex>0){
+            GUIListSelectedIndex--;
+            GUICandList.setSelectedIndex(GUIListSelectedIndex);
+        }
+    }//GEN-LAST:event_GUIElectorBtnPrevActionPerformed
+
+    private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
+        // TODO add your handling code here:
+        GUICandList.setSelectedIndex(candidatesList.size()-1);
+    }//GEN-LAST:event_GUIElectorBtnNextActionPerformed
+
+    private void GUICandBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSaveActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            CandidateBO.saveCandidatesToFile(candidatesList);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_GUICandBtnSaveActionPerformed
+
+    private void GUICandBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewActionPerformed
+        // TODO add your handling code here:
+        candidatesList.clear();
+        updateGUIList();
+    }//GEN-LAST:event_GUICandBtnNewActionPerformed
 
     /**
      * @param args the command line arguments
