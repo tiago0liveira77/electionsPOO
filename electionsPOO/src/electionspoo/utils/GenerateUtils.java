@@ -54,10 +54,4 @@ public class GenerateUtils {
     public static int randBetween(int start, int end) {
         return start + (int)Math.round(Math.random() * (end - start));
     }
-
-    public static int getLastIDFromArrayList(ArrayList<ElectorBean> electorList){
-        if(electorList.size()>0)
-            return electorList.get(electorList.size()-1).getID() + 1;
-        return 1;
-    }
 }

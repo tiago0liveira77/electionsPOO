@@ -4,9 +4,8 @@
  */
 package electionspoo.bo;
 
+import electionspoo.beans.CandidateBean;
 import electionspoo.beans.ElectorBean;
-import electionspoo.utils.enums.FirstNamesEnum;
-import electionspoo.utils.enums.LastNamesEnum;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,60 +14,57 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
  * @author User
  */
-public class ElectorBO {
+public class CandidateBO {
     
-    
-    private static String electorFilePath = "electors.txt";
-    private static File electorsFile = new File(electorFilePath);
+    private static String candidatesFilePath = "candidates.txt";
+    private static File candidatesFile = new File(candidatesFilePath);
 
   
-    public static void createFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ParseException {
+    public static void createFile(ArrayList<CandidateBean> candidatesList) throws FileNotFoundException, IOException, ParseException {
 
-        if (!electorsFile.exists()) {
-            FileOutputStream fi = new FileOutputStream(electorsFile);
+        if (!candidatesFile.exists()) {
+            FileOutputStream fi = new FileOutputStream(candidatesFile);
             ObjectOutputStream oi = new ObjectOutputStream(fi);
             
-            oi.writeObject(electorList);
+            oi.writeObject(candidatesList);
             
             oi.close();
             fi.close();
         }
     }
 
-    public static ArrayList<ElectorBean> getElectorsFromFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public static ArrayList<CandidateBean> getCandidatesFromFile(ArrayList<CandidateBean> candidatesList) throws FileNotFoundException, IOException, ClassNotFoundException{
         try {
-            createFile(electorList);
-            FileInputStream fi = new FileInputStream(electorsFile);
+            createFile(candidatesList);
+            FileInputStream fi = new FileInputStream(candidatesFile);
             ObjectInputStream oi = new ObjectInputStream(fi);
             
-            electorList = (ArrayList<ElectorBean>) oi.readObject();
+            candidatesList = (ArrayList<CandidateBean>) oi.readObject();
             
             oi.close();
             fi.close();
             
-            return electorList;
+            return candidatesList;
         } catch (ParseException ex) {
             Logger.getLogger(ElectorBO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return electorList;
+        return candidatesList;
     }
     
-    public static void saveElectorsToFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
+    public static void saveCandidatesToFile(ArrayList<CandidateBean> candidatesList) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
         try {
-            FileOutputStream fi = new FileOutputStream(electorsFile);
+            FileOutputStream fi = new FileOutputStream(candidatesFile);
             ObjectOutputStream oi = new ObjectOutputStream(fi);
 
-            oi.writeObject(electorList);
+            oi.writeObject(candidatesList);
 
             oi.close();
             fi.close();
@@ -79,15 +75,12 @@ public class ElectorBO {
         }
     }
     
-    public static String getGUIListLine(ElectorBean electorBean) {
-        return String.format("%8d | %c | %s | %-20s", electorBean.getCC() ,electorBean.getGender(), electorBean.getBirthDate(), electorBean.getName());  
+    public static String getGUIListLine(CandidateBean candidateBean) {
+        return String.format("%20d | %c ", candidateBean.getName(),candidateBean.getInitials());  
     }
     
     public static void deleteElectorFromFile(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
         electorList.remove(id);
     }
     
-    
-    
 }
-

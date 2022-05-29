@@ -15,15 +15,15 @@ import javax.swing.Icon;
  *
  * @author User
  */
-public class ElectorBean implements Serializable {
+public class ElectorBean implements Serializable, Comparable {
 
-    private int id;
     private String name;
     private int CC;
     private char gender;
     private Date birthDate;
     private String password;
     private Icon photo;
+    private int age;
     //private Image photo;
 
     public ElectorBean() {
@@ -35,32 +35,24 @@ public class ElectorBean implements Serializable {
         this.photo = null;
     }
 
-    public ElectorBean(int id, String name, int cc, char gender, Date birthDate, String password, Icon photo) {
-        this.id = id;
+    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, Icon photo, int age) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
         this.birthDate = birthDate;
         this.password = password;
         this.photo = photo;
+        this.age = age;
     }
 
-    public ElectorBean(int id, String name, int cc, char gender, Date birthDate, String password) {
-        this.id = id;
+    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, int age) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
         this.birthDate = birthDate;
         this.password = password;
         this.photo = null;
-    }
-    
-    public int getID(){
-        return id;
-    }
-    
-     public void setID(){
-        this.id = id;
+        this.age = 0;
     }
     
     public String getName() {
@@ -112,13 +104,21 @@ public class ElectorBean implements Serializable {
         this.photo = photo;
     }
 
-    
+        public int getAge() {
+        return age;
+    }
 
-    //TESTS
-    public void printElector() {
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/mm/yyyy");
-        String date = formatter1.format(this.birthDate);
-        String photo = this.photo.toString();
-        System.out.println("Nome: " + this.name + " CC: " + this.CC + " Gender: " + this.gender + " Birth: " + date + " Password: " + this.password + "Photo: " + photo);
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    @Override
+    public int compareTo(Object elector) {
+        int compareCC = ((ElectorBean)elector).getCC();
+        /* For Ascending order*/
+        return this.CC-compareCC;
+
+        /* For Descending order do like this */
+        //return compareage-this.studentage;
     }
 }

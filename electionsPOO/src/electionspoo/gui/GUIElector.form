@@ -115,6 +115,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnNewActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUIElectorBtnSort">
       <Properties>
@@ -126,6 +129,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnSortActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUIElectorBtnSearch">
       <Properties>
@@ -137,6 +143,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorBtnSearchActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUIElectorBtnClose">
       <Properties>
@@ -284,7 +293,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="GUIElectorPanelImage" max="32767" attributes="0"/>
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <Component id="GUIElectorIdadeLbl" min="-2" max="-2" attributes="0"/>
                               <Component id="GUIElectorBtnDeleteElector" alignment="0" pref="175" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -302,7 +311,7 @@
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <Component id="GUIElectorIdadeLbl" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="GUIElectorPanelImage" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -357,13 +366,15 @@
         <Component class="javax.swing.JComboBox" name="GUIElectorGender">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="2">
                 <StringItem index="0" value="M"/>
                 <StringItem index="1" value="F"/>
-                <StringItem index="2" value=" "/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIElectorGenderActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -430,7 +441,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="GUIElectorIdadeLbl">
           <Properties>
             <Property name="text" type="java.lang.String" value="Idade.."/>
           </Properties>

@@ -26,6 +26,12 @@ public class CandidateBean {
         this.initials = initials;
         this.photo = photo;
     }
+    
+     public CandidateBean(String name, String initials){
+        this.name = name;
+        this.initials = initials;
+        this.photo = null;
+    }
 
     public String getName() {
         return name;

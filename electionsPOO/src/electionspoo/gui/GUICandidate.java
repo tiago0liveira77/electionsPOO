@@ -4,14 +4,20 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.CandidateBean;
 import electionspoo.beans.ElectorBean;
+import electionspoo.bo.CandidateBO;
+import electionspoo.bo.ElectorBO;
+import electionspoo.utils.MainUtils;
 import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 
 /**
@@ -20,6 +26,19 @@ import javax.swing.Icon;
  */
 public class GUICandidate extends javax.swing.JDialog {
 
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+    private int GUIListSelectedIndex = 0;
+    DefaultListModel<String> listaGUI = new DefaultListModel<>();
+    ArrayList<CandidateBean> candidatesList = new ArrayList<>();
+    
+    //lista todos os electors guardados no ficheiro
+    private void updateGUIList() {
+        listaGUI.removeAllElements();
+        for (int i = 0; i < candidatesList.size(); i++) {
+            listaGUI.addElement(CandidateBO.getGUIListLine(candidatesList.get(i)));
+        }
+    }
+    
     /**
      * Creates new form GUIElector
      */
@@ -288,6 +307,10 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnNewCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewCandActionPerformed
         // TODO add your handling code here:
+        CandidateBean candidateBean = new CandidateBean(GUICandTxtBoxName.getText(), GUICandTxtBoxInitials.getText());
+        candidatesList.add(candidateBean);
+        updateGUIList();
+        GUICandList.setSelectedIndex(candidatesList.size()-1);  
     }//GEN-LAST:event_GUICandBtnNewCandActionPerformed
 
     private void GUICandTxtBoxInitialsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandTxtBoxInitialsActionPerformed

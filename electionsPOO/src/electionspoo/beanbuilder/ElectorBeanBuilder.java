@@ -6,8 +6,10 @@ package electionspoo.beanbuilder;
 
 import electionspoo.beans.ElectorBean;
 import electionspoo.utils.GenerateUtils;
+import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,14 +22,13 @@ import java.util.Random;
  */
 public class ElectorBeanBuilder {
     
+    static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
     
     public static ElectorBean buildRandomElectorBean(ArrayList<ElectorBean> electorList) throws ParseException{
        
         Random rd = new Random();
         StringBuilder nome = new StringBuilder();
   
-        int id = GenerateUtils.getLastIDFromArrayList(electorList);
-        
         //Generate first name
         FirstNamesEnum fne = GenerateUtils.getRandomFirstName(rd);
         nome.append(fne.toString()).append(" ").append(GenerateUtils.getRandomLastName(rd).toString());
@@ -40,7 +41,9 @@ public class ElectorBeanBuilder {
 
         int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
         
-        ElectorBean electorBean = new ElectorBean(id, nome.toString(), cc, gender, date, String.valueOf(password));
+        int age = MainUtils.getPersonsAge(sdf.format(date));
+        
+        ElectorBean electorBean = new ElectorBean(nome.toString(), cc, gender, date, String.valueOf(password), age);
         
         return electorBean;
     }

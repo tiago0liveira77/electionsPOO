@@ -8,6 +8,7 @@ import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.ElectorBean;
 import electionspoo.bo.ElectorBO;
 import electionspoo.utils.GenerateUtils;
+import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
 import electionspoo.utils.enums.LastNamesEnum;
 import java.awt.Image;
@@ -90,7 +91,7 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorBtnRandomElector = new javax.swing.JButton();
         GUIElectorPanelImage = new javax.swing.JPanel();
         GUIElectorLabel2Image = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        GUIElectorIdadeLbl = new javax.swing.JLabel();
         GUIElectorTxtBoxBirth = new javax.swing.JTextField();
         GUIElectorTxtBoxPw = new javax.swing.JTextField();
         GUIElectorTxtBoxPw2 = new javax.swing.JTextField();
@@ -119,18 +120,33 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnNew.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIElectorBtnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnNewActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/sort.png"))); // NOI18N
         GUIElectorBtnSort.setText("Ordenar");
         GUIElectorBtnSort.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnSort.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSort.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIElectorBtnSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnSortActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_find.png"))); // NOI18N
         GUIElectorBtnSearch.setText("Pesquisar");
         GUIElectorBtnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnSearch.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIElectorBtnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorBtnSearchActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnClose.setText("Sair");
         GUIElectorBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -222,7 +238,12 @@ public class GUIElector extends javax.swing.JDialog {
             }
         });
 
-        GUIElectorGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F", " " }));
+        GUIElectorGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
+        GUIElectorGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorGenderActionPerformed(evt);
+            }
+        });
 
         GUIElectorBtnNewElector.setText("Novo");
         GUIElectorBtnNewElector.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +284,7 @@ public class GUIElector extends javax.swing.JDialog {
             .addComponent(GUIElectorLabel2Image, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
         );
 
-        jLabel8.setText("Idade..");
+        GUIElectorIdadeLbl.setText("Idade..");
 
         GUIElectorTxtBoxBirth.setText("06/06/2001");
         GUIElectorTxtBoxBirth.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Nascimento"));
@@ -299,7 +320,7 @@ public class GUIElector extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(GUIElectorPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8)
+                            .addComponent(GUIElectorIdadeLbl)
                             .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -312,7 +333,7 @@ public class GUIElector extends javax.swing.JDialog {
                 .addGap(11, 11, 11)
                 .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(GUIElectorPanelElectorLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(GUIElectorIdadeLbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(GUIElectorPanelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(GUIElectorPanelElectorLayout.createSequentialGroup()
@@ -398,7 +419,7 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
 
         try {
-            ElectorBean electorBean = new ElectorBean(GenerateUtils.getLastIDFromArrayList(electorList) ,GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon());    
+            ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon(), MainUtils.getPersonsAge(GUIElectorTxtBoxBirth.getText()));    
             electorList.add(electorBean);
             updateGUIList();
             GUIElectorList.setSelectedIndex(electorList.size()-1);
@@ -471,17 +492,15 @@ public class GUIElector extends javax.swing.JDialog {
                 
                 GUIElectorTxtBoxName.setText(electorList.get(selections[i]).getName());
                 GUIElectorTxtBoxCC.setText(String.valueOf(electorList.get(selections[i]).getCC()));
-                
-                
                 if(electorList.get(selections[i]).getGender() == ('M')){
                     GUIElectorGender.setSelectedIndex(0);
                 } else {
                     GUIElectorGender.setSelectedIndex(1);
                 }
-                
                 GUIElectorTxtBoxBirth.setText(electorList.get(selections[i]).getBirthDate());
                 GUIElectorTxtBoxPw.setText(electorList.get(selections[i]).getPassword());
                 GUIElectorTxtBoxPw2.setText(electorList.get(selections[i]).getPassword());
+                GUIElectorIdadeLbl.setText(String.valueOf(electorList.get(selections[i]).getAge()));
             }
 
         }
@@ -513,6 +532,27 @@ public class GUIElector extends javax.swing.JDialog {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIElectorBtnSaveActionPerformed
+
+    private void GUIElectorBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewActionPerformed
+        // TODO add your handling code here:
+        electorList.clear();
+        updateGUIList();
+    }//GEN-LAST:event_GUIElectorBtnNewActionPerformed
+
+    private void GUIElectorBtnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSortActionPerformed
+        // TODO add your handling code here:
+        electorList = MainUtils.orderArrayListByCC(electorList);
+        updateGUIList();
+    }//GEN-LAST:event_GUIElectorBtnSortActionPerformed
+
+    private void GUIElectorBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSearchActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_GUIElectorBtnSearchActionPerformed
+
+    private void GUIElectorGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIElectorGenderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -583,6 +623,7 @@ public class GUIElector extends javax.swing.JDialog {
     private javax.swing.JButton GUIElectorBtnSearch;
     private javax.swing.JButton GUIElectorBtnSort;
     private javax.swing.JComboBox<String> GUIElectorGender;
+    private javax.swing.JLabel GUIElectorIdadeLbl;
     private javax.swing.JLabel GUIElectorLabel2Image;
     private javax.swing.JList<String> GUIElectorList;
     private javax.swing.JPanel GUIElectorPanelBottomNav;
@@ -594,6 +635,5 @@ public class GUIElector extends javax.swing.JDialog {
     private javax.swing.JTextField GUIElectorTxtBoxName;
     private javax.swing.JTextField GUIElectorTxtBoxPw;
     private javax.swing.JTextField GUIElectorTxtBoxPw2;
-    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 }
