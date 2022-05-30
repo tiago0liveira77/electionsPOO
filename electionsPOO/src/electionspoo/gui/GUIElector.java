@@ -95,6 +95,8 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorTxtBoxBirth = new javax.swing.JTextField();
         GUIElectorTxtBoxPw = new javax.swing.JTextField();
         GUIElectorTxtBoxPw2 = new javax.swing.JTextField();
+        GUIElectorPanelElectorNum = new javax.swing.JPanel();
+        GUIElectorNumLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -348,11 +350,26 @@ public class GUIElector extends javax.swing.JDialog {
                         .addComponent(GUIElectorTxtBoxPw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GUIElectorBtnRandomElector)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUIElectorBtnNewElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout GUIElectorPanelElectorNumLayout = new javax.swing.GroupLayout(GUIElectorPanelElectorNum);
+        GUIElectorPanelElectorNum.setLayout(GUIElectorPanelElectorNumLayout);
+        GUIElectorPanelElectorNumLayout.setHorizontalGroup(
+            GUIElectorPanelElectorNumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIElectorPanelElectorNumLayout.createSequentialGroup()
+                .addComponent(GUIElectorNumLbl)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        GUIElectorPanelElectorNumLayout.setVerticalGroup(
+            GUIElectorPanelElectorNumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GUIElectorPanelElectorNumLayout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(GUIElectorNumLbl))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -375,9 +392,10 @@ public class GUIElector extends javax.swing.JDialog {
                         .addGap(18, 359, Short.MAX_VALUE)
                         .addComponent(GUIElectorBtnClose))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(GUIElectorPanelElectorList)
-                            .addComponent(GUIElectorPanelBottomNav, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(GUIElectorPanelBottomNav, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(GUIElectorPanelElectorNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(GUIElectorPanelElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(1, 1, 1)))
@@ -397,8 +415,10 @@ public class GUIElector extends javax.swing.JDialog {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(GUIElectorPanelElectorList, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(GUIElectorPanelElectorList)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GUIElectorPanelElectorNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(GUIElectorPanelBottomNav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GUIElectorPanelElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -486,7 +506,6 @@ public class GUIElector extends javax.swing.JDialog {
         int selections[] = GUIElectorList.getSelectedIndices();
         GUIListSelectedIndex = GUIElectorList.getSelectedIndex();
         for (int i = 0, n = selections.length; i < n; i++) {
-
             GUIElectorTxtBoxName.setText(electorList.get(selections[i]).getName());
             GUIElectorTxtBoxCC.setText(String.valueOf(electorList.get(selections[i]).getCC()));
             if(electorList.get(selections[i]).getGender() == ('M')){
@@ -498,6 +517,9 @@ public class GUIElector extends javax.swing.JDialog {
             GUIElectorTxtBoxPw.setText(electorList.get(selections[i]).getPassword());
             GUIElectorTxtBoxPw2.setText(electorList.get(selections[i]).getPassword());
             GUIElectorIdadeLbl.setText(String.valueOf(electorList.get(selections[i]).getAge()));
+            
+            //atualiza label de numeraçao
+            GUIElectorNumLbl.setText("Registo "+(selections[i]+1)+"/"+electorList.size());
         }
 
         
@@ -623,9 +645,11 @@ public class GUIElector extends javax.swing.JDialog {
     private javax.swing.JLabel GUIElectorIdadeLbl;
     private javax.swing.JLabel GUIElectorLabel2Image;
     private javax.swing.JList<String> GUIElectorList;
+    private javax.swing.JLabel GUIElectorNumLbl;
     private javax.swing.JPanel GUIElectorPanelBottomNav;
     private javax.swing.JPanel GUIElectorPanelElector;
     private javax.swing.JScrollPane GUIElectorPanelElectorList;
+    private javax.swing.JPanel GUIElectorPanelElectorNum;
     private javax.swing.JPanel GUIElectorPanelImage;
     private javax.swing.JTextField GUIElectorTxtBoxBirth;
     private javax.swing.JTextField GUIElectorTxtBoxCC;
