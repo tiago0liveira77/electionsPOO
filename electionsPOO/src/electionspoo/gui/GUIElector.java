@@ -11,6 +11,7 @@ import electionspoo.utils.GenerateUtils;
 import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
 import electionspoo.utils.enums.LastNamesEnum;
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +29,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -477,9 +479,13 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnRandomElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnRandomElectorActionPerformed
         
-        int quantidadeEleitores = Integer.parseInt(JOptionPane.showInputDialog(chooseFileDialog,
-                        "Quantos eleitores pretende gerar?", null));
-        
+        int quantidadeEleitores;
+        try{
+            quantidadeEleitores = Integer.parseInt(JOptionPane.showInputDialog(chooseFileDialog,
+                      "Quantos eleitores pretende gerar?", "Gerar Eleitores", JOptionPane.QUESTION_MESSAGE));
+        }catch(NumberFormatException e){
+            quantidadeEleitores = 0;
+        }    
         try {                                                           
             // TODO add your handling code here:
             
@@ -505,7 +511,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnDeleteElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnDeleteElectorActionPerformed
         
-        int deleteUserConfirmation = JOptionPane.showConfirmDialog(chooseFileDialog, "Tem a certeza que pretende eliminar este registo?");
+        int deleteUserConfirmation = JOptionPane.showConfirmDialog(chooseFileDialog, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
         
         try {
             if(deleteUserConfirmation==0){
