@@ -10,6 +10,7 @@ import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,8 +23,7 @@ import java.util.Random;
  */
 public class ElectorBeanBuilder {
     
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-    
+      
     public static ElectorBean buildRandomElectorBean(ArrayList<ElectorBean> electorList) throws ParseException{
        
         Random rd = new Random();
@@ -37,13 +37,13 @@ public class ElectorBeanBuilder {
         
         char gender = fne.getGender(); //Get name's gender
 
-        Date date = GenerateUtils.getRandomBirthDate(); //Generate random birth date
+        LocalDate date = GenerateUtils.getRandomBirthDate(); //Generate random birth date
 
         int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
         
-        int age = MainUtils.getPersonsAge(sdf.format(date));
+        //int age = MainUtils.getPersonsAge(sdf.format(date));
         
-        ElectorBean electorBean = new ElectorBean(nome.toString(), cc, gender, date, String.valueOf(password), age);
+        ElectorBean electorBean = new ElectorBean(nome.toString(), cc, gender, date, String.valueOf(password), 20);
         
         return electorBean;
     }

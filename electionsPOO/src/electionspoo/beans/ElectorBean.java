@@ -4,10 +4,12 @@
  */
 package electionspoo.beans;
 
+import electionspoo.utils.MainUtils;
 import java.awt.Image;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.Icon;
 
@@ -20,7 +22,7 @@ public class ElectorBean implements Serializable, Comparable {
     private String name;
     private int CC;
     private char gender;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String password;
     private Icon photo;
     private int age;
@@ -35,7 +37,7 @@ public class ElectorBean implements Serializable, Comparable {
         this.photo = null;
     }
 
-    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, Icon photo, int age) {
+    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, Icon photo, int age) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -45,7 +47,7 @@ public class ElectorBean implements Serializable, Comparable {
         this.age = age;
     }
 
-    public ElectorBean(String name, int cc, char gender, Date birthDate, String password, int age) {
+    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, int age) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
@@ -80,11 +82,10 @@ public class ElectorBean implements Serializable, Comparable {
     }
 
     public String getBirthDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        return sdf.format(this.birthDate);
+        return this.birthDate.format(MainUtils.formatter);
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

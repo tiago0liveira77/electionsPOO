@@ -80,7 +80,7 @@ public class ElectorBO {
     }
     
     public static String getGUIListLine(ElectorBean electorBean) {
-        return String.format("%8d | %c | %s | %-20s", electorBean.getCC() ,electorBean.getGender(), electorBean.getBirthDate(), electorBean.getName());  
+        return String.format("%08d | %c | %s | %-20s", electorBean.getCC() ,electorBean.getGender(), electorBean.getBirthDate(), electorBean.getName());  
     }
     
     public static void deleteElectorFromList(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{

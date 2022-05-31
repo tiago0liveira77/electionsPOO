@@ -22,22 +22,24 @@ import java.util.GregorianCalendar;
  * @author User
  */
 public class MainUtils {
+
     
-    static SimpleDateFormat sdf = new SimpleDateFormat();
-    
-    public static ArrayList<ElectorBean> orderArrayListByCC(ArrayList<ElectorBean> electorList){
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    public static ArrayList<ElectorBean> orderArrayListByCC(ArrayList<ElectorBean> electorList) {
         Collections.sort(electorList);
         return electorList;
     }
-    
-    public static int getPersonsAge(String birthDate) throws ParseException{
-        /*GregorianCalendar DateOfBirth = new GregorianCalendar();
-        GregorianCalendar currentDate = new GregorianCalendar();
-        gc.setTime(sdf.parse(birthDate));
-        currentDate.set
-        gc.*/
-        
-        return 0;
+
+
+    public static int getPersonAge(String date) {
+        LocalDate birthDate = LocalDate.parse(date,formatter);
+        LocalDate curDate = LocalDate.now();
+        //calculates the amount of time between two dates and returns the years  
+        if ((birthDate != null) && (curDate != null)) {
+            return Period.between(birthDate, curDate).getYears();
+        } else {
+            return 0;
+        }
     }
-    
 }

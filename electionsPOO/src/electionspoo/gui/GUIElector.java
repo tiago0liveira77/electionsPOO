@@ -19,6 +19,7 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,7 +35,7 @@ import javax.swing.JList;
  */
 public class GUIElector extends javax.swing.JDialog {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+    
     private int GUIListSelectedIndex = 0;
     DefaultListModel<String> listaGUI = new DefaultListModel<>();
     ArrayList<ElectorBean> electorList = new ArrayList<>();
@@ -438,15 +439,10 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
 
-        try {
-            ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), sdf.parse(GUIElectorTxtBoxBirth.getText()), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon(), MainUtils.getPersonsAge(GUIElectorTxtBoxBirth.getText()));    
-            electorList.add(electorBean);
-            updateGUIList();
-            GUIElectorList.setSelectedIndex(electorList.size()-1);
-
-        } catch (ParseException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon(), 0);
+        electorList.add(electorBean);
+        updateGUIList();
+        GUIElectorList.setSelectedIndex(electorList.size()-1);
     }//GEN-LAST:event_GUIElectorBtnNewElectorActionPerformed
 
     private void GUIElectorTxtBoxPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPwActionPerformed
@@ -520,6 +516,9 @@ public class GUIElector extends javax.swing.JDialog {
             
             //atualiza label de numeraçao
             GUIElectorNumLbl.setText("Registo "+(selections[i]+1)+"/"+electorList.size());
+            
+            //idade GUIElectorIdadeLbl
+            GUIElectorIdadeLbl.setText(MainUtils.getPersonAge(electorList.get(selections[i]).getBirthDate())+" anos");
         }
 
         

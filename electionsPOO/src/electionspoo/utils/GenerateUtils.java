@@ -9,6 +9,8 @@ import electionspoo.utils.enums.FirstNamesEnum;
 import electionspoo.utils.enums.LastNamesEnum;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,9 +26,7 @@ public class GenerateUtils {
     
     private static int maxCCNumber = 99999999;
     private static int minCCNumber = 1000000;
-    
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-    
+
     public static FirstNamesEnum getRandomFirstName(Random rd){
         return FirstNamesEnum.values()[rd.nextInt(50)];
     }
@@ -39,15 +39,15 @@ public class GenerateUtils {
         return randBetween(minCCNumber, maxCCNumber);
     }
     
-    public static Date getRandomBirthDate() throws ParseException{
+    public static LocalDate getRandomBirthDate() throws ParseException{
  
        int year = randBetween(1980, 2005);
        int month = randBetween(1,12);
        int dayOfMonth = randBetween(1,31);
        
-       String dateString = dayOfMonth + "/" + month + "/" + year;
+       String dateString = String.format("%02d/%02d/%04d", dayOfMonth, month, year);
 
-       return sdf.parse(dateString);
+       return LocalDate.parse(dateString, MainUtils.formatter);
 
     }
     
