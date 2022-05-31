@@ -28,14 +28,14 @@ import java.util.logging.Logger;
 public class ElectorBO {
     
     
-    private static String electorFilePath = "electors.txt";
-    private static File electorsFile = new File(electorFilePath);
+    public static String electorFilePath = "electors.txt";
+    public static File electorsFile = new File(electorFilePath);
 
   
-    public static void createFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ParseException {
+    public static void createFile(ArrayList<ElectorBean> electorList, File fileToSave) throws FileNotFoundException, IOException, ParseException {
 
-        if (!electorsFile.exists()) {
-            FileOutputStream fi = new FileOutputStream(electorsFile);
+        if (!fileToSave.exists()) {
+            FileOutputStream fi = new FileOutputStream(fileToSave);
             ObjectOutputStream oi = new ObjectOutputStream(fi);
             
             oi.writeObject(electorList);
@@ -45,10 +45,10 @@ public class ElectorBO {
         }
     }
 
-    public static ArrayList<ElectorBean> getElectorsFromFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public static ArrayList<ElectorBean> getElectorsFromFile(ArrayList<ElectorBean> electorList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException{
         try {
-            createFile(electorList);
-            FileInputStream fi = new FileInputStream(electorsFile);
+            createFile(electorList, fileToSave);
+            FileInputStream fi = new FileInputStream(fileToSave);
             ObjectInputStream oi = new ObjectInputStream(fi);
             
             electorList = (ArrayList<ElectorBean>) oi.readObject();
@@ -63,9 +63,9 @@ public class ElectorBO {
         return electorList;
     }
     
-    public static void saveElectorsToFile(ArrayList<ElectorBean> electorList) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
+    public static void saveElectorsToFile(ArrayList<ElectorBean> electorList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
         try {
-            FileOutputStream fi = new FileOutputStream(electorsFile);
+            FileOutputStream fi = new FileOutputStream(fileToSave);
             ObjectOutputStream oi = new ObjectOutputStream(fi);
 
             oi.writeObject(electorList);
@@ -86,7 +86,27 @@ public class ElectorBO {
     public static void deleteElectorFromList(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
         electorList.remove(id);
     }
+  
     
+    public static int searchElectorByName(ArrayList<ElectorBean> electorList, String text){
+        
+        for(ElectorBean elector : electorList){
+            if(elector.getName().contains(text)){
+                return electorList.indexOf(elector);
+            }
+        }  
+        return 0;
+    }
+    
+    public static int searchElectorByCC(ArrayList<ElectorBean> electorList, String text){
+        
+        for(ElectorBean elector : electorList){
+            if(String.valueOf(elector.getCC()).contains(text)){
+                return electorList.indexOf(elector);
+            }
+        }  
+        return 0;
+    }
     
     
 }

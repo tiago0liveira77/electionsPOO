@@ -108,6 +108,11 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUICandBtnOpen.setVerifyInputWhenFocusTarget(false);
         GUICandBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUICandBtnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnOpenActionPerformed(evt);
+            }
+        });
 
         GUICandBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/newElection.png"))); // NOI18N
         GUICandBtnNew.setText("Novo");
@@ -125,6 +130,11 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandBtnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUICandBtnSearch.setVerifyInputWhenFocusTarget(false);
         GUICandBtnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUICandBtnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnSearchActionPerformed(evt);
+            }
+        });
 
         GUICandBtnClose.setText("Sair");
         GUICandBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -438,6 +448,14 @@ public class GUICandidate extends javax.swing.JDialog {
         candidatesList.clear();
         updateGUIList();
     }//GEN-LAST:event_GUICandBtnNewActionPerformed
+
+    private void GUICandBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUICandBtnSearchActionPerformed
+
+    private void GUICandBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnOpenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUICandBtnOpenActionPerformed
 
     /**
      * @param args the command line arguments

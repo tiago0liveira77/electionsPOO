@@ -42,4 +42,8 @@ public class MainUtils {
             return 0;
         }
     }
+    
+    public static boolean isNullOrEmpty(String text){
+        return text.isEmpty() || text.isBlank();
+    }
 }
