@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JDialog" name="DialogFileChooser">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -34,7 +51,9 @@
                       <Component id="GUICandBtnNew" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="GUICandBtnSearch" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="GUICandTxtBoxSearch" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="GUICandBtnClose" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -61,12 +80,13 @@
                   <Component id="GUICandBtnSave" max="32767" attributes="0"/>
                   <Component id="GUICandBtnNew" alignment="0" max="32767" attributes="0"/>
                   <Component id="GUICandBtnClose" alignment="0" max="32767" attributes="0"/>
+                  <Component id="GUICandTxtBoxSearch" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="GUICandPanelCandList" min="-2" pref="411" max="-2" attributes="0"/>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                       <Component id="GUICandPanelBottomNav" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="GUICandPanelElector" max="32767" attributes="0"/>
@@ -322,7 +342,7 @@
                       </Group>
                       <Component id="GUICandPanelImage" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="140" max="32767" attributes="0"/>
+                  <EmptySpace pref="139" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="GUICandBtnDeleteCand" max="32767" attributes="0"/>
                       <Component id="GUICandBtnNewCand" max="32767" attributes="0"/>
@@ -412,6 +432,9 @@
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandBtnUpActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="GUICandBtnDown">
           <Properties>
@@ -420,8 +443,16 @@
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandBtnDownActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="GUICandTxtBoxSearch">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUICandTxtBoxSearchActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

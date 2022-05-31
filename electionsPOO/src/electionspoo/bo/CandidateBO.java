@@ -28,10 +28,10 @@ public class CandidateBO {
     private static File candidatesFile = new File(candidatesFilePath);
 
   
-    public static void createFile(ArrayList<CandidateBean> candidatesList) throws FileNotFoundException, IOException, ParseException {
+    public static void createFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ParseException {
 
-        if (!candidatesFile.exists()) {
-            FileOutputStream fi = new FileOutputStream(candidatesFile);
+        if (!fileToSave.exists()) {
+            FileOutputStream fi = new FileOutputStream(fileToSave);
             ObjectOutputStream oi = new ObjectOutputStream(fi);
             
             oi.writeObject(candidatesList);
@@ -41,10 +41,10 @@ public class CandidateBO {
         }
     }
 
-    public static ArrayList<CandidateBean> getCandidatesFromFile(ArrayList<CandidateBean> candidatesList) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public static ArrayList<CandidateBean> getCandidatesFromFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException{
         try {
-            createFile(candidatesList);
-            FileInputStream fi = new FileInputStream(candidatesFile);
+            createFile(candidatesList, fileToSave);
+            FileInputStream fi = new FileInputStream(fileToSave);
             ObjectInputStream oi = new ObjectInputStream(fi);
             
             candidatesList = (ArrayList<CandidateBean>) oi.readObject();
@@ -59,9 +59,9 @@ public class CandidateBO {
         return candidatesList;
     }
     
-    public static void saveCandidatesToFile(ArrayList<CandidateBean> candidatesList) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
+    public static void saveCandidatesToFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
         try {
-            FileOutputStream fi = new FileOutputStream(candidatesFile);
+            FileOutputStream fi = new FileOutputStream(fileToSave);
             ObjectOutputStream oi = new ObjectOutputStream(fi);
 
             oi.writeObject(candidatesList);
@@ -81,6 +81,26 @@ public class CandidateBO {
     
     public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
         candidateList.remove(id);
+    }
+    
+     public static int searchCandidateByName(ArrayList<CandidateBean> candidateList, String text){
+        
+        for(CandidateBean candidate : candidateList){
+            if(candidate.getName().contains(text)){
+                return candidateList.indexOf(candidate);
+            }
+        }  
+        return 0;
+    }
+    
+    public static int searchCandidateByInitials(ArrayList<CandidateBean> candidateList, String text){
+        
+        for(CandidateBean candidate : candidateList){
+            if(candidate.getInitials().contains(text)){
+                return candidateList.indexOf(candidate);
+            }
+        }  
+        return 0;
     }
     
 }

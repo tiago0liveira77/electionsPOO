@@ -11,6 +11,7 @@ import electionspoo.bo.CandidateBO;
 import electionspoo.bo.ElectorBO;
 import electionspoo.utils.MainUtils;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,17 +49,11 @@ public class GUICandidate extends javax.swing.JDialog {
      */
     public GUICandidate(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        try {
-            initComponents();
-            GUICandList.setModel(listaGUI);
-            candidatesList = CandidateBO.getCandidatesFromFile(candidatesList);
-            updateGUIList();
-            GUICandList.setSelectedIndex(GUIListSelectedIndex);
-        } catch (IOException ex) {
-            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
+        GUICandList.setModel(listaGUI);
+        //candidatesList = CandidateBO.getCandidatesFromFile(candidatesList);
+        updateGUIList();
+        GUICandList.setSelectedIndex(GUIListSelectedIndex);
     }
 
     /**
@@ -68,6 +65,7 @@ public class GUICandidate extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        DialogFileChooser = new javax.swing.JDialog();
         GUICandBtnSave = new javax.swing.JButton();
         GUICandBtnOpen = new javax.swing.JButton();
         GUICandBtnNew = new javax.swing.JButton();
@@ -89,6 +87,18 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandLabel2Image = new javax.swing.JLabel();
         GUICandBtnUp = new javax.swing.JButton();
         GUICandBtnDown = new javax.swing.JButton();
+        GUICandTxtBoxSearch = new javax.swing.JTextField();
+
+        javax.swing.GroupLayout DialogFileChooserLayout = new javax.swing.GroupLayout(DialogFileChooser.getContentPane());
+        DialogFileChooser.getContentPane().setLayout(DialogFileChooserLayout);
+        DialogFileChooserLayout.setHorizontalGroup(
+            DialogFileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        DialogFileChooserLayout.setVerticalGroup(
+            DialogFileChooserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -262,9 +272,19 @@ public class GUICandidate extends javax.swing.JDialog {
 
         GUICandBtnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_up.png"))); // NOI18N
         GUICandBtnUp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUICandBtnUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnUpActionPerformed(evt);
+            }
+        });
 
         GUICandBtnDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_down.png"))); // NOI18N
         GUICandBtnDown.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUICandBtnDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandBtnDownActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout GUICandPanelElectorLayout = new javax.swing.GroupLayout(GUICandPanelElector);
         GUICandPanelElector.setLayout(GUICandPanelElectorLayout);
@@ -304,12 +324,18 @@ public class GUICandidate extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(GUICandBtnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GUICandPanelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnNewCand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        GUICandTxtBoxSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUICandTxtBoxSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -326,7 +352,9 @@ public class GUICandidate extends javax.swing.JDialog {
                         .addComponent(GUICandBtnNew)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(GUICandBtnSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GUICandTxtBoxSearch)
+                        .addGap(12, 12, 12)
                         .addComponent(GUICandBtnClose))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -346,12 +374,13 @@ public class GUICandidate extends javax.swing.JDialog {
                     .addComponent(GUICandBtnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GUICandBtnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(GUICandBtnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUICandTxtBoxSearch))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(GUICandPanelCandList, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(GUICandPanelBottomNav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GUICandPanelElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
@@ -379,6 +408,9 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnDeleteCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnDeleteCandActionPerformed
         // TODO add your handling code here:
+        
+        int deleteUserConfirmation = JOptionPane.showConfirmDialog(DialogFileChooser, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
+        
         try {
             CandidateBO.deleteCandidateFromList(candidatesList, GUIListSelectedIndex);
             updateGUIList();
@@ -432,13 +464,14 @@ public class GUICandidate extends javax.swing.JDialog {
     private void GUICandBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSaveActionPerformed
         // TODO add your handling code here:
         try {
-            // TODO add your handling code here:
-            CandidateBO.saveCandidatesToFile(candidatesList);
-        } catch (IOException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                CandidateBO.saveCandidatesToFile(candidatesList, selectedFile);
+            }
+        } catch (IOException | ClassNotFoundException | ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUICandBtnSaveActionPerformed
@@ -450,12 +483,62 @@ public class GUICandidate extends javax.swing.JDialog {
     }//GEN-LAST:event_GUICandBtnNewActionPerformed
 
     private void GUICandBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSearchActionPerformed
-        // TODO add your handling code here:
+
+        String textToSearch = GUICandTxtBoxSearch.getText();
+        
+        int index;
+        
+        index = CandidateBO.searchCandidateByName(candidatesList, textToSearch);
+        if(!(index==0)){
+           GUICandList.setSelectedIndex(index);
+        }else{
+            index = CandidateBO.searchCandidateByInitials(candidatesList, textToSearch);
+            if(!(index==0)){
+                GUICandList.setSelectedIndex(index);
+            }else{
+                System.out.println("Não há registos a encontrar para a string: " + textToSearch); 
+            }
+        }    
+
     }//GEN-LAST:event_GUICandBtnSearchActionPerformed
 
     private void GUICandBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnOpenActionPerformed
         // TODO add your handling code here:
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                candidatesList = CandidateBO.getCandidatesFromFile(candidatesList, selectedFile);
+                updateGUIList();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GUICandBtnOpenActionPerformed
+
+    private void GUICandTxtBoxSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandTxtBoxSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUICandTxtBoxSearchActionPerformed
+
+    private void GUICandBtnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnUpActionPerformed
+        // TODO add your handling code here:
+        if(GUIListSelectedIndex>0){
+            GUIListSelectedIndex--;
+            GUICandList.setSelectedIndex(GUIListSelectedIndex);
+        }
+    }//GEN-LAST:event_GUICandBtnUpActionPerformed
+
+    private void GUICandBtnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnDownActionPerformed
+        // TODO add your handling code here:
+         if(GUIListSelectedIndex<candidatesList.size()-1){
+            GUIListSelectedIndex++;
+            GUICandList.setSelectedIndex(GUIListSelectedIndex);
+        }
+    }//GEN-LAST:event_GUICandBtnDownActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,6 +586,7 @@ public class GUICandidate extends javax.swing.JDialog {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog DialogFileChooser;
     private javax.swing.JButton GUICandBtnClose;
     private javax.swing.JButton GUICandBtnDeleteCand;
     private javax.swing.JButton GUICandBtnDown;
@@ -520,6 +604,7 @@ public class GUICandidate extends javax.swing.JDialog {
     private javax.swing.JPanel GUICandPanelImage;
     private javax.swing.JTextField GUICandTxtBoxInitials;
     private javax.swing.JTextField GUICandTxtBoxName;
+    private javax.swing.JTextField GUICandTxtBoxSearch;
     private javax.swing.JButton GUIElectorBtnFirst;
     private javax.swing.JButton GUIElectorBtnLast;
     private javax.swing.JButton GUIElectorBtnNext;
