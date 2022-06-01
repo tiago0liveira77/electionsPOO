@@ -4,17 +4,32 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.CandidateBean;
+import electionspoo.beans.ElectorBean;
+import java.io.File;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tiago
  */
 public class GUIConfig extends javax.swing.JFrame {
 
+    public static String electorFilePath = "electors.txt";
+    public static String candidateFilePath = "candidate.txt";
+    
+    ArrayList<ElectorBean> electorList = new ArrayList<>();
+    ArrayList<CandidateBean> candidatesList = new ArrayList<>();
     /**
      * Creates new form GUIConfig
      */
     public GUIConfig() {
         initComponents();
+        
+        File electorsFile = new File(electorFilePath);
+        File candidatesFile = new File(candidateFilePath);
+        
+        
     }
 
     /**
@@ -326,7 +341,7 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnOpenCandidateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenCandidateMenuActionPerformed
         // TODO add your handling code here:
         try {
-            GUICandidate dialog = new GUICandidate(this, true);
+            GUICandidate dialog = new GUICandidate(this, true, candidatesList);
             dialog.setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -336,7 +351,7 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnOpenjElectorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenjElectorMenuActionPerformed
         // TODO add your handling code here:
         try {
-            GUIElector dialog = new GUIElector(this, true);
+            GUIElector dialog = new GUIElector(this, true, electorList);
             dialog.setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();

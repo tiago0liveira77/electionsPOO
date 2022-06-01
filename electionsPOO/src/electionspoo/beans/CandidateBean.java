@@ -5,12 +5,13 @@
 package electionspoo.beans;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  *
  * @author User
  */
-public class CandidateBean {
+public class CandidateBean implements Serializable{
     private String name;
     private String initials;
     private Image photo;

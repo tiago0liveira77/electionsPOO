@@ -46,11 +46,15 @@ public class GUICandidate extends javax.swing.JDialog {
     
     /**
      * Creates new form GUIElector
+     * @param parent
+     * @param modal
+     * @param candidatesList
      */
-    public GUICandidate(java.awt.Frame parent, boolean modal) {
+    public GUICandidate(java.awt.Frame parent, boolean modal, ArrayList<CandidateBean> candidatesList) {
         super(parent, modal);
         initComponents();
         GUICandList.setModel(listaGUI);
+        this.candidatesList = candidatesList;
         //candidatesList = CandidateBO.getCandidatesFromFile(candidatesList);
         updateGUIList();
         GUICandList.setSelectedIndex(GUIListSelectedIndex);
@@ -489,11 +493,11 @@ public class GUICandidate extends javax.swing.JDialog {
         int index;
         
         index = CandidateBO.searchCandidateByName(candidatesList, textToSearch);
-        if(!(index==0)){
+        if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
            GUICandList.setSelectedIndex(index);
         }else{
             index = CandidateBO.searchCandidateByInitials(candidatesList, textToSearch);
-            if(!(index==0)){
+            if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
                 GUICandList.setSelectedIndex(index);
             }else{
                 System.out.println("Não há registos a encontrar para a string: " + textToSearch); 

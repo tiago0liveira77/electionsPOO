@@ -5,6 +5,7 @@
 package electionspoo.gui;
 
 import electionspoo.beanbuilder.ElectorBeanBuilder;
+import electionspoo.beans.CandidateBean;
 import electionspoo.beans.ElectorBean;
 import electionspoo.bo.ElectorBO;
 import electionspoo.utils.GenerateUtils;
@@ -55,10 +56,18 @@ public class GUIElector extends javax.swing.JDialog {
 
     /**
      * Creates new form GUIElector
+     * @param parent
+     * @param modal
+     * @param electorList
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.text.ParseException
      */
-    public GUIElector(java.awt.Frame parent, boolean modal) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
+    public GUIElector(java.awt.Frame parent, boolean modal, ArrayList<ElectorBean> electorList) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         super(parent, modal);
         initComponents();
+        this.electorList = electorList;
         GUIElectorList.setModel(listaGUI);
         electorList.add(ElectorBeanBuilder.buildRandomElectorBean(electorList));
         //electorList = ElectorBO.getElectorsFromFile(electorList, ElectorBO.electorsFile);
@@ -620,11 +629,11 @@ public class GUIElector extends javax.swing.JDialog {
         int index;
         
         index = ElectorBO.searchElectorByName(electorList, textToSearch);
-        if(!(index==0)){
+        if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
            GUIElectorList.setSelectedIndex(index);
         }else{
             index = ElectorBO.searchElectorByCC(electorList, textToSearch);
-            if(!(index==0)){
+            if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
                 GUIElectorList.setSelectedIndex(index);
             }else{
                 System.out.println("Não há registos a encontrar para a string: " + textToSearch); 

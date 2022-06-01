@@ -23,10 +23,6 @@ import java.util.logging.Logger;
  * @author User
  */
 public class CandidateBO {
-    
-    private static String candidatesFilePath = "candidates.txt";
-    private static File candidatesFile = new File(candidatesFilePath);
-
   
     public static void createFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ParseException {
 
@@ -71,6 +67,7 @@ public class CandidateBO {
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("Error initializing stream");
         }
     }

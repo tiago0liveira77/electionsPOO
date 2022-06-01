@@ -26,11 +26,7 @@ import java.util.logging.Logger;
  * @author User
  */
 public class ElectorBO {
-    
-    
-    public static String electorFilePath = "electors.txt";
-    public static File electorsFile = new File(electorFilePath);
-
+   
   
     public static void createFile(ArrayList<ElectorBean> electorList, File fileToSave) throws FileNotFoundException, IOException, ParseException {
 
