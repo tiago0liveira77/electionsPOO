@@ -34,7 +34,7 @@ public class GUICandidate extends javax.swing.JDialog {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
     private int GUIListSelectedIndex = 0;
     DefaultListModel<String> listaGUI = new DefaultListModel<>();
-    ArrayList<CandidateBean> candidatesList = new ArrayList<>();
+    static ArrayList<CandidateBean> candidatesList = new ArrayList<>();
     
     //lista todos os electors guardados no ficheiro
     private void updateGUIList() {
@@ -575,7 +575,7 @@ public class GUICandidate extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GUICandidate dialog = new GUICandidate(new javax.swing.JFrame(), true);
+                GUICandidate dialog = new GUICandidate(new javax.swing.JFrame(), true, candidatesList);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

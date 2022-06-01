@@ -44,7 +44,7 @@ public class GUIElector extends javax.swing.JDialog {
     
     private int GUIListSelectedIndex = 0;
     DefaultListModel<String> listaGUI = new DefaultListModel<>();
-    ArrayList<ElectorBean> electorList = new ArrayList<>();
+    static ArrayList<ElectorBean> electorList = new ArrayList<>();
     
     //lista todos os electors guardados no ficheiro
     private void updateGUIList() {
@@ -70,7 +70,7 @@ public class GUIElector extends javax.swing.JDialog {
         this.electorList = electorList;
         GUIElectorList.setModel(listaGUI);
         electorList.add(ElectorBeanBuilder.buildRandomElectorBean(electorList));
-        //electorList = ElectorBO.getElectorsFromFile(electorList, ElectorBO.electorsFile);
+        
         updateGUIList();
         GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
     }
@@ -697,7 +697,7 @@ public class GUIElector extends javax.swing.JDialog {
             public void run() {
                 GUIElector dialog = null;
                 try {
-                    dialog = new GUIElector(new javax.swing.JFrame(), true);
+                    dialog = new GUIElector(new javax.swing.JFrame(), true, electorList);
                 } catch (IOException ex) {
                     Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
