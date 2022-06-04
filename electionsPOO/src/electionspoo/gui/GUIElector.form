@@ -57,7 +57,7 @@
                       <Component id="GUIElectorTxtBoxSearch" min="-2" pref="371" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="GUIElectorBtnClose" min="-2" pref="59" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="146" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -225,7 +225,7 @@
                   <Component id="GUIElectorBtnFirst" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="GUIElectorBtnPrev" min="-2" pref="87" max="-2" attributes="0"/>
-                  <EmptySpace pref="83" max="32767" attributes="0"/>
+                  <EmptySpace pref="117" max="32767" attributes="0"/>
                   <Component id="GUIElectorBtnNext" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="GUIElectorBtnLast" min="-2" pref="87" max="-2" attributes="0"/>
@@ -323,7 +323,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="GUIElectorPanelImage" max="32767" attributes="0"/>
                               <Component id="GUIElectorIdadeLbl" min="-2" max="-2" attributes="0"/>
-                              <Component id="GUIElectorBtnDeleteElector" alignment="0" pref="175" max="32767" attributes="0"/>
+                              <Component id="GUIElectorBtnDeleteElector" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -450,7 +450,10 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="GUIElectorLabel2Image" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="GUIElectorLabel2Image" min="-2" pref="241" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

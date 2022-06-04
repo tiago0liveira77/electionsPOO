@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,8 +25,7 @@ public class ElectorBean implements Serializable, Comparable {
     private char gender;
     private LocalDate birthDate;
     private String password;
-    private Icon photo;
-    private int age;
+    private ImageIcon photo;
     //private Image photo;
 
     public ElectorBean() {
@@ -37,24 +37,22 @@ public class ElectorBean implements Serializable, Comparable {
         this.photo = null;
     }
 
-    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, Icon photo, int age) {
+    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, ImageIcon photo) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
         this.birthDate = birthDate;
         this.password = password;
         this.photo = photo;
-        this.age = age;
     }
 
-    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, int age) {
+    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password) {
         this.name = name;
         this.CC = cc;
         this.gender = gender;
         this.birthDate = birthDate;
         this.password = password;
         this.photo = null;
-        this.age = 0;
     }
     
     public String getName() {
@@ -97,21 +95,15 @@ public class ElectorBean implements Serializable, Comparable {
         this.password = password;
     }
 
-    public Icon getPhoto() {
+    public ImageIcon getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Icon photo) {
+    public void setPhoto(ImageIcon photo) {
         this.photo = photo;
     }
 
-        public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
+   
     
     @Override
     public int compareTo(Object elector) {

@@ -5,9 +5,11 @@
 package electionspoo.beanbuilder;
 
 import electionspoo.beans.ElectorBean;
+import electionspoo.bo.ElectorBO;
 import electionspoo.utils.GenerateUtils;
 import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,7 +27,7 @@ import java.util.Random;
 public class ElectorBeanBuilder {
     
       
-    public static ElectorBean buildRandomElectorBean(ArrayList<ElectorBean> electorList) throws ParseException{
+    public static ElectorBean buildRandomElectorBean(ArrayList<ElectorBean> electorList) throws ParseException, IOException{
        
         Random rd = new Random();
         StringBuilder nome = new StringBuilder();
@@ -40,10 +43,12 @@ public class ElectorBeanBuilder {
         LocalDate date = GenerateUtils.getRandomBirthDate(); //Generate random birth date
 
         int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
+                
+        ImageIcon photo = ElectorBO.getRandomPhoto(gender, MainUtils.getPersonAge(date.format(MainUtils.formatter)));
         
         //int age = MainUtils.getPersonsAge(sdf.format(date));
         
-        ElectorBean electorBean = new ElectorBean(nome.toString(), cc, gender, date, String.valueOf(password), 20);
+        ElectorBean electorBean = new ElectorBean(nome.toString(), cc, gender, date, String.valueOf(password), photo);
         
         return electorBean;
     }

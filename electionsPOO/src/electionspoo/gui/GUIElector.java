@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JFileChooser;
@@ -41,11 +42,10 @@ import javax.swing.JOptionPane;
  */
 public class GUIElector extends javax.swing.JDialog {
 
-    
     private int GUIListSelectedIndex = 0;
     DefaultListModel<String> listaGUI = new DefaultListModel<>();
     static ArrayList<ElectorBean> electorList = new ArrayList<>();
-    
+
     //lista todos os electors guardados no ficheiro
     private void updateGUIList() {
         listaGUI.removeAllElements();
@@ -56,6 +56,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     /**
      * Creates new form GUIElector
+     *
      * @param parent
      * @param modal
      * @param electorList
@@ -70,7 +71,7 @@ public class GUIElector extends javax.swing.JDialog {
         this.electorList = electorList;
         GUIElectorList.setModel(listaGUI);
         electorList.add(ElectorBeanBuilder.buildRandomElectorBean(electorList));
-        
+
         updateGUIList();
         GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
     }
@@ -241,7 +242,7 @@ public class GUIElector extends javax.swing.JDialog {
                 .addComponent(GUIElectorBtnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GUIElectorBtnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(GUIElectorBtnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GUIElectorBtnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,7 +313,9 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorPanelImage.setLayout(GUIElectorPanelImageLayout);
         GUIElectorPanelImageLayout.setHorizontalGroup(
             GUIElectorPanelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(GUIElectorLabel2Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(GUIElectorPanelImageLayout.createSequentialGroup()
+                .addComponent(GUIElectorLabel2Image, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         GUIElectorPanelImageLayout.setVerticalGroup(
             GUIElectorPanelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +359,7 @@ public class GUIElector extends javax.swing.JDialog {
                         .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(GUIElectorPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(GUIElectorIdadeLbl)
-                            .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                            .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -426,7 +429,7 @@ public class GUIElector extends javax.swing.JDialog {
                         .addComponent(GUIElectorTxtBoxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(GUIElectorBtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 11, Short.MAX_VALUE))
+                        .addGap(0, 146, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(GUIElectorPanelElectorList)
@@ -476,10 +479,10 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
 
-        ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter), GUIElectorTxtBoxPw.getText(), GUIElectorLabel2Image.getIcon(), 0);
+        ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter), GUIElectorTxtBoxPw.getText(), (ImageIcon) GUIElectorLabel2Image.getIcon());
         electorList.add(electorBean);
         updateGUIList();
-        GUIElectorList.setSelectedIndex(electorList.size()-1);
+        GUIElectorList.setSelectedIndex(electorList.size() - 1);
     }//GEN-LAST:event_GUIElectorBtnNewElectorActionPerformed
 
     private void GUIElectorTxtBoxPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPwActionPerformed
@@ -487,43 +490,45 @@ public class GUIElector extends javax.swing.JDialog {
     }//GEN-LAST:event_GUIElectorTxtBoxPwActionPerformed
 
     private void GUIElectorBtnRandomElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnRandomElectorActionPerformed
-        
+
         int quantidadeEleitores;
-        try{
+        try {
             quantidadeEleitores = Integer.parseInt(JOptionPane.showInputDialog(chooseFileDialog,
-                      "Quantos eleitores pretende gerar?", "Gerar Eleitores", JOptionPane.QUESTION_MESSAGE));
-        }catch(NumberFormatException e){
+                    "Quantos eleitores pretende gerar?", "Gerar Eleitores", JOptionPane.QUESTION_MESSAGE));
+        } catch (NumberFormatException e) {
             quantidadeEleitores = 0;
-        }    
-        try {                                                           
+        }
+        try {
             // TODO add your handling code here:
-            
+
             //Create Elector bean
-            for(int i =0; i<quantidadeEleitores;i++){
+            for (int i = 0; i < quantidadeEleitores; i++) {
                 ElectorBean electorBean = ElectorBeanBuilder.buildRandomElectorBean(electorList);
-            
+                                
+                electorBean.setPhoto(ElectorBO.getRandomPhoto(electorBean.getGender(), MainUtils.getPersonAge(electorBean.getBirthDate())));
+
                 //Save elector to the list
                 electorList.add(electorBean);
 
                 updateGUIList();
-                GUIElectorList.setSelectedIndex(electorList.size()-1);
+                GUIElectorList.setSelectedIndex(electorList.size() - 1);
             }
-            
- 
+
         } catch (ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
+
 
     }//GEN-LAST:event_GUIElectorBtnRandomElectorActionPerformed
 
     private void GUIElectorBtnDeleteElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnDeleteElectorActionPerformed
-        
+
         int deleteUserConfirmation = JOptionPane.showConfirmDialog(chooseFileDialog, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
-        
+
         try {
-            if(deleteUserConfirmation==0){
+            if (deleteUserConfirmation == 0) {
                 ElectorBO.deleteElectorFromList(electorList, GUIListSelectedIndex);
                 updateGUIList();
                 GUIElectorList.setSelectedIndex(0);
@@ -539,11 +544,11 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
         // TODO add your handling code here:
-        GUIElectorList.setSelectedIndex(electorList.size()-1);
+        GUIElectorList.setSelectedIndex(electorList.size() - 1);
     }//GEN-LAST:event_GUIElectorBtnLastActionPerformed
 
     private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
-        if(GUIListSelectedIndex<electorList.size()-1){
+        if (GUIListSelectedIndex < electorList.size() - 1) {
             GUIListSelectedIndex++;
             GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -557,7 +562,7 @@ public class GUIElector extends javax.swing.JDialog {
         for (int i = 0, n = selections.length; i < n; i++) {
             GUIElectorTxtBoxName.setText(electorList.get(selections[i]).getName());
             GUIElectorTxtBoxCC.setText(String.valueOf(electorList.get(selections[i]).getCC()));
-            if(electorList.get(selections[i]).getGender() == ('M')){
+            if (electorList.get(selections[i]).getGender() == ('M')) {
                 GUIElectorGender.setSelectedIndex(0);
             } else {
                 GUIElectorGender.setSelectedIndex(1);
@@ -565,25 +570,30 @@ public class GUIElector extends javax.swing.JDialog {
             GUIElectorTxtBoxBirth.setText(electorList.get(selections[i]).getBirthDate());
             GUIElectorTxtBoxPw.setText(electorList.get(selections[i]).getPassword());
             GUIElectorTxtBoxPw2.setText(electorList.get(selections[i]).getPassword());
-            GUIElectorIdadeLbl.setText(String.valueOf(electorList.get(selections[i]).getAge()));
-            
+
             //atualiza label de numeraçao
-            GUIElectorNumLbl.setText("Registo "+(selections[i]+1)+"/"+electorList.size());
-            
+            GUIElectorNumLbl.setText("Registo " + (selections[i] + 1) + "/" + electorList.size());
+
             //idade GUIElectorIdadeLbl
-            GUIElectorIdadeLbl.setText(MainUtils.getPersonAge(electorList.get(selections[i]).getBirthDate())+" anos");
+            GUIElectorIdadeLbl.setText(MainUtils.getPersonAge(electorList.get(selections[i]).getBirthDate()) + " anos");
+            
+            //foto to label
+            if (electorList.get(selections[i]).getPhoto() != null){ 
+                GUIElectorLabel2Image.setIcon(new ImageIcon(electorList.get(selections[i]).getPhoto().getImage().getScaledInstance(GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight(), Image.SCALE_SMOOTH)));
+            }
+                
         }
 
-        
+
     }//GEN-LAST:event_GUIElectorListValueChanged
 
     private void GUIElectorBtnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnPrevActionPerformed
         // TODO add your handling code here:
-        if(GUIListSelectedIndex>0){
+        if (GUIListSelectedIndex > 0) {
             GUIListSelectedIndex--;
             GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
         }
-        
+
     }//GEN-LAST:event_GUIElectorBtnPrevActionPerformed
 
     private void GUIElectorBtnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnFirstActionPerformed
@@ -625,18 +635,18 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSearchActionPerformed
         // TODO add your handling code here:
         String textToSearch = GUIElectorTxtBoxSearch.getText();
-        
+
         int index;
-        
+
         index = ElectorBO.searchElectorByName(electorList, textToSearch);
-        if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
-           GUIElectorList.setSelectedIndex(index);
-        }else{
+        if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+            GUIElectorList.setSelectedIndex(index);
+        } else {
             index = ElectorBO.searchElectorByCC(electorList, textToSearch);
-            if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
+            if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
                 GUIElectorList.setSelectedIndex(index);
-            }else{
-                System.out.println("Não há registos a encontrar para a string: " + textToSearch); 
+            } else {
+                System.out.println("Não há registos a encontrar para a string: " + textToSearch);
             }
         }
     }//GEN-LAST:event_GUIElectorBtnSearchActionPerformed
@@ -647,7 +657,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnOpenActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
@@ -661,7 +671,7 @@ public class GUIElector extends javax.swing.JDialog {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_GUIElectorBtnOpenActionPerformed
 
     /**
