@@ -23,81 +23,57 @@ import java.util.logging.Logger;
  * @author User
  */
 public class CandidateBO {
-  
-    public static void createFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ParseException {
 
-        if (!fileToSave.exists()) {
-            FileOutputStream fi = new FileOutputStream(fileToSave);
-            ObjectOutputStream oi = new ObjectOutputStream(fi);
-            
-            oi.writeObject(candidatesList);
-            
-            oi.close();
-            fi.close();
-        }
-    }
-
-    public static ArrayList<CandidateBean> getCandidatesFromFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException{
-        try {
-            createFile(candidatesList, fileToSave);
-            FileInputStream fi = new FileInputStream(fileToSave);
-            ObjectInputStream oi = new ObjectInputStream(fi);
-            
-            candidatesList = (ArrayList<CandidateBean>) oi.readObject();
-            
-            oi.close();
-            fi.close();
-            
-            return candidatesList;
-        } catch (ParseException ex) {
-            Logger.getLogger(ElectorBO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return candidatesList;
-    }
+    private static ArrayList<CandidateBean> candidateList;
     
-    public static void saveCandidatesToFile(ArrayList<CandidateBean> candidatesList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
-        try {
-            FileOutputStream fi = new FileOutputStream(fileToSave);
-            ObjectOutputStream oi = new ObjectOutputStream(fi);
-
-            oi.writeObject(candidatesList);
-
-            oi.close();
-            fi.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error initializing stream");
-        }
+    public static ArrayList<CandidateBean> getList(){
+        return candidateList;
     }
-    
+
     public static String getGUIListLine(CandidateBean candidateBean) {
-        return String.format("%20s | %s ", candidateBean.getName(),candidateBean.getInitials());  
+        return String.format("%20s | %s ", candidateBean.getName(), candidateBean.getInitials());
     }
-    
-    public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException{
+
+    public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         candidateList.remove(id);
     }
-    
-     public static int searchCandidateByName(ArrayList<CandidateBean> candidateList, String text){
-        
-        for(CandidateBean candidate : candidateList){
-            if(candidate.getName().contains(text)){
+
+    public static int searchCandidateByName(ArrayList<CandidateBean> candidateList, String text) {
+
+        for (CandidateBean candidate : candidateList) {
+            if (candidate.getName().contains(text)) {
                 return candidateList.indexOf(candidate);
             }
-        }  
+        }
         return 0;
     }
-    
-    public static int searchCandidateByInitials(ArrayList<CandidateBean> candidateList, String text){
-        
-        for(CandidateBean candidate : candidateList){
-            if(candidate.getInitials().contains(text)){
+
+    public static int searchCandidateByInitials(ArrayList<CandidateBean> candidateList, String text) {
+
+        for (CandidateBean candidate : candidateList) {
+            if (candidate.getInitials().contains(text)) {
                 return candidateList.indexOf(candidate);
             }
-        }  
+        }
         return 0;
     }
-    
+
+    //guarda a arraylist num ficheiro
+    public static void save(String nomeFicheiro) throws Exception {
+        ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro));
+        file.writeObject(candidateList);
+        file.close();
+    }
+
+    //le um ficheiro e passa os dados para a arraylist
+    public static void load(String nomeFicheiro) throws Exception {
+        if (new File(nomeFicheiro).exists()) {
+            ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro));
+            candidateList = (ArrayList<CandidateBean>) file.readObject();
+            file.close();
+        } else {
+            candidateList = new ArrayList();
+            candidateList.add(new CandidateBean());
+        }
+    }
 }

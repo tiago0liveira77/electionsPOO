@@ -27,7 +27,7 @@ import javax.swing.ImageIcon;
 public class ElectorBeanBuilder {
     
       
-    public static ElectorBean buildRandomElectorBean(ArrayList<ElectorBean> electorList) throws ParseException, IOException{
+    public static ElectorBean buildRandomElectorBean() throws ParseException, IOException{
        
         Random rd = new Random();
         StringBuilder nome = new StringBuilder();

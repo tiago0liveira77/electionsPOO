@@ -17,8 +17,8 @@ public class CandidateBean implements Serializable{
     private Image photo;
     
     public CandidateBean(){
-        this.name = null;
-        this.initials = null;
+        this.name = "Partido A";
+        this.initials = "prA";
         this.photo = null;
     }
     

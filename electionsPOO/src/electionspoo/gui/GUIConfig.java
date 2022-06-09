@@ -4,10 +4,14 @@
  */
 package electionspoo.gui;
 
-import electionspoo.beans.CandidateBean;
-import electionspoo.beans.ElectorBean;
+import electionspoo.bo.CandidateBO;
+import electionspoo.bo.ElectorBO;
+import electionspoo.utils.MainUtils;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -17,19 +21,36 @@ public class GUIConfig extends javax.swing.JFrame {
 
     public static String electorFilePath = "electors.txt";
     public static String candidateFilePath = "candidate.txt";
-    
-    ArrayList<ElectorBean> electorList = new ArrayList<>();
-    ArrayList<CandidateBean> candidatesList = new ArrayList<>();
+
+    private void updateGUILists() {
+        MainUtils.listaGUIElector.removeAllElements();
+        MainUtils.listaGUICandidate.removeAllElements();
+        for (int i = 0; i < ElectorBO.getList().size(); i++) {
+            MainUtils.listaGUIElector.addElement(ElectorBO.getGUIListLine(ElectorBO.getList().get(i)));
+        }
+        for (int i = 0; i < CandidateBO.getList().size(); i++) {
+            MainUtils.listaGUICandidate.addElement(CandidateBO.getGUIListLine(CandidateBO.getList().get(i)));
+        }
+
+    }
+
+    private void updateGUIListElector() {
+        MainUtils.listaGUIElector.removeAllElements();
+        for (int i = 0; i < ElectorBO.getList().size(); i++) {
+            MainUtils.listaGUIElector.addElement(ElectorBO.getGUIListLine(ElectorBO.getList().get(i)));
+        }
+    }
+
     /**
      * Creates new form GUIConfig
      */
-    public GUIConfig() {
+    public GUIConfig() throws Exception {
         initComponents();
-        
-        File electorsFile = new File(electorFilePath);
-        File candidatesFile = new File(candidateFilePath);
-        
-        
+        ElectorBO.load(electorFilePath);
+        CandidateBO.load(candidateFilePath);
+        GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
+        GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
+        updateGUILists();
     }
 
     /**
@@ -41,6 +62,7 @@ public class GUIConfig extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        chooseElectorFile = new javax.swing.JDialog();
         GUIConfigBtnSave = new javax.swing.JButton();
         GUIConfigBtnOpen = new javax.swing.JButton();
         GUIConfigBtnNew = new javax.swing.JButton();
@@ -55,10 +77,25 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnOpenCandidateFile = new javax.swing.JButton();
         GUIConfigBtnOpenCandidateMenu = new javax.swing.JButton();
         GUIConfigPanelCandidateList = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        GUIConfigJListCandidate = new javax.swing.JList<>();
         GUIConfigPanelElectors = new javax.swing.JPanel();
         GUIConfigBtnOpenElectorFile = new javax.swing.JButton();
         GUIConfigBtnOpenjElectorMenu = new javax.swing.JButton();
         GUIConfigPanelElectorList = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        GUIConfigJListElector = new javax.swing.JList<>();
+
+        javax.swing.GroupLayout chooseElectorFileLayout = new javax.swing.GroupLayout(chooseElectorFile.getContentPane());
+        chooseElectorFile.getContentPane().setLayout(chooseElectorFileLayout);
+        chooseElectorFileLayout.setHorizontalGroup(
+            chooseElectorFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        chooseElectorFileLayout.setVerticalGroup(
+            chooseElectorFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,7 +117,6 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnNew.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        GUIConfigBtnClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tiago\\Documents\\GitHub\\electionsPOO\\electionsPOO\\src\\electionspoo\\multimedia\\exit.png")); // NOI18N
         GUIConfigBtnClose.setText("Sair");
         GUIConfigBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnClose.setVerifyInputWhenFocusTarget(false);
@@ -189,15 +225,17 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigPanelCandidateList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Candidatos"));
 
+        jScrollPane2.setViewportView(GUIConfigJListCandidate);
+
         javax.swing.GroupLayout GUIConfigPanelCandidateListLayout = new javax.swing.GroupLayout(GUIConfigPanelCandidateList);
         GUIConfigPanelCandidateList.setLayout(GUIConfigPanelCandidateListLayout);
         GUIConfigPanelCandidateListLayout.setHorizontalGroup(
             GUIConfigPanelCandidateListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         GUIConfigPanelCandidateListLayout.setVerticalGroup(
             GUIConfigPanelCandidateListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
 
         javax.swing.GroupLayout GUIConfigPanelCandidatesLayout = new javax.swing.GroupLayout(GUIConfigPanelCandidates);
@@ -232,6 +270,11 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnOpenElectorFile.setText("Abrir");
         GUIConfigBtnOpenElectorFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpenElectorFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnOpenElectorFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnOpenElectorFileActionPerformed(evt);
+            }
+        });
 
         GUIConfigBtnOpenjElectorMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_electos.png"))); // NOI18N
         GUIConfigBtnOpenjElectorMenu.setText("Eleitores");
@@ -245,15 +288,17 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigPanelElectorList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Eleitores"));
 
+        jScrollPane1.setViewportView(GUIConfigJListElector);
+
         javax.swing.GroupLayout GUIConfigPanelElectorListLayout = new javax.swing.GroupLayout(GUIConfigPanelElectorList);
         GUIConfigPanelElectorList.setLayout(GUIConfigPanelElectorListLayout);
         GUIConfigPanelElectorListLayout.setHorizontalGroup(
             GUIConfigPanelElectorListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         GUIConfigPanelElectorListLayout.setVerticalGroup(
             GUIConfigPanelElectorListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         javax.swing.GroupLayout GUIConfigPanelElectorsLayout = new javax.swing.GroupLayout(GUIConfigPanelElectors);
@@ -341,7 +386,7 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnOpenCandidateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenCandidateMenuActionPerformed
         // TODO add your handling code here:
         try {
-            GUICandidate dialog = new GUICandidate(this, true, candidatesList);
+            GUICandidate dialog = new GUICandidate(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -351,7 +396,7 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnOpenjElectorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenjElectorMenuActionPerformed
         // TODO add your handling code here:
         try {
-            GUIElector dialog = new GUIElector(this, true, electorList);
+            GUIElector dialog = new GUIElector(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -359,8 +404,39 @@ public class GUIConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_GUIConfigBtnOpenjElectorMenuActionPerformed
 
     private void GUIConfigBtnOpenCandidateFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenCandidateFileActionPerformed
-        // TODO add your handling code here:
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                CandidateBO.load(selectedFile);
+                updateGUILists();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GUIConfigBtnOpenCandidateFileActionPerformed
+
+    private void GUIConfigBtnOpenElectorFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenElectorFileActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        int result = fileChooser.showOpenDialog(fileChooser);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                ElectorBO.load(fileChooser.getSelectedFile().getAbsolutePath());
+                updateGUILists();
+            } catch (Exception ex) {
+                Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }//GEN-LAST:event_GUIConfigBtnOpenElectorFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,7 +468,11 @@ public class GUIConfig extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIConfig().setVisible(true);
+                try {
+                    new GUIConfig().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -407,6 +487,8 @@ public class GUIConfig extends javax.swing.JFrame {
     private javax.swing.JButton GUIConfigBtnOpenjElectorMenu;
     private javax.swing.JButton GUIConfigBtnSave;
     private javax.swing.JButton GUIConfigBtnStartElection;
+    private javax.swing.JList<String> GUIConfigJListCandidate;
+    private javax.swing.JList<String> GUIConfigJListElector;
     private javax.swing.JPanel GUIConfigPanelCandidateList;
     private javax.swing.JPanel GUIConfigPanelCandidates;
     private javax.swing.JPanel GUIConfigPanelElection;
@@ -416,5 +498,8 @@ public class GUIConfig extends javax.swing.JFrame {
     private javax.swing.JTextField GUIConfigTxtBoxElectionEndDate;
     private javax.swing.JTextField GUIConfigTxtBoxElectionName;
     private javax.swing.JTextField GUIConfigTxtBoxElectionStartDate;
+    private javax.swing.JDialog chooseElectorFile;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

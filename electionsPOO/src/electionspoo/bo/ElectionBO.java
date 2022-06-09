@@ -55,20 +55,6 @@ public class ElectionBO {
         return electionList;
     }
     
-    public static void saveElectorsToFile(ArrayList<ElectionBean> electionList, File fileToSave) throws FileNotFoundException, IOException, ClassNotFoundException, ParseException {
-        try {
-            FileOutputStream fi = new FileOutputStream(fileToSave);
-            ObjectOutputStream oi = new ObjectOutputStream(fi);
-
-            oi.writeObject(electionList);
-
-            oi.close();
-            fi.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Error initializing stream");
-        }
-    }
+    
     
 }

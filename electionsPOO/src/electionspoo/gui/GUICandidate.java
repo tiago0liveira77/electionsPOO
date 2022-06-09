@@ -31,31 +31,27 @@ import javax.swing.JOptionPane;
  */
 public class GUICandidate extends javax.swing.JDialog {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
     private int GUIListSelectedIndex = 0;
-    DefaultListModel<String> listaGUI = new DefaultListModel<>();
-    static ArrayList<CandidateBean> candidatesList = new ArrayList<>();
-    
+
     //lista todos os electors guardados no ficheiro
     private void updateGUIList() {
-        listaGUI.removeAllElements();
-        for (int i = 0; i < candidatesList.size(); i++) {
-            listaGUI.addElement(CandidateBO.getGUIListLine(candidatesList.get(i)));
+        MainUtils.listaGUICandidate.removeAllElements();
+        for (int i = 0; i < CandidateBO.getList().size(); i++) {
+            MainUtils.listaGUICandidate.addElement(CandidateBO.getGUIListLine(CandidateBO.getList().get(i)));
         }
     }
-    
+
     /**
      * Creates new form GUIElector
+     *
      * @param parent
      * @param modal
      * @param candidatesList
      */
-    public GUICandidate(java.awt.Frame parent, boolean modal, ArrayList<CandidateBean> candidatesList) {
+    public GUICandidate(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        GUICandList.setModel(listaGUI);
-        this.candidatesList = candidatesList;
-        //candidatesList = CandidateBO.getCandidatesFromFile(candidatesList);
+        GUICandList.setModel(MainUtils.listaGUICandidate);  
         updateGUIList();
         GUICandList.setSelectedIndex(GUIListSelectedIndex);
     }
@@ -162,11 +158,6 @@ public class GUICandidate extends javax.swing.JDialog {
 
         GUICandPanelCandList.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Candidatos"));
 
-        GUICandList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         GUICandList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 GUICandListValueChanged(evt);
@@ -234,8 +225,10 @@ public class GUICandidate extends javax.swing.JDialog {
 
         GUICandPanelElector.setBorder(javax.swing.BorderFactory.createTitledBorder("Candidato"));
 
+        GUICandTxtBoxName.setText("Partido A");
         GUICandTxtBoxName.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
 
+        GUICandTxtBoxInitials.setText("PRA");
         GUICandTxtBoxInitials.setBorder(javax.swing.BorderFactory.createTitledBorder("Sigla"));
         GUICandTxtBoxInitials.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,9 +394,9 @@ public class GUICandidate extends javax.swing.JDialog {
     private void GUICandBtnNewCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewCandActionPerformed
         // TODO add your handling code here:
         CandidateBean candidateBean = new CandidateBean(GUICandTxtBoxName.getText(), GUICandTxtBoxInitials.getText());
-        candidatesList.add(candidateBean);
+        CandidateBO.getList().add(candidateBean);
         updateGUIList();
-        GUICandList.setSelectedIndex(candidatesList.size()-1);  
+        GUICandList.setSelectedIndex(CandidateBO.getList().size() - 1);
     }//GEN-LAST:event_GUICandBtnNewCandActionPerformed
 
     private void GUICandTxtBoxInitialsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandTxtBoxInitialsActionPerformed
@@ -412,11 +405,11 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnDeleteCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnDeleteCandActionPerformed
         // TODO add your handling code here:
-        
+
         int deleteUserConfirmation = JOptionPane.showConfirmDialog(DialogFileChooser, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
-        
+
         try {
-            CandidateBO.deleteCandidateFromList(candidatesList, GUIListSelectedIndex);
+            CandidateBO.deleteCandidateFromList(CandidateBO.getList(), GUIListSelectedIndex);
             updateGUIList();
             GUICandList.setSelectedIndex(0);
         } catch (IOException ex) {
@@ -433,18 +426,18 @@ public class GUICandidate extends javax.swing.JDialog {
         int selections[] = GUICandList.getSelectedIndices();
         GUIListSelectedIndex = GUICandList.getSelectedIndex();
         for (int i = 0, n = selections.length; i < n; i++) {
-            GUICandTxtBoxName.setText(candidatesList.get(selections[i]).getName());
-            GUICandTxtBoxInitials.setText(candidatesList.get(selections[i]).getInitials());
+            GUICandTxtBoxName.setText(CandidateBO.getList().get(selections[i]).getName());
+            GUICandTxtBoxInitials.setText(CandidateBO.getList().get(selections[i]).getInitials());
         }
     }//GEN-LAST:event_GUICandListValueChanged
 
     private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
         // TODO add your handling code here:
-        if(GUIListSelectedIndex<candidatesList.size()-1){
+        if (GUIListSelectedIndex < CandidateBO.getList().size() - 1) {
             GUIListSelectedIndex++;
             GUICandList.setSelectedIndex(GUIListSelectedIndex);
         }
-        
+
     }//GEN-LAST:event_GUIElectorBtnLastActionPerformed
 
     private void GUIElectorBtnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnFirstActionPerformed
@@ -454,7 +447,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUIElectorBtnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnPrevActionPerformed
         // TODO add your handling code here:
-         if(GUIListSelectedIndex>0){
+        if (GUIListSelectedIndex > 0) {
             GUIListSelectedIndex--;
             GUICandList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -462,7 +455,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
         // TODO add your handling code here:
-        GUICandList.setSelectedIndex(candidatesList.size()-1);
+        GUICandList.setSelectedIndex(CandidateBO.getList().size() - 1);
     }//GEN-LAST:event_GUIElectorBtnNextActionPerformed
 
     private void GUICandBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSaveActionPerformed
@@ -472,37 +465,39 @@ public class GUICandidate extends javax.swing.JDialog {
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                CandidateBO.saveCandidatesToFile(candidatesList, selectedFile);
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                CandidateBO.save(selectedFile);
             }
         } catch (IOException | ClassNotFoundException | ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUICandBtnSaveActionPerformed
 
     private void GUICandBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewActionPerformed
         // TODO add your handling code here:
-        candidatesList.clear();
+        CandidateBO.getList().clear();
         updateGUIList();
     }//GEN-LAST:event_GUICandBtnNewActionPerformed
 
     private void GUICandBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSearchActionPerformed
 
         String textToSearch = GUICandTxtBoxSearch.getText();
-        
+
         int index;
-        
-        index = CandidateBO.searchCandidateByName(candidatesList, textToSearch);
-        if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
-           GUICandList.setSelectedIndex(index);
-        }else{
-            index = CandidateBO.searchCandidateByInitials(candidatesList, textToSearch);
-            if(!(MainUtils.isNullOrEmpty(String.valueOf(index)))){
+
+        index = CandidateBO.searchCandidateByName(CandidateBO.getList(), textToSearch);
+        if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+            GUICandList.setSelectedIndex(index);
+        } else {
+            index = CandidateBO.searchCandidateByInitials(CandidateBO.getList(), textToSearch);
+            if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
                 GUICandList.setSelectedIndex(index);
-            }else{
-                System.out.println("Não há registos a encontrar para a string: " + textToSearch); 
+            } else {
+                System.out.println("Não há registos a encontrar para a string: " + textToSearch);
             }
-        }    
+        }
 
     }//GEN-LAST:event_GUICandBtnSearchActionPerformed
 
@@ -513,14 +508,16 @@ public class GUICandidate extends javax.swing.JDialog {
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                candidatesList = CandidateBO.getCandidatesFromFile(candidatesList, selectedFile);
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                CandidateBO.load(selectedFile);
                 updateGUIList();
             }
         } catch (IOException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUICandBtnOpenActionPerformed
 
@@ -530,7 +527,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnUpActionPerformed
         // TODO add your handling code here:
-        if(GUIListSelectedIndex>0){
+        if (GUIListSelectedIndex > 0) {
             GUIListSelectedIndex--;
             GUICandList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -538,7 +535,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnDownActionPerformed
         // TODO add your handling code here:
-         if(GUIListSelectedIndex<candidatesList.size()-1){
+        if (GUIListSelectedIndex < CandidateBO.getList().size() - 1) {
             GUIListSelectedIndex++;
             GUICandList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -575,7 +572,7 @@ public class GUICandidate extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GUICandidate dialog = new GUICandidate(new javax.swing.JFrame(), true, candidatesList);
+                GUICandidate dialog = new GUICandidate(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -586,8 +583,7 @@ public class GUICandidate extends javax.swing.JDialog {
             }
         });
     }
-    
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog DialogFileChooser;

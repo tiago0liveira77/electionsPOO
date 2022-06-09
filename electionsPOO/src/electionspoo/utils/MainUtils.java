@@ -9,17 +9,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -28,7 +23,8 @@ import java.util.GregorianCalendar;
 public class MainUtils {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+    public static DefaultListModel<String> listaGUIElector = new DefaultListModel<>();
+    public static DefaultListModel<String> listaGUICandidate = new DefaultListModel<>();
     public static ArrayList<ElectorBean> orderArrayListByCC(ArrayList<ElectorBean> electorList) {
         Collections.sort(electorList);
         return electorList;
@@ -48,20 +44,19 @@ public class MainUtils {
     public static boolean isNullOrEmpty(String text) {
         return text.isEmpty() || text.isBlank();
     }
+    
 
-    public static byte[] url2Byte(URL url) {
+    public static byte[] imageFromURLToByteArray(URL url) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            byte[] arrayOfByte = new byte[4096];
+            byte[] photo = new byte[4096];
             InputStream inputStream = url.openStream();
             int i;
-            while ((i = inputStream.read(arrayOfByte)) > 0) {
-                byteArrayOutputStream.write(arrayOfByte, 0, i);
+            while ((i = inputStream.read(photo)) > 0) {
+                byteArrayOutputStream.write(photo, 0, i);
             }
-        } catch (IOException iOException2) {
-            IOException iOException1;
-            (iOException1 = null).printStackTrace();
-            return null;
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
         return byteArrayOutputStream.toByteArray();
     }
