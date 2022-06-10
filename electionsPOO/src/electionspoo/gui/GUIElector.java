@@ -501,8 +501,6 @@ public class GUIElector extends javax.swing.JDialog {
             for (int i = 0; i < quantidadeEleitores; i++) {
                 ElectorBean electorBean = ElectorBeanBuilder.buildRandomElectorBean();
 
-                electorBean.setPhoto(ElectorBO.getRandomPhoto(electorBean.getGender(), MainUtils.getPersonAge(electorBean.getBirthDate())));
-
                 //Save elector to the list
                 ElectorBO.getList().add(electorBean);
 
@@ -575,7 +573,7 @@ public class GUIElector extends javax.swing.JDialog {
 
             //foto to label
             if (ElectorBO.getList().get(selections[i]).getPhoto() != null) {
-                GUIElectorLabel2Image.setIcon(new ImageIcon(ElectorBO.getList().get(selections[i]).getPhoto().getImage().getScaledInstance(GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight(), Image.SCALE_SMOOTH)));
+                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(ElectorBO.getList().get(selections[i]).getPhoto(), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));                   
             }
 
         }
@@ -600,7 +598,7 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSaveActionPerformed
         try {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
@@ -625,7 +623,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSortActionPerformed
         // TODO add your handling code here:
-        MainUtils.orderArrayListByCC(ElectorBO.getList());
+        ElectorBO.orderArrayListByCC();
         updateGUIList();
         GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
     }//GEN-LAST:event_GUIElectorBtnSortActionPerformed
@@ -657,7 +655,7 @@ public class GUIElector extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
                 ElectorBO.load(fileChooser.getSelectedFile().getAbsolutePath());

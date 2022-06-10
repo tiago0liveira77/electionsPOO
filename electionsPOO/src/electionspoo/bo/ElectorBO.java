@@ -14,11 +14,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URI;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -34,6 +37,11 @@ public class ElectorBO{
     //retorna a arraylist
     public static ArrayList<ElectorBean> getList(){
         return electorList;
+    }
+    
+    //Ordena a arraylist de eleitores por CC
+    public static void orderArrayListByCC() {
+        Collections.sort(electorList);
     }
 
     //formata eleitor para mostrar JList
@@ -70,6 +78,7 @@ public class ElectorBO{
 
     //funcao que obtem uma foto de 1 pessoa random de acordo com o genero e intervalo de idade
     public static ImageIcon getRandomPhoto(char gender, int idade) throws IOException {
+        //verifica genero
         String genderFinal = "male";
         if (gender == ('M') || gender == ('m')) {
             genderFinal = "male";
@@ -77,13 +86,19 @@ public class ElectorBO{
             genderFinal = "female";
         }
 
-        byte[] urlSearch = MainUtils.imageFromURLToByteArray(new URL("https://fakeface.rest/face/json?gender=" + genderFinal + "&minimum_age=" + (idade - 5) + "&maximum_age=" + (idade + 5)));
-        System.out.println("https://fakeface.rest/face/json?gender=" + genderFinal + "&minimum_age=" + (idade - 5) + "&maximum_age=" + (idade + 5));
-        String getPhotoUrl = (getPhotoUrl = new String(urlSearch)).substring(getPhotoUrl.indexOf("https://"));
-        getPhotoUrl = getPhotoUrl.substring(0, getPhotoUrl.indexOf(".jpg")) + ".jpg";
-        byte[] finalPhotoUrl = MainUtils.imageFromURLToByteArray(new URL(getPhotoUrl));
-        BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(finalPhotoUrl));
-        ImageIcon imageIcon = new ImageIcon(bufferedImage);
+        //abrir stream para o url da API
+        InputStream in = URI.create("https://fakeface.rest/face/json?gender=" + genderFinal + "&minimum_age=" + (idade - 5) + "&maximum_age=" + (idade + 5)).toURL().openStream();
+        
+        //Ler o JSON da API
+        byte[] bytes = new byte[in.available()];
+        in.read(bytes);
+        String json = new String(bytes);
+        
+        //extrair o url da imagem: Começa por "https://" e acaba em .jpg
+        String url = json.substring(json.indexOf("https://"), json.lastIndexOf(".jpg") + 4);
+        
+        //converte o url em ImageIcon 
+        ImageIcon imageIcon = new ImageIcon(new URL(url));
         return imageIcon;
     }
 
