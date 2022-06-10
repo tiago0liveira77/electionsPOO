@@ -5,13 +5,8 @@
 package electionspoo.beans;
 
 import electionspoo.utils.MainUtils;
-import java.awt.Image;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**

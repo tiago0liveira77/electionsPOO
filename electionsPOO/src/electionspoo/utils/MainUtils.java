@@ -4,7 +4,7 @@
  */
 package electionspoo.utils;
 
-import electionspoo.beans.ElectorBean;
+
 import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,8 +13,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 

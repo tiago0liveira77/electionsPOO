@@ -11,12 +11,7 @@ import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Random;
 import javax.swing.ImageIcon;
 

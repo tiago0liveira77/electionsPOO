@@ -6,9 +6,6 @@ package electionspoo.bo;
 
 import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.ElectorBean;
-import electionspoo.utils.MainUtils;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +19,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**

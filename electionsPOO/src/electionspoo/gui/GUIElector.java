@@ -8,7 +8,6 @@ import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.ElectorBean;
 import electionspoo.bo.ElectorBO;
 import electionspoo.utils.MainUtils;
-import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

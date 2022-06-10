@@ -4,24 +4,14 @@
  */
 package electionspoo.gui;
 
-import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.CandidateBean;
-import electionspoo.beans.ElectorBean;
 import electionspoo.bo.CandidateBO;
-import electionspoo.bo.ElectorBO;
 import electionspoo.utils.MainUtils;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 

@@ -4,8 +4,9 @@
  */
 package electionspoo.gui;
 
-import java.awt.Dialog.ModalityType;
-import javax.swing.JDialog;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,7 +49,12 @@ public class GUIMainMenu extends javax.swing.JFrame {
         MainMenu.setLayout(new java.awt.GridLayout(1, 3, 5, 0));
 
         MainMenuBtnConfi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/config.png"))); // NOI18N
-        MainMenuBtnConfi.setText("Configuar Eleição");
+        MainMenuBtnConfi.setText("Configurar Eleição");
+        MainMenuBtnConfi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MainMenuBtnConfiActionPerformed(evt);
+            }
+        });
         MainMenu.add(MainMenuBtnConfi);
 
         MainMenuBtnVotar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/vote.png"))); // NOI18N
@@ -69,6 +75,11 @@ public class GUIMainMenu extends javax.swing.JFrame {
         MenuBarEleicoesConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         MenuBarEleicoesConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/config_24.png"))); // NOI18N
         MenuBarEleicoesConfig.setText("Configurar");
+        MenuBarEleicoesConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuBarEleicoesConfigActionPerformed(evt);
+            }
+        });
         MenuBarEleicoes.add(MenuBarEleicoesConfig);
 
         MenuBarEleicoesVotar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -141,7 +152,7 @@ public class GUIMainMenu extends javax.swing.JFrame {
 
     private void MenuBarEleicoesVotarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarEleicoesVotarActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             GUIVote dialog = new GUIVote(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
@@ -177,6 +188,28 @@ public class GUIMainMenu extends javax.swing.JFrame {
     private void MenuBarEleicoesResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarEleicoesResultsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuBarEleicoesResultsActionPerformed
+
+    private void MainMenuBtnConfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuBtnConfiActionPerformed
+        try {
+            // TODO add your handling code here:
+            GUIConfig dialog = new GUIConfig();
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_MainMenuBtnConfiActionPerformed
+
+    private void MenuBarEleicoesConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBarEleicoesConfigActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            GUIConfig dialog = new GUIConfig();
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_MenuBarEleicoesConfigActionPerformed
 
     /**
      * @param args the command line arguments
