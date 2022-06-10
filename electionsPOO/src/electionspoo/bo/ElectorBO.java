@@ -114,6 +114,7 @@ public class ElectorBO{
         } else {
             electorList = new ArrayList();
             electorList.add(ElectorBeanBuilder.buildRandomElectorBean());
+            save(nomeFicheiro);
         }
     }
     

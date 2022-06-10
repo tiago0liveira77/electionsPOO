@@ -71,6 +71,7 @@ public class CandidateBO {
         } else {
             candidateList = new ArrayList();
             candidateList.add(new CandidateBean());
+            save(nomeFicheiro);
         }
     }
 }
