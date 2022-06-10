@@ -5,6 +5,9 @@
 package electionspoo.gui;
 
 
+import electionspoo.bo.CandidateBO;
+import electionspoo.bo.ElectorBO;
+import electionspoo.utils.MainUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,8 +20,10 @@ public class GUIMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public GUIMainMenu() {
+    public GUIMainMenu() throws Exception {
         initComponents();
+        ElectorBO.load(MainUtils.electorFilePath);
+        CandidateBO.load(MainUtils.candidateFilePath);
     }
 
     /**
@@ -242,7 +247,11 @@ public class GUIMainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIMainMenu().setVisible(true);
+                try {
+                    new GUIMainMenu().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -19,8 +19,8 @@ import javax.swing.JFileChooser;
  */
 public class GUIConfig extends javax.swing.JFrame {
 
-    public static String electorFilePath = "electors.txt";
-    public static String candidateFilePath = "candidate.txt";
+    //deve ser apagado na fase final do projeto (tem de ser declarado no 
+    
 
     private void updateGUILists() {
         MainUtils.listaGUIElector.removeAllElements();
@@ -47,8 +47,9 @@ public class GUIConfig extends javax.swing.JFrame {
     public GUIConfig() throws Exception {
         initComponents();
         setExtendedState(this.getExtendedState() | GUIConfig.MAXIMIZED_BOTH);
-        ElectorBO.load(electorFilePath);
-        CandidateBO.load(candidateFilePath);
+        //2 linhas de load deve ser apagado na fase final do projeto pois tem de ser feito no GUIMainMenu
+        ElectorBO.load(MainUtils.electorFilePath);
+        CandidateBO.load(MainUtils.candidateFilePath);
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
         GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
         updateGUILists();

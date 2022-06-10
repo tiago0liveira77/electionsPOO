@@ -21,6 +21,9 @@ import javax.swing.ImageIcon;
  * @author User
  */
 public class MainUtils {
+    
+    public static String electorFilePath = "electors.txt";
+    public static String candidateFilePath = "candidate.txt";
 
     //formatter usado para datas no tipo "dd/MM/yyyy" para LocalDate
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

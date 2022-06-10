@@ -466,7 +466,7 @@ public class GUICandidate extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
@@ -509,7 +509,7 @@ public class GUICandidate extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
