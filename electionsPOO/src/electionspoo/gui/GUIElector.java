@@ -109,9 +109,11 @@ public class GUIElector extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         GUIElectorBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/save_file.png"))); // NOI18N
         GUIElectorBtnSave.setText("Guardar");
+        GUIElectorBtnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnSave.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -123,6 +125,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUIElectorBtnOpen.setText("Abrir");
+        GUIElectorBtnOpen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnOpen.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -134,6 +137,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/newElection.png"))); // NOI18N
         GUIElectorBtnNew.setText("Novo");
+        GUIElectorBtnNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnNew.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -145,6 +149,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/sort.png"))); // NOI18N
         GUIElectorBtnSort.setText("Ordenar");
+        GUIElectorBtnSort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnSort.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnSort.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSort.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -156,6 +161,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_find.png"))); // NOI18N
         GUIElectorBtnSearch.setText("Pesquisar");
+        GUIElectorBtnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnSearch.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -165,7 +171,9 @@ public class GUIElector extends javax.swing.JDialog {
             }
         });
 
+        GUIElectorBtnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/exit.png"))); // NOI18N
         GUIElectorBtnClose.setText("Sair");
+        GUIElectorBtnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIElectorBtnClose.setVerifyInputWhenFocusTarget(false);
         GUIElectorBtnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -187,6 +195,7 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorPanelBottomNav.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         GUIElectorBtnFirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_first.png"))); // NOI18N
+        GUIElectorBtnFirst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnFirstActionPerformed(evt);
@@ -194,6 +203,7 @@ public class GUIElector extends javax.swing.JDialog {
         });
 
         GUIElectorBtnPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_prev.png"))); // NOI18N
+        GUIElectorBtnPrev.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnPrevActionPerformed(evt);
@@ -201,6 +211,7 @@ public class GUIElector extends javax.swing.JDialog {
         });
 
         GUIElectorBtnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_next.png"))); // NOI18N
+        GUIElectorBtnNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnNextActionPerformed(evt);
@@ -208,6 +219,7 @@ public class GUIElector extends javax.swing.JDialog {
         });
 
         GUIElectorBtnLast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_last.png"))); // NOI18N
+        GUIElectorBtnLast.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnLastActionPerformed(evt);
@@ -263,6 +275,7 @@ public class GUIElector extends javax.swing.JDialog {
         });
 
         GUIElectorBtnNewElector.setText("Novo");
+        GUIElectorBtnNewElector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnNewElector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnNewElectorActionPerformed(evt);
@@ -271,6 +284,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnDeleteElector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_delete.png"))); // NOI18N
         GUIElectorBtnDeleteElector.setText("Eliminar");
+        GUIElectorBtnDeleteElector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnDeleteElector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnDeleteElectorActionPerformed(evt);
@@ -279,6 +293,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         GUIElectorBtnRandomElector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_update.png"))); // NOI18N
         GUIElectorBtnRandomElector.setText("Gerar Aleatório");
+        GUIElectorBtnRandomElector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIElectorBtnRandomElector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUIElectorBtnRandomElectorActionPerformed(evt);

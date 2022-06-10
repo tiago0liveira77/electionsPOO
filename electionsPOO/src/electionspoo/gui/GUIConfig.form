@@ -20,6 +20,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -44,11 +45,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="GUIConfigPanelElection" min="-2" max="-2" attributes="0"/>
+                      <Component id="GUIConfigPanelElection" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="GUIConfigPanelCandidates" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="GUIConfigPanelElectors" min="-2" max="-2" attributes="0"/>
+                      <Component id="GUIConfigPanelCandidates" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="GUIConfigPanelElectors" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="GUIConfigBtnSave" min="-2" pref="96" max="-2" attributes="0"/>
@@ -76,9 +77,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="GUIConfigPanelCandidates" max="32767" attributes="0"/>
                   <Component id="GUIConfigPanelElection" max="32767" attributes="0"/>
                   <Component id="GUIConfigPanelElectors" alignment="0" max="32767" attributes="0"/>
+                  <Component id="GUIConfigPanelCandidates" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -92,6 +93,9 @@
           <Image iconType="3" name="/electionspoo/multimedia/save_file.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
@@ -103,6 +107,9 @@
           <Image iconType="3" name="/electionspoo/multimedia/open_file.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Abrir"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
@@ -114,6 +121,9 @@
           <Image iconType="3" name="/electionspoo/multimedia/newElection.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nova Elei&#xe7;&#xe3;o"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
@@ -121,7 +131,13 @@
     </Component>
     <Component class="javax.swing.JButton" name="GUIConfigBtnClose">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/electionspoo/multimedia/exit.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
@@ -227,6 +243,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/start_election.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Iniciar Elei&#xe7;&#xe3;o"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -303,6 +322,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/open_file.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Abrir"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -316,6 +338,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/menu_candidates.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Candidatos"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -411,6 +436,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/open_file.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Abrir"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -424,6 +452,9 @@
               <Image iconType="3" name="/electionspoo/multimedia/menu_electos.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eleitores"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>

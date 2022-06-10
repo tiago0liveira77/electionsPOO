@@ -46,6 +46,7 @@ public class GUIConfig extends javax.swing.JFrame {
      */
     public GUIConfig() throws Exception {
         initComponents();
+        setExtendedState(this.getExtendedState() | GUIConfig.MAXIMIZED_BOTH);
         ElectorBO.load(electorFilePath);
         CandidateBO.load(candidateFilePath);
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
@@ -98,26 +99,32 @@ public class GUIConfig extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         GUIConfigBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/save_file.png"))); // NOI18N
         GUIConfigBtnSave.setText("Guardar");
+        GUIConfigBtnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnSave.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         GUIConfigBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUIConfigBtnOpen.setText("Abrir");
+        GUIConfigBtnOpen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpen.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         GUIConfigBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/newElection.png"))); // NOI18N
         GUIConfigBtnNew.setText("Nova Eleição");
+        GUIConfigBtnNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnNew.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        GUIConfigBtnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/exit.png"))); // NOI18N
         GUIConfigBtnClose.setText("Sair");
+        GUIConfigBtnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnClose.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -147,6 +154,7 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigBtnStartElection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/start_election.png"))); // NOI18N
         GUIConfigBtnStartElection.setText("Iniciar Eleição");
+        GUIConfigBtnStartElection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnStartElection.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnStartElection.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -205,6 +213,7 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigBtnOpenCandidateFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUIConfigBtnOpenCandidateFile.setText("Abrir");
+        GUIConfigBtnOpenCandidateFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnOpenCandidateFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpenCandidateFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         GUIConfigBtnOpenCandidateFile.addActionListener(new java.awt.event.ActionListener() {
@@ -215,6 +224,7 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigBtnOpenCandidateMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_candidates.png"))); // NOI18N
         GUIConfigBtnOpenCandidateMenu.setText("Candidatos");
+        GUIConfigBtnOpenCandidateMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnOpenCandidateMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpenCandidateMenu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         GUIConfigBtnOpenCandidateMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -268,6 +278,7 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigBtnOpenElectorFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUIConfigBtnOpenElectorFile.setText("Abrir");
+        GUIConfigBtnOpenElectorFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnOpenElectorFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpenElectorFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         GUIConfigBtnOpenElectorFile.addActionListener(new java.awt.event.ActionListener() {
@@ -278,6 +289,7 @@ public class GUIConfig extends javax.swing.JFrame {
 
         GUIConfigBtnOpenjElectorMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_electos.png"))); // NOI18N
         GUIConfigBtnOpenjElectorMenu.setText("Eleitores");
+        GUIConfigBtnOpenjElectorMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnOpenjElectorMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpenjElectorMenu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         GUIConfigBtnOpenjElectorMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -335,11 +347,11 @@ public class GUIConfig extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(GUIConfigPanelElection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GUIConfigPanelElection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(GUIConfigPanelCandidates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(GUIConfigPanelElectors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(GUIConfigPanelCandidates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GUIConfigPanelElectors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(GUIConfigBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -361,9 +373,9 @@ public class GUIConfig extends javax.swing.JFrame {
                     .addComponent(GUIConfigBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(GUIConfigPanelCandidates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUIConfigPanelElection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GUIConfigPanelElectors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(GUIConfigPanelElectors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GUIConfigPanelCandidates, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
