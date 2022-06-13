@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package electionspoo.beans;
+package electionspoo.beans.elector;
 
 import electionspoo.utils.MainUtils;
 import java.io.Serializable;
@@ -23,11 +23,11 @@ public class ElectorBean implements Serializable, Comparable {
     private ImageIcon photo;
 
     public ElectorBean() {
-        this.name = null;
-        this.CC = 0;
-        this.gender = 0;
-        this.birthDate = null;
-        this.password = null;
+        this.name = "Nome";
+        this.CC = 123456789;
+        this.gender = 'M';
+        this.birthDate = LocalDate.parse("01/01/1990", MainUtils.formatter);
+        this.password = "123";
         this.photo = null;
     }
 
@@ -38,15 +38,6 @@ public class ElectorBean implements Serializable, Comparable {
         this.birthDate = birthDate;
         this.password = password;
         this.photo = photo;
-    }
-
-    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password) {
-        this.name = name;
-        this.CC = cc;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.password = password;
-        this.photo = null;
     }
     
     public String getName() {

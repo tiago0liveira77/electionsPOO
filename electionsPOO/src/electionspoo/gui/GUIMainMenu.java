@@ -5,8 +5,8 @@
 package electionspoo.gui;
 
 
-import electionspoo.bo.CandidateList;
-import electionspoo.bo.ElectorList;
+import electionspoo.beans.candidate.CandidateList;
+import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.MainUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;

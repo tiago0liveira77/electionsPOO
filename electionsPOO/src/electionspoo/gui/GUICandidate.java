@@ -4,8 +4,8 @@
  */
 package electionspoo.gui;
 
-import electionspoo.beans.CandidateBean;
-import electionspoo.bo.CandidateList;
+import electionspoo.beans.candidate.CandidateBean;
+import electionspoo.beans.candidate.CandidateList;
 import electionspoo.utils.MainUtils;
 import java.io.File;
 import java.io.IOException;

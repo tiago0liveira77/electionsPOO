@@ -4,7 +4,8 @@
  */
 package electionspoo.beans;
 
-import java.util.ArrayList;
+import electionspoo.beans.candidate.CandidateList;
+import electionspoo.beans.elector.ElectorList;
 import java.util.Date;
 
 /**
@@ -13,41 +14,26 @@ import java.util.Date;
  */
 public class ElectionBean {
     private String name;
-    private ArrayList<ElectorBean> eleitores = new ArrayList<ElectorBean>();
-    private ArrayList<CandidateBean> candidatos = new ArrayList<CandidateBean>();
+    private ElectorList electorList;
+    private CandidateList candidateList;
     private Date startDate;
     private Date endDate;
     
+    
     public ElectionBean(){
         this.name = null;
-        this.eleitores = null;
-        this.candidatos = null;
+        this.electorList = null;
+        this.candidateList = null;
         this.startDate = null;
         this.endDate = null;
     }
     
-    public ElectionBean(String name, ArrayList<ElectorBean> eleitores, ArrayList<CandidateBean> candidatos, Date startDate, Date endDate){
+    public ElectionBean(String name, ElectorList eleitores, CandidateList candidatos, Date startDate, Date endDate){
         this.name = name;
-        this.eleitores = eleitores;
-        this.candidatos = candidatos;
+        this.electorList = eleitores;
+        this.candidateList = candidatos;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    public ArrayList<ElectorBean> getEleitores() {
-        return eleitores;
-    }
-
-    public void setEleitores(ArrayList<ElectorBean> eleitores) {
-        this.eleitores = eleitores;
-    }
-
-    public ArrayList<CandidateBean> getCandidatos() {
-        return candidatos;
-    }
-
-    public void setCandidatos(ArrayList<CandidateBean> candidatos) {
-        this.candidatos = candidatos;
     }
 
     public String getName() {
@@ -74,5 +60,19 @@ public class ElectionBean {
         this.endDate = endDate;
     }
     
-    
+        public ElectorList getElectorList() {
+        return electorList;
+    }
+
+    public void setElectorList(ElectorList electorList) {
+        this.electorList = electorList;
+    }
+
+    public CandidateList getCandidateList() {
+        return candidateList;
+    }
+
+    public void setCandidateList(CandidateList candidateList) {
+        this.candidateList = candidateList;
+    }
 }

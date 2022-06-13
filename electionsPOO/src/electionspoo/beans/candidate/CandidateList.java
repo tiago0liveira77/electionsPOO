@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package electionspoo.bo;
+package electionspoo.beans.candidate;
 
-import electionspoo.beans.CandidateBean;
+import electionspoo.beans.candidate.CandidateBean;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

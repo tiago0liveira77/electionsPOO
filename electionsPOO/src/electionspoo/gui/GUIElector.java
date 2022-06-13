@@ -5,8 +5,8 @@
 package electionspoo.gui;
 
 import electionspoo.beanbuilder.ElectorBeanBuilder;
-import electionspoo.beans.ElectorBean;
-import electionspoo.bo.ElectorList;
+import electionspoo.beans.elector.ElectorBean;
+import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.MainUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -531,8 +531,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
 
-        //ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter), GUIElectorTxtBoxPw.getText(), (ImageIcon) GUIElectorLabel2Image.getIcon());
-        ElectorList.getList().add(new ElectorBean("novo", 1234567, 'M', LocalDate.parse("01/01/1990", MainUtils.formatter), "123"));
+        ElectorList.getList().add(new ElectorBean());
         updateGUIList();
         GUIElectorList.setSelectedIndex(ElectorList.getList().size() - 1);
     }//GEN-LAST:event_GUIElectorBtnNewElectorActionPerformed
