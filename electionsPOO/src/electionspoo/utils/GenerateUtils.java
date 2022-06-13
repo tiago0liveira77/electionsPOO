@@ -6,9 +6,14 @@ package electionspoo.utils;
 
 import electionspoo.utils.enums.FirstNamesEnum;
 import electionspoo.utils.enums.LastNamesEnum;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -46,5 +51,31 @@ public class GenerateUtils {
     
     public static int randBetween(int start, int end) {
         return start + (int)Math.round(Math.random() * (end - start));
+    }
+    
+    //funcao que obtem uma foto de 1 pessoa random de acordo com o genero e intervalo de idade
+    public static ImageIcon getRandomPhoto(char gender, int idade) throws IOException {
+        //verifica genero
+        String genderFinal = "male";
+        if (gender == ('M') || gender == ('m')) {
+            genderFinal = "male";
+        } else {
+            genderFinal = "female";
+        }
+
+        //abrir stream para o url da API
+        InputStream in = URI.create("https://fakeface.rest/face/json?gender=" + genderFinal + "&minimum_age=" + (idade - 5) + "&maximum_age=" + (idade + 5)).toURL().openStream();
+        
+        //Ler o JSON da API
+        byte[] bytes = new byte[in.available()];
+        in.read(bytes);
+        String json = new String(bytes);
+        
+        //extrair o url da imagem: Começa por "https://" e acaba em .jpg
+        String url = json.substring(json.indexOf("https://"), json.lastIndexOf(".jpg") + 4);
+        
+        //converte o url em ImageIcon 
+        ImageIcon imageIcon = new ImageIcon(new URL(url));
+        return imageIcon;
     }
 }

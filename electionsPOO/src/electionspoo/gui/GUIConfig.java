@@ -108,6 +108,11 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnSave.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnSaveActionPerformed(evt);
+            }
+        });
 
         GUIConfigBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
         GUIConfigBtnOpen.setText("Abrir");
@@ -122,6 +127,11 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnNew.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnNewActionPerformed(evt);
+            }
+        });
 
         GUIConfigBtnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/exit.png"))); // NOI18N
         GUIConfigBtnClose.setText("Sair");
@@ -458,7 +468,17 @@ public class GUIConfig extends javax.swing.JFrame {
 
     private void GUIConfigBtnStartElectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnStartElectionActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_GUIConfigBtnStartElectionActionPerformed
+
+    private void GUIConfigBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIConfigBtnSaveActionPerformed
+
+    private void GUIConfigBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnNewActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_GUIConfigBtnNewActionPerformed
 
     /**
      * @param args the command line arguments

@@ -39,7 +39,7 @@ public class ElectorBeanBuilder {
 
         int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
                 
-        ImageIcon photo = ElectorList.getRandomPhoto(gender, MainUtils.getPersonAge(date.format(MainUtils.formatter)));
+        ImageIcon photo = GenerateUtils.getRandomPhoto(gender, MainUtils.getPersonAge(date.format(MainUtils.formatter)));
         
         //int age = MainUtils.getPersonsAge(sdf.format(date));
         

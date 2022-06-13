@@ -4,7 +4,7 @@
  */
 package electionspoo.beans.candidate;
 
-import electionspoo.beans.candidate.CandidateBean;
+import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,14 +19,17 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class CandidateList {
+public class CandidateList implements FileManager{
 
+    //Attributes
     private static ArrayList<CandidateBean> candidateList;
     
+    //Getters and Setters
     public static ArrayList<CandidateBean> getList(){
         return candidateList;
     }
-
+    
+    //Object Operations
     public static String getGUIListLine(CandidateBean candidateBean) {
         return String.format("%20s | %s ", candidateBean.getName(), candidateBean.getInitials());
     }
@@ -55,15 +58,29 @@ public class CandidateList {
         return 0;
     }
 
-    //guarda a arraylist num ficheiro
-    public static void save(String nomeFicheiro) throws Exception {
-        ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro));
-        file.writeObject(candidateList);
-        file.close();
+    /**
+     *
+     * @param nomeFicheiro
+     * @throws Exception
+     * 
+     * Guarda a arraylist num ficheiro
+     */
+    @Override
+    public void save(String nomeFicheiro) throws Exception {
+        try (ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro))) {
+            file.writeObject(candidateList);
+        }
     }
 
-    //le um ficheiro e passa os dados para a arraylist
-    public static void load(String nomeFicheiro) throws Exception {
+    /**
+     *
+     * @param nomeFicheiro
+     * @throws Exception
+     * 
+     * Lê um ficheiro e passa os dados para a arraylist
+     */
+    @Override
+    public void load(String nomeFicheiro) throws Exception {
         if (new File(nomeFicheiro).exists()) {
             ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro));
             candidateList = (ArrayList<CandidateBean>) file.readObject();

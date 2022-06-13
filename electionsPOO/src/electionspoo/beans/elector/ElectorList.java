@@ -5,6 +5,7 @@
 package electionspoo.beans.elector;
 
 import electionspoo.beanbuilder.ElectorBeanBuilder;
+import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,7 +25,7 @@ import javax.swing.ImageIcon;
  *
  * @author User
  */
-public class ElectorList{
+public class ElectorList implements FileManager{
 
     //arraylist com os eleitores lidos do ficheiro + os que estão em memória
     private static ArrayList<ElectorBean> electorList;
@@ -71,41 +72,30 @@ public class ElectorList{
         return 0;
     }
 
-    //funcao que obtem uma foto de 1 pessoa random de acordo com o genero e intervalo de idade
-    public static ImageIcon getRandomPhoto(char gender, int idade) throws IOException {
-        //verifica genero
-        String genderFinal = "male";
-        if (gender == ('M') || gender == ('m')) {
-            genderFinal = "male";
-        } else {
-            genderFinal = "female";
-        }
 
-        //abrir stream para o url da API
-        InputStream in = URI.create("https://fakeface.rest/face/json?gender=" + genderFinal + "&minimum_age=" + (idade - 5) + "&maximum_age=" + (idade + 5)).toURL().openStream();
-        
-        //Ler o JSON da API
-        byte[] bytes = new byte[in.available()];
-        in.read(bytes);
-        String json = new String(bytes);
-        
-        //extrair o url da imagem: Começa por "https://" e acaba em .jpg
-        String url = json.substring(json.indexOf("https://"), json.lastIndexOf(".jpg") + 4);
-        
-        //converte o url em ImageIcon 
-        ImageIcon imageIcon = new ImageIcon(new URL(url));
-        return imageIcon;
-    }
-
-    //guarda a arraylist num ficheiro
-    public static void save(String nomeFicheiro) throws Exception {
+    /**
+     *
+     * @param nomeFicheiro
+     * @throws Exception
+     * 
+     * Guarda a arraylist num ficheiro
+     */
+    @Override
+    public void save(String nomeFicheiro) throws Exception {
         ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro));
         file.writeObject(electorList);
         file.close();
     }
 
-    //le um ficheiro e passa os dados para a arraylist
-    public static void load(String nomeFicheiro) throws Exception {
+    /**
+     *
+     * @param nomeFicheiro
+     * @throws Exception
+     * 
+     * Lê um ficheiro e passa os dados para a arraylist
+     */
+    @Override
+    public void load(String nomeFicheiro) throws Exception {
         if (new File(nomeFicheiro).exists()) {
             ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro));
             electorList = (ArrayList<ElectorBean>) file.readObject();
