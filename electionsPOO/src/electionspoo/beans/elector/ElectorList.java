@@ -11,15 +11,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URI;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -82,9 +78,9 @@ public class ElectorList implements FileManager{
      */
     @Override
     public void save(String nomeFicheiro) throws Exception {
-        ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro));
-        file.writeObject(electorList);
-        file.close();
+        try (ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro))) {
+            file.writeObject(electorList);
+        }
     }
 
     /**
@@ -97,9 +93,9 @@ public class ElectorList implements FileManager{
     @Override
     public void load(String nomeFicheiro) throws Exception {
         if (new File(nomeFicheiro).exists()) {
-            ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro));
-            electorList = (ArrayList<ElectorBean>) file.readObject();
-            file.close();
+            try (ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro))) {
+                electorList = (ArrayList<ElectorBean>) file.readObject();
+            }
         } else {
             electorList = new ArrayList();
             electorList.add(ElectorBeanBuilder.buildRandomElectorBean());

@@ -4,6 +4,7 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.ElectionBean;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.MainUtils;
@@ -20,7 +21,6 @@ import javax.swing.JFileChooser;
 public class GUIConfig extends javax.swing.JFrame {
 
     //deve ser apagado na fase final do projeto (tem de ser declarado no 
-    
 
     private void updateGUILists() {
         MainUtils.listaGUIElector.removeAllElements();
@@ -46,10 +46,6 @@ public class GUIConfig extends javax.swing.JFrame {
      */
     public GUIConfig() throws Exception {
         initComponents();
-        setExtendedState(this.getExtendedState() | GUIConfig.MAXIMIZED_BOTH);
-        //2 linhas de load deve ser apagado na fase final do projeto pois tem de ser feito no GUIMainMenu
-        ElectorList.load(MainUtils.electorFilePath);
-        CandidateList.load(MainUtils.candidateFilePath);
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
         GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
         updateGUILists();
@@ -434,11 +430,12 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnOpenCandidateFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenCandidateFileActionPerformed
         try {
             JFileChooser fileChooser = new JFileChooser();
+            CandidateList candidateList = new CandidateList();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                CandidateList.load(selectedFile);
+                candidateList.load(selectedFile);
                 updateGUILists();
             }
         } catch (IOException ex) {
@@ -452,11 +449,12 @@ public class GUIConfig extends javax.swing.JFrame {
 
     private void GUIConfigBtnOpenElectorFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenElectorFileActionPerformed
         JFileChooser fileChooser = new JFileChooser();
+        CandidateList candidateList = new CandidateList();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int result = fileChooser.showOpenDialog(fileChooser);
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
-                ElectorList.load(fileChooser.getSelectedFile().getAbsolutePath());
+                candidateList.load(fileChooser.getSelectedFile().getAbsolutePath());
                 updateGUILists();
             } catch (Exception ex) {
                 Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);

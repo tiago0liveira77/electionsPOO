@@ -4,7 +4,6 @@
  */
 package electionspoo.gui;
 
-
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.MainUtils;
@@ -16,14 +15,17 @@ import java.util.logging.Logger;
  * @author 0102388
  */
 public class GUIMainMenu extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Menu
      */
     public GUIMainMenu() throws Exception {
         initComponents();
-        ElectorList.load(MainUtils.electorFilePath);
-        CandidateList.load(MainUtils.candidateFilePath);
+        ElectorList electorList = new ElectorList();
+        CandidateList candidateList = new CandidateList();
+        
+        electorList.load(MainUtils.electorFilePath);
+        candidateList.load(MainUtils.candidateFilePath);
     }
 
     /**

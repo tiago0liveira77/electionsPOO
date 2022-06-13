@@ -53,7 +53,6 @@ public class GUIElector extends javax.swing.JDialog {
     public GUIElector(java.awt.Frame parent, boolean modal) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException, Exception {
         super(parent, modal);
         initComponents();
-        ElectorList.load(MainUtils.electorFilePath);
         GUIElectorList.setModel(MainUtils.listaGUIElector);
         updateGUIList();
         GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
@@ -655,17 +654,16 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSaveActionPerformed
         try {
             JFileChooser fileChooser = new JFileChooser();
+            ElectorList electorList = new ElectorList();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                ElectorList.save(selectedFile);
+                electorList.save(selectedFile);
             }
         } catch (IOException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (ClassNotFoundException | ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
@@ -712,10 +710,11 @@ public class GUIElector extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             JFileChooser fileChooser = new JFileChooser();
+            ElectorList electorList = new ElectorList();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
-                ElectorList.load(fileChooser.getSelectedFile().getAbsolutePath());
+                electorList.load(fileChooser.getSelectedFile().getAbsolutePath());
                 updateGUIList();
             }
         } catch (IOException ex) {

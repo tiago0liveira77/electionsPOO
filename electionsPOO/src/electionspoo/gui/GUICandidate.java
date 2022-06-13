@@ -43,7 +43,6 @@ public class GUICandidate extends javax.swing.JDialog {
     public GUICandidate(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
-        CandidateList.load(MainUtils.candidateFilePath);
         GUICandList.setModel(MainUtils.listaGUICandidate);  
         updateGUIList();
         GUICandList.setSelectedIndex(GUIListSelectedIndex);
@@ -479,11 +478,12 @@ public class GUICandidate extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             JFileChooser fileChooser = new JFileChooser();
+            CandidateList candidateList = new CandidateList();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                CandidateList.save(selectedFile);
+                candidateList.save(selectedFile);
             }
         } catch (IOException | ClassNotFoundException | ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
@@ -522,11 +522,12 @@ public class GUICandidate extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             JFileChooser fileChooser = new JFileChooser();
+            CandidateList candidateList = new CandidateList();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                CandidateList.load(selectedFile);
+                candidateList.load(selectedFile);
                 updateGUIList();
             }
         } catch (IOException ex) {
