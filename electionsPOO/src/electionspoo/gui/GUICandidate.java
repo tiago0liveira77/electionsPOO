@@ -25,10 +25,12 @@ public class GUICandidate extends javax.swing.JDialog {
 
     //lista todos os electors guardados no ficheiro
     private void updateGUIList() {
+        int tempSelectedIndex = GUIListSelectedIndex;
         MainUtils.listaGUICandidate.removeAllElements();
         for (int i = 0; i < CandidateBO.getList().size(); i++) {
             MainUtils.listaGUICandidate.addElement(CandidateBO.getGUIListLine(CandidateBO.getList().get(i)));
         }
+        GUICandList.setSelectedIndex(tempSelectedIndex);
     }
 
     /**
@@ -38,9 +40,10 @@ public class GUICandidate extends javax.swing.JDialog {
      * @param modal
      * @param candidatesList
      */
-    public GUICandidate(java.awt.Frame parent, boolean modal) {
+    public GUICandidate(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
+        CandidateBO.load(MainUtils.candidateFilePath);
         GUICandList.setModel(MainUtils.listaGUICandidate);  
         updateGUIList();
         GUICandList.setSelectedIndex(GUIListSelectedIndex);
@@ -227,12 +230,22 @@ public class GUICandidate extends javax.swing.JDialog {
 
         GUICandTxtBoxName.setText("Partido A");
         GUICandTxtBoxName.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        GUICandTxtBoxName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                GUICandTxtBoxNameKeyReleased(evt);
+            }
+        });
 
         GUICandTxtBoxInitials.setText("PRA");
         GUICandTxtBoxInitials.setBorder(javax.swing.BorderFactory.createTitledBorder("Sigla"));
         GUICandTxtBoxInitials.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GUICandTxtBoxInitialsActionPerformed(evt);
+            }
+        });
+        GUICandTxtBoxInitials.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                GUICandTxtBoxInitialsKeyReleased(evt);
             }
         });
 
@@ -397,8 +410,8 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnNewCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewCandActionPerformed
         // TODO add your handling code here:
-        CandidateBean candidateBean = new CandidateBean(GUICandTxtBoxName.getText(), GUICandTxtBoxInitials.getText());
-        CandidateBO.getList().add(candidateBean);
+        //CandidateBean candidateBean = new CandidateBean(GUICandTxtBoxName.getText(), GUICandTxtBoxInitials.getText());
+        CandidateBO.getList().add(new CandidateBean());
         updateGUIList();
         GUICandList.setSelectedIndex(CandidateBO.getList().size() - 1);
     }//GEN-LAST:event_GUICandBtnNewCandActionPerformed
@@ -545,6 +558,22 @@ public class GUICandidate extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_GUICandBtnDownActionPerformed
 
+    private void GUICandTxtBoxNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUICandTxtBoxNameKeyReleased
+        // TODO add your handling code here:
+        if(GUICandTxtBoxName.getText() != CandidateBO.getList().get(GUIListSelectedIndex).getName()){
+            CandidateBO.getList().get(GUIListSelectedIndex).setName(GUICandTxtBoxName.getText());
+            updateGUIList();
+        }
+    }//GEN-LAST:event_GUICandTxtBoxNameKeyReleased
+
+    private void GUICandTxtBoxInitialsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUICandTxtBoxInitialsKeyReleased
+        // TODO add your handling code here:
+        if(GUICandTxtBoxInitials.getText() != CandidateBO.getList().get(GUIListSelectedIndex).getInitials()){
+            CandidateBO.getList().get(GUIListSelectedIndex).setInitials(GUICandTxtBoxInitials.getText());
+            updateGUIList();
+        }
+    }//GEN-LAST:event_GUICandTxtBoxInitialsKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -576,7 +605,8 @@ public class GUICandidate extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GUICandidate dialog = new GUICandidate(new javax.swing.JFrame(), true);
+                try {
+                    GUICandidate dialog = new GUICandidate(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -584,6 +614,10 @@ public class GUICandidate extends javax.swing.JDialog {
                     }
                 });
                 dialog.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         });
     }
