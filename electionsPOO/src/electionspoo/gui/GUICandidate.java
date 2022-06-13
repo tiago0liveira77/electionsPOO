@@ -5,7 +5,7 @@
 package electionspoo.gui;
 
 import electionspoo.beans.CandidateBean;
-import electionspoo.bo.CandidateBO;
+import electionspoo.bo.CandidateList;
 import electionspoo.utils.MainUtils;
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +27,8 @@ public class GUICandidate extends javax.swing.JDialog {
     private void updateGUIList() {
         int tempSelectedIndex = GUIListSelectedIndex;
         MainUtils.listaGUICandidate.removeAllElements();
-        for (int i = 0; i < CandidateBO.getList().size(); i++) {
-            MainUtils.listaGUICandidate.addElement(CandidateBO.getGUIListLine(CandidateBO.getList().get(i)));
+        for (int i = 0; i < CandidateList.getList().size(); i++) {
+            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(CandidateList.getList().get(i)));
         }
         GUICandList.setSelectedIndex(tempSelectedIndex);
     }
@@ -43,7 +43,7 @@ public class GUICandidate extends javax.swing.JDialog {
     public GUICandidate(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
-        CandidateBO.load(MainUtils.candidateFilePath);
+        CandidateList.load(MainUtils.candidateFilePath);
         GUICandList.setModel(MainUtils.listaGUICandidate);  
         updateGUIList();
         GUICandList.setSelectedIndex(GUIListSelectedIndex);
@@ -411,9 +411,9 @@ public class GUICandidate extends javax.swing.JDialog {
     private void GUICandBtnNewCandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewCandActionPerformed
         // TODO add your handling code here:
         //CandidateBean candidateBean = new CandidateBean(GUICandTxtBoxName.getText(), GUICandTxtBoxInitials.getText());
-        CandidateBO.getList().add(new CandidateBean());
+        CandidateList.getList().add(new CandidateBean());
         updateGUIList();
-        GUICandList.setSelectedIndex(CandidateBO.getList().size() - 1);
+        GUICandList.setSelectedIndex(CandidateList.getList().size() - 1);
     }//GEN-LAST:event_GUICandBtnNewCandActionPerformed
 
     private void GUICandTxtBoxInitialsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandTxtBoxInitialsActionPerformed
@@ -426,7 +426,7 @@ public class GUICandidate extends javax.swing.JDialog {
         int deleteUserConfirmation = JOptionPane.showConfirmDialog(DialogFileChooser, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
 
         try {
-            CandidateBO.deleteCandidateFromList(CandidateBO.getList(), GUIListSelectedIndex);
+            CandidateList.deleteCandidateFromList(CandidateList.getList(), GUIListSelectedIndex);
             updateGUIList();
             GUICandList.setSelectedIndex(0);
         } catch (IOException ex) {
@@ -443,14 +443,14 @@ public class GUICandidate extends javax.swing.JDialog {
         int selections[] = GUICandList.getSelectedIndices();
         GUIListSelectedIndex = GUICandList.getSelectedIndex();
         for (int i = 0, n = selections.length; i < n; i++) {
-            GUICandTxtBoxName.setText(CandidateBO.getList().get(selections[i]).getName());
-            GUICandTxtBoxInitials.setText(CandidateBO.getList().get(selections[i]).getInitials());
+            GUICandTxtBoxName.setText(CandidateList.getList().get(selections[i]).getName());
+            GUICandTxtBoxInitials.setText(CandidateList.getList().get(selections[i]).getInitials());
         }
     }//GEN-LAST:event_GUICandListValueChanged
 
     private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
         // TODO add your handling code here:
-        if (GUIListSelectedIndex < CandidateBO.getList().size() - 1) {
+        if (GUIListSelectedIndex < CandidateList.getList().size() - 1) {
             GUIListSelectedIndex++;
             GUICandList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -472,7 +472,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
         // TODO add your handling code here:
-        GUICandList.setSelectedIndex(CandidateBO.getList().size() - 1);
+        GUICandList.setSelectedIndex(CandidateList.getList().size() - 1);
     }//GEN-LAST:event_GUIElectorBtnNextActionPerformed
 
     private void GUICandBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnSaveActionPerformed
@@ -483,7 +483,7 @@ public class GUICandidate extends javax.swing.JDialog {
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                CandidateBO.save(selectedFile);
+                CandidateList.save(selectedFile);
             }
         } catch (IOException | ClassNotFoundException | ParseException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
@@ -494,7 +494,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnNewActionPerformed
         // TODO add your handling code here:
-        CandidateBO.getList().clear();
+        CandidateList.getList().clear();
         updateGUIList();
     }//GEN-LAST:event_GUICandBtnNewActionPerformed
 
@@ -504,11 +504,11 @@ public class GUICandidate extends javax.swing.JDialog {
 
         int index;
 
-        index = CandidateBO.searchCandidateByName(CandidateBO.getList(), textToSearch);
+        index = CandidateList.searchCandidateByName(CandidateList.getList(), textToSearch);
         if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
             GUICandList.setSelectedIndex(index);
         } else {
-            index = CandidateBO.searchCandidateByInitials(CandidateBO.getList(), textToSearch);
+            index = CandidateList.searchCandidateByInitials(CandidateList.getList(), textToSearch);
             if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
                 GUICandList.setSelectedIndex(index);
             } else {
@@ -526,7 +526,7 @@ public class GUICandidate extends javax.swing.JDialog {
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                CandidateBO.load(selectedFile);
+                CandidateList.load(selectedFile);
                 updateGUIList();
             }
         } catch (IOException ex) {
@@ -552,7 +552,7 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandBtnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUICandBtnDownActionPerformed
         // TODO add your handling code here:
-        if (GUIListSelectedIndex < CandidateBO.getList().size() - 1) {
+        if (GUIListSelectedIndex < CandidateList.getList().size() - 1) {
             GUIListSelectedIndex++;
             GUICandList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -560,16 +560,16 @@ public class GUICandidate extends javax.swing.JDialog {
 
     private void GUICandTxtBoxNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUICandTxtBoxNameKeyReleased
         // TODO add your handling code here:
-        if(GUICandTxtBoxName.getText() != CandidateBO.getList().get(GUIListSelectedIndex).getName()){
-            CandidateBO.getList().get(GUIListSelectedIndex).setName(GUICandTxtBoxName.getText());
+        if(GUICandTxtBoxName.getText() != CandidateList.getList().get(GUIListSelectedIndex).getName()){
+            CandidateList.getList().get(GUIListSelectedIndex).setName(GUICandTxtBoxName.getText());
             updateGUIList();
         }
     }//GEN-LAST:event_GUICandTxtBoxNameKeyReleased
 
     private void GUICandTxtBoxInitialsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUICandTxtBoxInitialsKeyReleased
         // TODO add your handling code here:
-        if(GUICandTxtBoxInitials.getText() != CandidateBO.getList().get(GUIListSelectedIndex).getInitials()){
-            CandidateBO.getList().get(GUIListSelectedIndex).setInitials(GUICandTxtBoxInitials.getText());
+        if(GUICandTxtBoxInitials.getText() != CandidateList.getList().get(GUIListSelectedIndex).getInitials()){
+            CandidateList.getList().get(GUIListSelectedIndex).setInitials(GUICandTxtBoxInitials.getText());
             updateGUIList();
         }
     }//GEN-LAST:event_GUICandTxtBoxInitialsKeyReleased

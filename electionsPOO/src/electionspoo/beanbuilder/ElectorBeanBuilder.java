@@ -5,7 +5,7 @@
 package electionspoo.beanbuilder;
 
 import electionspoo.beans.ElectorBean;
-import electionspoo.bo.ElectorBO;
+import electionspoo.bo.ElectorList;
 import electionspoo.utils.GenerateUtils;
 import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;
@@ -39,7 +39,7 @@ public class ElectorBeanBuilder {
 
         int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
                 
-        ImageIcon photo = ElectorBO.getRandomPhoto(gender, MainUtils.getPersonAge(date.format(MainUtils.formatter)));
+        ImageIcon photo = ElectorList.getRandomPhoto(gender, MainUtils.getPersonAge(date.format(MainUtils.formatter)));
         
         //int age = MainUtils.getPersonsAge(sdf.format(date));
         

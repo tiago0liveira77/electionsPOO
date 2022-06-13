@@ -6,7 +6,7 @@ package electionspoo.gui;
 
 import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.ElectorBean;
-import electionspoo.bo.ElectorBO;
+import electionspoo.bo.ElectorList;
 import electionspoo.utils.MainUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,15 +26,15 @@ import javax.swing.JOptionPane;
 public class GUIElector extends javax.swing.JDialog {
 
     private int GUIListSelectedIndex = 0;
-    //static ArrayList<ElectorBean> ElectorBO.getList() = new ArrayList<>();
+    //static ArrayList<ElectorBean> ElectorList.getList() = new ArrayList<>();
 
     //lista todos os electors guardados no ficheiro
     private void updateGUIList() {
         //forcar selecionar o index anterior a cada edição 
         int tempSelectedIndex = GUIListSelectedIndex;
         MainUtils.listaGUIElector.removeAllElements();
-        for (int i = 0; i < ElectorBO.getList().size(); i++) {
-            MainUtils.listaGUIElector.addElement(ElectorBO.getGUIListLine(ElectorBO.getList().get(i)));
+        for (int i = 0; i < ElectorList.getList().size(); i++) {
+            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectorList.getList().get(i)));
         }
         GUIElectorList.setSelectedIndex(tempSelectedIndex);
     }
@@ -53,7 +53,7 @@ public class GUIElector extends javax.swing.JDialog {
     public GUIElector(java.awt.Frame parent, boolean modal) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException, Exception {
         super(parent, modal);
         initComponents();
-        ElectorBO.load(MainUtils.electorFilePath);
+        ElectorList.load(MainUtils.electorFilePath);
         GUIElectorList.setModel(MainUtils.listaGUIElector);
         updateGUIList();
         GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
@@ -532,9 +532,9 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorBtnNewElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewElectorActionPerformed
 
         //ElectorBean electorBean = new ElectorBean(GUIElectorTxtBoxName.getText(), Integer.parseInt(GUIElectorTxtBoxCC.getText()), GUIElectorGender.getSelectedItem().toString().charAt(0), LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter), GUIElectorTxtBoxPw.getText(), (ImageIcon) GUIElectorLabel2Image.getIcon());
-        ElectorBO.getList().add(new ElectorBean("novo", 1234567, 'M', LocalDate.parse("01/01/1990", MainUtils.formatter), "123"));
+        ElectorList.getList().add(new ElectorBean("novo", 1234567, 'M', LocalDate.parse("01/01/1990", MainUtils.formatter), "123"));
         updateGUIList();
-        GUIElectorList.setSelectedIndex(ElectorBO.getList().size() - 1);
+        GUIElectorList.setSelectedIndex(ElectorList.getList().size() - 1);
     }//GEN-LAST:event_GUIElectorBtnNewElectorActionPerformed
 
     private void GUIElectorTxtBoxPwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPwActionPerformed
@@ -558,10 +558,10 @@ public class GUIElector extends javax.swing.JDialog {
                 ElectorBean electorBean = ElectorBeanBuilder.buildRandomElectorBean();
 
                 //Save elector to the list
-                ElectorBO.getList().add(electorBean);
+                ElectorList.getList().add(electorBean);
 
                 updateGUIList();
-                GUIElectorList.setSelectedIndex(ElectorBO.getList().size() - 1);
+                GUIElectorList.setSelectedIndex(ElectorList.getList().size() - 1);
             }
 
         } catch (ParseException ex) {
@@ -579,7 +579,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         try {
             if (deleteUserConfirmation == 0) {
-                ElectorBO.deleteElectorFromList(ElectorBO.getList(), GUIListSelectedIndex);
+                ElectorList.deleteElectorFromList(ElectorList.getList(), GUIListSelectedIndex);
                 updateGUIList();
                 GUIElectorList.setSelectedIndex(0);
             }
@@ -594,11 +594,11 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnLastActionPerformed
         // TODO add your handling code here:
-        GUIElectorList.setSelectedIndex(ElectorBO.getList().size() - 1);
+        GUIElectorList.setSelectedIndex(ElectorList.getList().size() - 1);
     }//GEN-LAST:event_GUIElectorBtnLastActionPerformed
 
     private void GUIElectorBtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNextActionPerformed
-        if (GUIListSelectedIndex < ElectorBO.getList().size() - 1) {
+        if (GUIListSelectedIndex < ElectorList.getList().size() - 1) {
             GUIListSelectedIndex++;
             GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
         }
@@ -610,26 +610,26 @@ public class GUIElector extends javax.swing.JDialog {
         int selections[] = GUIElectorList.getSelectedIndices();
         GUIListSelectedIndex = GUIElectorList.getSelectedIndex();
         for (int i = 0, n = selections.length; i < n; i++) {
-            GUIElectorTxtBoxName.setText(ElectorBO.getList().get(selections[i]).getName());
-            GUIElectorTxtBoxCC.setText(String.valueOf(ElectorBO.getList().get(selections[i]).getCC()));
-            if (ElectorBO.getList().get(selections[i]).getGender() == ('M')) {
+            GUIElectorTxtBoxName.setText(ElectorList.getList().get(selections[i]).getName());
+            GUIElectorTxtBoxCC.setText(String.valueOf(ElectorList.getList().get(selections[i]).getCC()));
+            if (ElectorList.getList().get(selections[i]).getGender() == ('M')) {
                 GUIElectorGender.setSelectedIndex(0);
             } else {
                 GUIElectorGender.setSelectedIndex(1);
             }
-            GUIElectorTxtBoxBirth.setText(ElectorBO.getList().get(selections[i]).getBirthDate());
-            GUIElectorTxtBoxPw.setText(ElectorBO.getList().get(selections[i]).getPassword());
-            GUIElectorTxtBoxPw2.setText(ElectorBO.getList().get(selections[i]).getPassword());
+            GUIElectorTxtBoxBirth.setText(ElectorList.getList().get(selections[i]).getBirthDate());
+            GUIElectorTxtBoxPw.setText(ElectorList.getList().get(selections[i]).getPassword());
+            GUIElectorTxtBoxPw2.setText(ElectorList.getList().get(selections[i]).getPassword());
 
             //atualiza label de numeraçao
-            GUIElectorNumLbl.setText("Registo " + (selections[i] + 1) + "/" + ElectorBO.getList().size());
+            GUIElectorNumLbl.setText("Registo " + (selections[i] + 1) + "/" + ElectorList.getList().size());
 
             //idade GUIElectorIdadeLbl
-            GUIElectorIdadeLbl.setText(MainUtils.getPersonAge(ElectorBO.getList().get(selections[i]).getBirthDate()) + " anos");
+            GUIElectorIdadeLbl.setText(MainUtils.getPersonAge(ElectorList.getList().get(selections[i]).getBirthDate()) + " anos");
 
             //foto to label
-            if (ElectorBO.getList().get(selections[i]).getPhoto() != null) {
-                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(ElectorBO.getList().get(selections[i]).getPhoto(), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
+            if (ElectorList.getList().get(selections[i]).getPhoto() != null) {
+                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[i]).getPhoto(), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
             } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
                 GUIElectorLabel2Image.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
             } 
@@ -660,7 +660,7 @@ public class GUIElector extends javax.swing.JDialog {
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                ElectorBO.save(selectedFile);
+                ElectorList.save(selectedFile);
             }
         } catch (IOException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
@@ -675,13 +675,13 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnNewActionPerformed
         // TODO add your handling code here:
-        ElectorBO.getList().clear();
+        ElectorList.getList().clear();
         updateGUIList();
     }//GEN-LAST:event_GUIElectorBtnNewActionPerformed
 
     private void GUIElectorBtnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSortActionPerformed
         // TODO add your handling code here:
-        ElectorBO.orderArrayListByCC();
+        ElectorList.orderArrayListByCC();
         updateGUIList();
         GUIElectorList.setSelectedIndex(GUIListSelectedIndex);
     }//GEN-LAST:event_GUIElectorBtnSortActionPerformed
@@ -692,11 +692,11 @@ public class GUIElector extends javax.swing.JDialog {
 
         int index;
 
-        index = ElectorBO.searchElectorByName(ElectorBO.getList(), textToSearch);
+        index = ElectorList.searchElectorByName(ElectorList.getList(), textToSearch);
         if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
             GUIElectorList.setSelectedIndex(index);
         } else {
-            index = ElectorBO.searchElectorByCC(ElectorBO.getList(), textToSearch);
+            index = ElectorList.searchElectorByCC(ElectorList.getList(), textToSearch);
             if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
                 GUIElectorList.setSelectedIndex(index);
             } else {
@@ -716,7 +716,7 @@ public class GUIElector extends javax.swing.JDialog {
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
-                ElectorBO.load(fileChooser.getSelectedFile().getAbsolutePath());
+                ElectorList.load(fileChooser.getSelectedFile().getAbsolutePath());
                 updateGUIList();
             }
         } catch (IOException ex) {
@@ -736,8 +736,8 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxNameFocusLost
         // Quando GUIElectorTxtBoxName perde o focus
-        if (ElectorBO.getList().get(GUIListSelectedIndex).getName() != GUIElectorTxtBoxName.getText()) {
-            ElectorBO.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
+        if (ElectorList.getList().get(GUIListSelectedIndex).getName() != GUIElectorTxtBoxName.getText()) {
+            ElectorList.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
             updateGUIList();
         }
 
@@ -745,8 +745,8 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxCCFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxCCFocusLost
         // TODO add your handling code here:
-        if (ElectorBO.getList().get(GUIListSelectedIndex).getCC() != Integer.parseInt(GUIElectorTxtBoxCC.getText())) {
-            ElectorBO.getList().get(GUIListSelectedIndex).setCC(Integer.parseInt(GUIElectorTxtBoxCC.getText()));
+        if (ElectorList.getList().get(GUIListSelectedIndex).getCC() != Integer.parseInt(GUIElectorTxtBoxCC.getText())) {
+            ElectorList.getList().get(GUIListSelectedIndex).setCC(Integer.parseInt(GUIElectorTxtBoxCC.getText()));
             updateGUIList();
         }
 
@@ -763,8 +763,8 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxBirthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxBirthFocusLost
         // TODO add your handling code here:
-        if (ElectorBO.getList().get(GUIListSelectedIndex).getBirthDateLikeADate() != LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter)) {
-            ElectorBO.getList().get(GUIListSelectedIndex).setBirthDate(LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter));
+        if (ElectorList.getList().get(GUIListSelectedIndex).getBirthDateLikeADate() != LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter)) {
+            ElectorList.getList().get(GUIListSelectedIndex).setBirthDate(LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter));
             updateGUIList();
         }
     }//GEN-LAST:event_GUIElectorTxtBoxBirthFocusLost
@@ -772,33 +772,33 @@ public class GUIElector extends javax.swing.JDialog {
     private void GUIElectorTxtBoxPw2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPw2FocusLost
         // TODO add your handling code here:
 
-        if (ElectorBO.getList().get(GUIListSelectedIndex).getPassword() != GUIElectorTxtBoxPw2.getText())
+        if (ElectorList.getList().get(GUIListSelectedIndex).getPassword() != GUIElectorTxtBoxPw2.getText())
             if (GUIElectorTxtBoxPw2.getText().equals(GUIElectorTxtBoxPw.getText())) {
-                ElectorBO.getList().get(GUIListSelectedIndex).setPassword(GUIElectorTxtBoxPw2.getText());
+                ElectorList.getList().get(GUIListSelectedIndex).setPassword(GUIElectorTxtBoxPw2.getText());
                 updateGUIList();
             } 
     }//GEN-LAST:event_GUIElectorTxtBoxPw2FocusLost
 
     private void GUIElectorTxtBoxNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxNameKeyReleased
         // TODO add your handling code here:
-        if (ElectorBO.getList().get(GUIListSelectedIndex).getName() != GUIElectorTxtBoxName.getText()) {
-            ElectorBO.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
+        if (ElectorList.getList().get(GUIListSelectedIndex).getName() != GUIElectorTxtBoxName.getText()) {
+            ElectorList.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
             updateGUIList();
         }
     }//GEN-LAST:event_GUIElectorTxtBoxNameKeyReleased
 
     private void GUIElectorTxtBoxCCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxCCKeyReleased
         // TODO add your handling code here:
-        if (ElectorBO.getList().get(GUIListSelectedIndex).getCC() != Integer.parseInt(GUIElectorTxtBoxCC.getText())) {
-            ElectorBO.getList().get(GUIListSelectedIndex).setCC(Integer.parseInt(GUIElectorTxtBoxCC.getText()));
+        if (ElectorList.getList().get(GUIListSelectedIndex).getCC() != Integer.parseInt(GUIElectorTxtBoxCC.getText())) {
+            ElectorList.getList().get(GUIListSelectedIndex).setCC(Integer.parseInt(GUIElectorTxtBoxCC.getText()));
             updateGUIList();
         }
     }//GEN-LAST:event_GUIElectorTxtBoxCCKeyReleased
 
     private void GUIElectorGenderItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_GUIElectorGenderItemStateChanged
         // TODO add your handling code here:
-        if(ElectorBO.getList().get(GUIListSelectedIndex).getGender() != GUIElectorGender.getSelectedItem().toString().charAt(0)){
-            ElectorBO.getList().get(GUIListSelectedIndex).setGender(GUIElectorGender.getSelectedItem().toString().charAt(0));
+        if(ElectorList.getList().get(GUIListSelectedIndex).getGender() != GUIElectorGender.getSelectedItem().toString().charAt(0)){
+            ElectorList.getList().get(GUIListSelectedIndex).setGender(GUIElectorGender.getSelectedItem().toString().charAt(0));
             updateGUIList();
         }
     }//GEN-LAST:event_GUIElectorGenderItemStateChanged

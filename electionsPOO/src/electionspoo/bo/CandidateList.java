@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class CandidateBO {
+public class CandidateList {
 
     private static ArrayList<CandidateBean> candidateList;
     

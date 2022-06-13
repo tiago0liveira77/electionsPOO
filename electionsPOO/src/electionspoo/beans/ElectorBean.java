@@ -21,7 +21,6 @@ public class ElectorBean implements Serializable, Comparable {
     private LocalDate birthDate;
     private String password;
     private ImageIcon photo;
-    //private Image photo;
 
     public ElectorBean() {
         this.name = null;
@@ -102,8 +101,6 @@ public class ElectorBean implements Serializable, Comparable {
         this.photo = photo;
     }
 
-   
-    
     @Override
     public int compareTo(Object elector) {
         int compareCC = ((ElectorBean)elector).getCC();

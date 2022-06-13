@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
  *
  * @author User
  */
-public class ElectorBO{
+public class ElectorList{
 
     //arraylist com os eleitores lidos do ficheiro + os que estão em memória
     private static ArrayList<ElectorBean> electorList;

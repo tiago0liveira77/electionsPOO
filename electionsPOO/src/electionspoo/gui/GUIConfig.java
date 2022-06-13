@@ -4,8 +4,8 @@
  */
 package electionspoo.gui;
 
-import electionspoo.bo.CandidateBO;
-import electionspoo.bo.ElectorBO;
+import electionspoo.bo.CandidateList;
+import electionspoo.bo.ElectorList;
 import electionspoo.utils.MainUtils;
 import java.io.File;
 import java.io.IOException;
@@ -25,19 +25,19 @@ public class GUIConfig extends javax.swing.JFrame {
     private void updateGUILists() {
         MainUtils.listaGUIElector.removeAllElements();
         MainUtils.listaGUICandidate.removeAllElements();
-        for (int i = 0; i < ElectorBO.getList().size(); i++) {
-            MainUtils.listaGUIElector.addElement(ElectorBO.getGUIListLine(ElectorBO.getList().get(i)));
+        for (int i = 0; i < ElectorList.getList().size(); i++) {
+            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectorList.getList().get(i)));
         }
-        for (int i = 0; i < CandidateBO.getList().size(); i++) {
-            MainUtils.listaGUICandidate.addElement(CandidateBO.getGUIListLine(CandidateBO.getList().get(i)));
+        for (int i = 0; i < CandidateList.getList().size(); i++) {
+            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(CandidateList.getList().get(i)));
         }
 
     }
 
     private void updateGUIListElector() {
         MainUtils.listaGUIElector.removeAllElements();
-        for (int i = 0; i < ElectorBO.getList().size(); i++) {
-            MainUtils.listaGUIElector.addElement(ElectorBO.getGUIListLine(ElectorBO.getList().get(i)));
+        for (int i = 0; i < ElectorList.getList().size(); i++) {
+            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectorList.getList().get(i)));
         }
     }
 
@@ -48,8 +48,8 @@ public class GUIConfig extends javax.swing.JFrame {
         initComponents();
         setExtendedState(this.getExtendedState() | GUIConfig.MAXIMIZED_BOTH);
         //2 linhas de load deve ser apagado na fase final do projeto pois tem de ser feito no GUIMainMenu
-        ElectorBO.load(MainUtils.electorFilePath);
-        CandidateBO.load(MainUtils.candidateFilePath);
+        ElectorList.load(MainUtils.electorFilePath);
+        CandidateList.load(MainUtils.candidateFilePath);
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
         GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
         updateGUILists();
@@ -158,6 +158,11 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnStartElection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GUIConfigBtnStartElection.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnStartElection.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnStartElection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnStartElectionActionPerformed(evt);
+            }
+        });
 
         GUIConfigPanelPhoto.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 
@@ -423,7 +428,7 @@ public class GUIConfig extends javax.swing.JFrame {
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                CandidateBO.load(selectedFile);
+                CandidateList.load(selectedFile);
                 updateGUILists();
             }
         } catch (IOException ex) {
@@ -441,7 +446,7 @@ public class GUIConfig extends javax.swing.JFrame {
         int result = fileChooser.showOpenDialog(fileChooser);
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
-                ElectorBO.load(fileChooser.getSelectedFile().getAbsolutePath());
+                ElectorList.load(fileChooser.getSelectedFile().getAbsolutePath());
                 updateGUILists();
             } catch (Exception ex) {
                 Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
@@ -450,6 +455,10 @@ public class GUIConfig extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_GUIConfigBtnOpenElectorFileActionPerformed
+
+    private void GUIConfigBtnStartElectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnStartElectionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIConfigBtnStartElectionActionPerformed
 
     /**
      * @param args the command line arguments

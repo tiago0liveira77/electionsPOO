@@ -5,8 +5,8 @@
 package electionspoo.gui;
 
 
-import electionspoo.bo.CandidateBO;
-import electionspoo.bo.ElectorBO;
+import electionspoo.bo.CandidateList;
+import electionspoo.bo.ElectorList;
 import electionspoo.utils.MainUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +22,8 @@ public class GUIMainMenu extends javax.swing.JFrame {
      */
     public GUIMainMenu() throws Exception {
         initComponents();
-        ElectorBO.load(MainUtils.electorFilePath);
-        CandidateBO.load(MainUtils.candidateFilePath);
+        ElectorList.load(MainUtils.electorFilePath);
+        CandidateList.load(MainUtils.candidateFilePath);
     }
 
     /**
