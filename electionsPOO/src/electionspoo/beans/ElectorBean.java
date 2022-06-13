@@ -77,6 +77,10 @@ public class ElectorBean implements Serializable, Comparable {
     public String getBirthDate() {
         return this.birthDate.format(MainUtils.formatter);
     }
+    
+    public LocalDate getBirthDateLikeADate(){
+        return this.birthDate;
+    }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
