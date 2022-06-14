@@ -4,6 +4,13 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.election.ElectionManager;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Tiago
@@ -16,6 +23,10 @@ public class GUIResults extends javax.swing.JDialog {
     public GUIResults(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        GUIResultsNomeEleicao.setText(ElectionManager.getElection().getName());
+        GUIResultsEleicaoDataInicio.setText(ElectionManager.getElection().getStartDate());
+        GUIResultsEleicaoDataFim.setText(ElectionManager.getElection().getStartDate());
     }
 
     /**
@@ -41,9 +52,9 @@ public class GUIResults extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jPanel5 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        GUIResultsNomeEleicao = new javax.swing.JTextField();
+        GUIResultsEleicaoDataInicio = new javax.swing.JTextField();
+        GUIResultsEleicaoDataFim = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
@@ -137,11 +148,11 @@ public class GUIResults extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Votos", jPanel4);
 
-        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        GUIResultsNomeEleicao.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
 
-        jTextField4.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Início"));
+        GUIResultsEleicaoDataInicio.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Início"));
 
-        jTextField5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Fim"));
+        GUIResultsEleicaoDataFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Fim"));
 
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 
@@ -149,6 +160,11 @@ public class GUIResults extends javax.swing.JDialog {
         jButton3.setText("Abrir");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -157,11 +173,11 @@ public class GUIResults extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3)
+                    .addComponent(GUIResultsNomeEleicao)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5)
+                            .addComponent(GUIResultsEleicaoDataInicio)
+                            .addComponent(GUIResultsEleicaoDataFim)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)))
@@ -171,13 +187,13 @@ public class GUIResults extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GUIResultsNomeEleicao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GUIResultsEleicaoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GUIResultsEleicaoDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -216,6 +232,28 @@ public class GUIResults extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            ElectionManager electionManager = new ElectionManager();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                electionManager.load(selectedFile);
+                GUIResultsNomeEleicao.setText(ElectionManager.getElection().getName());
+                GUIResultsEleicaoDataInicio.setText(ElectionManager.getElection().getStartDate());
+                GUIResultsEleicaoDataFim.setText(ElectionManager.getElection().getEndDate());
+                //updateGUIList();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,6 +298,9 @@ public class GUIResults extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField GUIResultsEleicaoDataFim;
+    private javax.swing.JTextField GUIResultsEleicaoDataInicio;
+    private javax.swing.JTextField GUIResultsNomeEleicao;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -276,8 +317,5 @@ public class GUIResults extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

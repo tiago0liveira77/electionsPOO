@@ -31,6 +31,16 @@ public class CandidateList implements FileManager, Serializable{
         return candidateList;
     }
     
+    public static int getTotalVotes(){
+        int totalVotes = 0;
+        
+        for(CandidateBean candidate : candidateList){
+            totalVotes+=candidate.getVotes();
+        }
+        
+        return totalVotes;
+    }
+    
     //retorna a arraylist
     public static void setList(ArrayList<CandidateBean> newList){
         candidateList = newList;
@@ -38,7 +48,7 @@ public class CandidateList implements FileManager, Serializable{
     
     //Object Operations
     public static String getGUIListLine(CandidateBean candidateBean) {
-        return String.format("%20s | %s ", candidateBean.getName(), candidateBean.getInitials());
+        return String.format("%s | %s ", candidateBean.getName(), candidateBean.getInitials());
     }
 
     public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {

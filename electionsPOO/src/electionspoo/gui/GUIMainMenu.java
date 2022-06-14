@@ -79,6 +79,11 @@ public class GUIMainMenu extends javax.swing.JFrame {
 
         MainMenuBtnResults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/results.png"))); // NOI18N
         MainMenuBtnResults.setText("Resultados");
+        MainMenuBtnResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MainMenuBtnResultsActionPerformed(evt);
+            }
+        });
         MainMenu.add(MainMenuBtnResults);
 
         MenuBarEleicoes.setText("Eleições");
@@ -221,6 +226,13 @@ public class GUIMainMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_MenuBarEleicoesConfigActionPerformed
+
+    private void MainMenuBtnResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuBtnResultsActionPerformed
+        // TODO add your handling code here:
+        GUIResults dialog = new GUIResults(this, true);
+        dialog.setVisible(true);
+      
+    }//GEN-LAST:event_MainMenuBtnResultsActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,6 +4,7 @@
  */
 package electionspoo.beans.elector;
 
+import electionspoo.beans.candidate.CandidateBean;
 import electionspoo.utils.MainUtils;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,7 +21,17 @@ public class ElectorBean implements Serializable, Comparable {
     private char gender;
     private LocalDate birthDate;
     private String password;
+    private boolean voted;
+    private CandidateBean votedCandidate;
     private ImageIcon photo;
+
+    public CandidateBean getVotedCandidate() {
+        return votedCandidate;
+    }
+
+    public void setVotedCandidate(CandidateBean votedCandidate) {
+        this.votedCandidate = votedCandidate;
+    }
 
     public ElectorBean() {
         this.name = "Nome";
@@ -28,6 +39,7 @@ public class ElectorBean implements Serializable, Comparable {
         this.gender = 'M';
         this.birthDate = LocalDate.parse("01/01/1990", MainUtils.formatter);
         this.password = "123";
+        this.voted = false;
         this.photo = new ImageIcon("src/electionspoo/multimedia/person.png");
     }
 
@@ -38,6 +50,15 @@ public class ElectorBean implements Serializable, Comparable {
         this.birthDate = birthDate;
         this.password = password;
         this.photo = photo;
+        this.voted = false;
+    }
+
+    public boolean isVoted() {
+        return voted;
+    }
+
+    public void setVoted(boolean voted) {
+        this.voted = voted;
     }
     
     public String getName() {

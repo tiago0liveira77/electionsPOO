@@ -6,6 +6,7 @@ package electionspoo.beans.candidate;
 
 import java.awt.Image;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,24 +15,28 @@ import java.io.Serializable;
 public class CandidateBean implements Serializable{
     private String name;
     private String initials;
-    private Image photo;
+    private int votes;
+    private ImageIcon photo;
     
     public CandidateBean(){
         this.name = "Exemplo";
         this.initials = "EXEM";
-        this.photo = null;
+        this.photo = new ImageIcon("src/electionspoo/multimedia/person.png");
+        this.votes = 0;
     }
     
-    public CandidateBean(String name, String initials, Image photo){
+    public CandidateBean(String name, String initials, ImageIcon photo){
         this.name = name;
         this.initials = initials;
         this.photo = photo;
+        this.votes = 0;
     }
     
      public CandidateBean(String name, String initials){
         this.name = name;
         this.initials = initials;
         this.photo = null;
+        this.votes = 0;
     }
 
     public String getName() {
@@ -50,11 +55,19 @@ public class CandidateBean implements Serializable{
         this.initials = initials;
     }
 
-    public Image getPhoto() {
+    public ImageIcon getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(ImageIcon photo) {
         this.photo = photo;
+    }
+    
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes += votes;
     }
 }

@@ -4,19 +4,53 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.candidate.CandidateBean;
+import electionspoo.beans.candidate.CandidateList;
+import electionspoo.beans.elector.ElectorBean;
+import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.MainUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author User
  */
 public class GUIUtilizador extends javax.swing.JFrame {
 
+    static ElectorBean electorLogged;
+    
+    private void updateGUIList() {
+        MainUtils.listaGUICandidate.removeAllElements();
+        for (CandidateBean candidate : CandidateList.getList()){
+            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(candidate));
+        }
+        MainUtils.listaGUICandidate.addElement(String.format("%s", "Voto em Branco"));
+
+    }
     /**
      * Creates new form GUIUtilizador
+     * @param electorLogged
      */
-    public GUIUtilizador() {
+    public GUIUtilizador(ElectorBean electorLogged) {
         initComponents();
+        
+        GUIUtilizador.electorLogged = electorLogged;
+        
+        GuiUtilizadorCandidateList.setModel(MainUtils.listaGUICandidate);
+        
+        GUIUtilizadorCCLabel.setText("CC = " + electorLogged.getCC());
+        GUIUtilizadorNome.setText(electorLogged.getName());
+        GUIUtilizadorDataNascimento.setText(electorLogged.getBirthDate());
+        if (electorLogged.getPhoto() != null) {
+            GUIUtilizadorPhoto.setIcon(MainUtils.resizeIcon(electorLogged.getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
+        } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
+            GUIUtilizadorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+        } 
+        
+        updateGUIList();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +60,147 @@ public class GUIUtilizador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        GUIUtilizadorCCLabel = new javax.swing.JLabel();
+        GUIUtilizadorPhoto = new javax.swing.JLabel();
+        GUIUtilizadorNome = new javax.swing.JLabel();
+        GUIUtilizadorDataNascimento = new javax.swing.JLabel();
+        GUIUtilizadorPhotoBranco = new javax.swing.JLabel();
+        GUIUtilizadorCandidateName = new javax.swing.JLabel();
+        GuiUtilizadorCandidateList = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setSize(getPreferredSize());
+
+        GUIUtilizadorCCLabel.setText("jLabel1");
+
+        GUIUtilizadorPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_electos.png"))); // NOI18N
+        GUIUtilizadorPhoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        GUIUtilizadorNome.setText("jLabel1");
+
+        GUIUtilizadorDataNascimento.setText("jLabel1");
+
+        GUIUtilizadorPhotoBranco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/blank.png"))); // NOI18N
+        GUIUtilizadorPhotoBranco.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        GUIUtilizadorCandidateName.setText("Votar em branco");
+
+        GuiUtilizadorCandidateList.setBorder(javax.swing.BorderFactory.createTitledBorder("Boletim"));
+        GuiUtilizadorCandidateList.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
+                GuiUtilizadorCandidateListVetoableChange(evt);
+            }
+        });
+        GuiUtilizadorCandidateList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                GuiUtilizadorCandidateListValueChanged(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/vote_24.png"))); // NOI18N
+        jButton1.setText("Votar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIUtilizadorCCLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(GUIUtilizadorPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(GUIUtilizadorNome)
+                            .addComponent(GUIUtilizadorDataNascimento))
+                        .addGap(86, 86, 86)
+                        .addComponent(GUIUtilizadorPhotoBranco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GUIUtilizadorCandidateName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(GuiUtilizadorCandidateList, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(GUIUtilizadorCCLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(GUIUtilizadorPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(GUIUtilizadorNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(GUIUtilizadorDataNascimento))
+                            .addComponent(GUIUtilizadorPhotoBranco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(GUIUtilizadorCandidateName)))
+                .addGap(27, 27, 27)
+                .addComponent(GuiUtilizadorCandidateList, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void GuiUtilizadorCandidateListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GuiUtilizadorCandidateListValueChanged
+        // TODO add your handling code here:
+        
+        if(GuiUtilizadorCandidateList.getSelectedIndex()==CandidateList.getList().size()){
+            GUIUtilizadorCandidateName.setText("Voto em Branco");
+            GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/blank.png"));
+        }else{
+            int selections[] = GuiUtilizadorCandidateList.getSelectedIndices();
+
+            GUIUtilizadorCandidateName.setText(CandidateList.getList().get(selections[0]).getInitials());
+            if (CandidateList.getList().get(selections[0]).getPhoto() != null) {
+                GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(CandidateList.getList().get(selections[0]).getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
+            } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
+                GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+            } 
+        }
+    }//GEN-LAST:event_GuiUtilizadorCandidateListValueChanged
+
+    private void GuiUtilizadorCandidateListVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_GuiUtilizadorCandidateListVetoableChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GuiUtilizadorCandidateListVetoableChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int selections[] = GuiUtilizadorCandidateList.getSelectedIndices();
+        
+        for(int i=0;i<ElectorList.getList().size();i++){
+            if(ElectorList.getList().get(i).equals(electorLogged)){
+                ElectorList.getList().get(i).setVoted(true);
+                ElectorList.getList().get(i).setVotedCandidate(CandidateList.getList().get(selections[0]));
+                CandidateList.getList().get(selections[0]).setVotes(1);
+                dispose();
+                GUIVote dialog = null;
+                try {
+                    dialog = new GUIVote(this, true);
+                } catch (Exception ex) {
+                    Logger.getLogger(GUIUtilizador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                dialog.setVisible(true);
+            }
+        }
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,11 +232,19 @@ public class GUIUtilizador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIUtilizador().setVisible(true);
+                new GUIUtilizador(electorLogged).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel GUIUtilizadorCCLabel;
+    private javax.swing.JLabel GUIUtilizadorCandidateName;
+    private javax.swing.JLabel GUIUtilizadorDataNascimento;
+    private javax.swing.JLabel GUIUtilizadorNome;
+    private javax.swing.JLabel GUIUtilizadorPhoto;
+    private javax.swing.JLabel GUIUtilizadorPhotoBranco;
+    private javax.swing.JList<String> GuiUtilizadorCandidateList;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
