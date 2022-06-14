@@ -32,6 +32,8 @@ public class MainUtils {
     public static DefaultListModel<String> listaGUIElector = new DefaultListModel<>();
     //ListModel para JList Candidatos
     public static DefaultListModel<String> listaGUICandidate = new DefaultListModel<>();
+    //ListModel para JList Resultados
+    public static DefaultListModel<String> listaGUIResults = new DefaultListModel<>();
     
 
     //calcula a idade

@@ -161,18 +161,20 @@ public class GUIUtilizador extends javax.swing.JFrame {
     private void GuiUtilizadorCandidateListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GuiUtilizadorCandidateListValueChanged
         // TODO add your handling code here:
         
+        
         if(GuiUtilizadorCandidateList.getSelectedIndex()==CandidateList.getList().size()){
             GUIUtilizadorCandidateName.setText("Voto em Branco");
             GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/blank.png"));
         }else{
             int selections[] = GuiUtilizadorCandidateList.getSelectedIndices();
-
-            GUIUtilizadorCandidateName.setText(CandidateList.getList().get(selections[0]).getInitials());
-            if (CandidateList.getList().get(selections[0]).getPhoto() != null) {
-                GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(CandidateList.getList().get(selections[0]).getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
-            } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
-                GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
-            } 
+            if(selections.length>0){
+                GUIUtilizadorCandidateName.setText(CandidateList.getList().get(selections[0]).getInitials());
+                if (CandidateList.getList().get(selections[0]).getPhoto() != null) {
+                    GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(CandidateList.getList().get(selections[0]).getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
+                } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
+                    GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+                } 
+            }
         }
     }//GEN-LAST:event_GuiUtilizadorCandidateListValueChanged
 

@@ -199,12 +199,15 @@ public class GUIVote extends javax.swing.JDialog {
 
         GuiVoteEleicaoNome.setEditable(false);
         GuiVoteEleicaoNome.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        GuiVoteEleicaoNome.setEnabled(false);
 
         GuiVoteEleicaoDataInicio.setEditable(false);
         GuiVoteEleicaoDataInicio.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Início"));
+        GuiVoteEleicaoDataInicio.setEnabled(false);
 
         GuiVoteEleicaoDataFim.setEditable(false);
         GuiVoteEleicaoDataFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Fim"));
+        GuiVoteEleicaoDataFim.setEnabled(false);
 
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 

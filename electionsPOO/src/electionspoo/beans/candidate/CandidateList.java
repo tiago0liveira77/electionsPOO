@@ -30,7 +30,7 @@ public class CandidateList implements FileManager, Serializable{
     public static ArrayList<CandidateBean> getList(){
         return candidateList;
     }
-    
+    /*
     public static int getTotalVotes(){
         int totalVotes = 0;
         
@@ -39,6 +39,14 @@ public class CandidateList implements FileManager, Serializable{
         }
         
         return totalVotes;
+    }*/
+    
+    public static int getCandidateVotes(CandidateBean candidate){
+        return candidate.getVotes();
+    }
+    
+    public static String getResultsGUILine(CandidateBean candidate){
+         return String.format("%s %s %d Votos", candidate.getInitials(), candidate.getName(), getCandidateVotes(candidate));
     }
     
     //retorna a arraylist

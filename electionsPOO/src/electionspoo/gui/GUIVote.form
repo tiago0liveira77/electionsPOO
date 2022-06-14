@@ -287,6 +287,7 @@
                     <TitledBorder title="Nome"/>
                   </Border>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="GuiVoteEleicaoDataInicio">
@@ -297,6 +298,7 @@
                     <TitledBorder title="Data de In&#xed;cio"/>
                   </Border>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="GuiVoteEleicaoDataFim">
@@ -307,6 +309,7 @@
                     <TitledBorder title="Data de Fim"/>
                   </Border>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
