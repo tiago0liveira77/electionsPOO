@@ -117,6 +117,9 @@
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIConfigBtnOpenActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="GUIConfigBtnNew">
       <Properties>
@@ -197,10 +200,10 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="GUIConfigTxtBoxElectionStartDate" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="GUIConfigTxtBoxElectionStartDate" min="-2" pref="55" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="GUIConfigTxtBoxElectionEndDate" min="-2" pref="46" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                          <Component id="GUIConfigTxtBoxElectionEndDate" min="-2" pref="54" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="GUIConfigBtnStartElection" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -218,6 +221,10 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="GUIConfigTxtBoxElectionNameInputMethodTextChanged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GUIConfigTxtBoxElectionNameActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="GUIConfigTxtBoxElectionStartDate">
           <Properties>

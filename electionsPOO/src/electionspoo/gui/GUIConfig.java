@@ -4,12 +4,16 @@
  */
 package electionspoo.gui;
 
-import electionspoo.beans.ElectionBean;
+import electionspoo.beans.election.ElectionBean;
 import electionspoo.beans.candidate.CandidateList;
+import electionspoo.beans.election.ElectionManager;
 import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.MainUtils;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -26,19 +30,12 @@ public class GUIConfig extends javax.swing.JFrame {
         MainUtils.listaGUIElector.removeAllElements();
         MainUtils.listaGUICandidate.removeAllElements();
         for (int i = 0; i < ElectorList.getList().size(); i++) {
-            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectorList.getList().get(i)));
+            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectionManager.getElection().getElectorList().get(i)));
         }
         for (int i = 0; i < CandidateList.getList().size(); i++) {
-            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(CandidateList.getList().get(i)));
+            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));
         }
 
-    }
-
-    private void updateGUIListElector() {
-        MainUtils.listaGUIElector.removeAllElements();
-        for (int i = 0; i < ElectorList.getList().size(); i++) {
-            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectorList.getList().get(i)));
-        }
     }
 
     /**
@@ -48,6 +45,11 @@ public class GUIConfig extends javax.swing.JFrame {
         initComponents();
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
         GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
+        
+        GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
+        GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
+        GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
+        
         updateGUILists();
     }
 
@@ -116,6 +118,11 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         GUIConfigBtnOpen.setVerifyInputWhenFocusTarget(false);
         GUIConfigBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIConfigBtnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigBtnOpenActionPerformed(evt);
+            }
+        });
 
         GUIConfigBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/newElection.png"))); // NOI18N
         GUIConfigBtnNew.setText("Nova Eleição");
@@ -144,6 +151,18 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigPanelElection.setBorder(javax.swing.BorderFactory.createTitledBorder("Eleição"));
 
         GUIConfigTxtBoxElectionName.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        GUIConfigTxtBoxElectionName.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                GUIConfigTxtBoxElectionNameInputMethodTextChanged(evt);
+            }
+        });
+        GUIConfigTxtBoxElectionName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIConfigTxtBoxElectionNameActionPerformed(evt);
+            }
+        });
 
         GUIConfigTxtBoxElectionStartDate.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Ínicio"));
         GUIConfigTxtBoxElectionStartDate.addActionListener(new java.awt.event.ActionListener() {
@@ -213,10 +232,10 @@ public class GUIConfig extends javax.swing.JFrame {
                         .addComponent(GUIConfigPanelPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(GUIConfigPanelElectionLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(GUIConfigTxtBoxElectionStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GUIConfigTxtBoxElectionStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(GUIConfigTxtBoxElectionEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
+                        .addComponent(GUIConfigTxtBoxElectionEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
                         .addComponent(GUIConfigBtnStartElection)))
                 .addContainerGap(136, Short.MAX_VALUE))
         );
@@ -467,16 +486,90 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnStartElectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnStartElectionActionPerformed
         // TODO add your handling code here:
         
+        ElectionManager electionManager = new ElectionManager();
+        
+        ElectionManager.updateBeanLists();
+        
+        ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
+        ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
+        ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
+        ElectionManager.getElection().setStarted(true);
+        
+        try {
+            electionManager.save(MainUtils.electionFilePath);
+        } catch (Exception ex) {
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        dispose();
+        
     }//GEN-LAST:event_GUIConfigBtnStartElectionActionPerformed
 
     private void GUIConfigBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnSaveActionPerformed
         // TODO add your handling code here:
+        
+       String nome = GUIConfigTxtBoxElectionName.getText();
+       String dtInicio = GUIConfigTxtBoxElectionStartDate.getText();
+       String dtFim = GUIConfigTxtBoxElectionEndDate.getText();
+        
+        ElectionManager.updateBeanLists();
+        ElectionManager.getElection().setName(nome);
+        ElectionManager.getElection().setStartDate(LocalDate.parse(dtInicio, MainUtils.formatter));
+        ElectionManager.getElection().setEndDate(LocalDate.parse(dtFim, MainUtils.formatter));
+        
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            ElectionManager electionManager = new ElectionManager();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                electionManager.save(selectedFile);
+            }
+        } catch (IOException | ClassNotFoundException | ParseException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GUIConfigBtnSaveActionPerformed
 
     private void GUIConfigBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnNewActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_GUIConfigBtnNewActionPerformed
+
+    private void GUIConfigBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenActionPerformed
+        // TODO add your handling code here:
+         try {
+            JFileChooser fileChooser = new JFileChooser();
+            ElectionManager electionManager = new ElectionManager();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                electionManager.load(selectedFile);
+                updateGUILists();
+                GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
+                GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
+                GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_GUIConfigBtnOpenActionPerformed
+
+    private void GUIConfigTxtBoxElectionNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigTxtBoxElectionNameActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_GUIConfigTxtBoxElectionNameActionPerformed
+
+    private void GUIConfigTxtBoxElectionNameInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_GUIConfigTxtBoxElectionNameInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIConfigTxtBoxElectionNameInputMethodTextChanged
 
     /**
      * @param args the command line arguments

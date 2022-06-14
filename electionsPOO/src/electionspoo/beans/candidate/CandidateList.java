@@ -4,6 +4,7 @@
  */
 package electionspoo.beans.candidate;
 
+import electionspoo.beans.elector.ElectorBean;
 import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class CandidateList implements FileManager{
+public class CandidateList implements FileManager, Serializable{
 
     //Attributes
     private static ArrayList<CandidateBean> candidateList;
@@ -27,6 +29,11 @@ public class CandidateList implements FileManager{
     //Getters and Setters
     public static ArrayList<CandidateBean> getList(){
         return candidateList;
+    }
+    
+    //retorna a arraylist
+    public static void setList(ArrayList<CandidateBean> newList){
+        candidateList = newList;
     }
     
     //Object Operations

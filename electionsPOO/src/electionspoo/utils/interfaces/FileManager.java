@@ -8,7 +8,7 @@ package electionspoo.utils.interfaces;
  *
  * @author User
  */
-public interface FileManager {
+public interface FileManager{
     
     //guarda a arraylist num ficheiro
     public void save(String nomeFicheiro) throws Exception;

@@ -4,18 +4,44 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.candidate.CandidateList;
+import electionspoo.beans.election.ElectionManager;
+import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.MainUtils;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Tiago
  */
 public class GUIVote extends javax.swing.JDialog {
 
+    
+    private void updateGUIList() {
+        MainUtils.listaGUIElector.removeAllElements();
+        for (int i = 0; i < ElectorList.getList().size(); i++) {
+            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectionManager.getElection().getElectorList().get(i)));
+        }
+
+    }
     /**
      * Creates new form Vote
      */
     public GUIVote(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        GuiVoteElectorList.setModel(MainUtils.listaGUIElector);
+        GuiVoteEleicaoNome.setText(ElectionManager.getElection().getName());
+        GuiVoteEleicaoDataInicio.setText(ElectionManager.getElection().getStartDate());
+        GuiVoteEleicaoDataFim.setText(ElectionManager.getElection().getStartDate());
+        
+        updateGUIList();
     }
 
     /**
@@ -29,50 +55,70 @@ public class GUIVote extends javax.swing.JDialog {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        GUIVoteCCElector = new javax.swing.JTextField();
+        GUIVoteAutenticationElectorPhoto = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        GuiVotePassword = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        GuiVoteSearchField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        GuiVoteElectorList = new javax.swing.JList<>();
+        GuiVoteElectorPhoto = new javax.swing.JLabel();
+        InfoLabelAboutElector = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        GuiVoteEleicaoNome = new javax.swing.JTextField();
+        GuiVoteEleicaoDataInicio = new javax.swing.JTextField();
+        GuiVoteEleicaoDataFim = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTextField2.setText("jTextField2");
-        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cartão de Cidadão"));
+        GUIVoteCCElector.setBorder(javax.swing.BorderFactory.createTitledBorder("Cartão de Cidadão"));
+        GUIVoteCCElector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIVoteCCElectorActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/election.png"))); // NOI18N
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIVoteAutenticationElectorPhoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        GUIVoteAutenticationElectorPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/election.png"))); // NOI18N
+        GUIVoteAutenticationElectorPhoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        GuiVotePassword.setBorder(javax.swing.BorderFactory.createTitledBorder("Password"));
+        GuiVotePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuiVotePasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIVoteCCElector, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(GUIVoteAutenticationElectorPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addComponent(GuiVotePassword))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GUIVoteCCElector, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addComponent(GUIVoteAutenticationElectorPhoto, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuiVotePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Autenticação", jPanel1);
@@ -82,16 +128,29 @@ public class GUIVote extends javax.swing.JDialog {
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setText("jTextField1");
+        GuiVoteSearchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuiVoteSearchFieldActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista Eleitoral"));
-        jScrollPane1.setViewportView(jList1);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_electos.png"))); // NOI18N
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GuiVoteElectorList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                GuiVoteElectorListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(GuiVoteElectorList);
 
-        jLabel2.setText("Descriçao");
+        GuiVoteElectorPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_electos.png"))); // NOI18N
+        GuiVoteElectorPhoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -104,11 +163,11 @@ public class GUIVote extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1))
+                        .addComponent(GuiVoteSearchField))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GuiVoteElectorPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
+                        .addComponent(InfoLabelAboutElector)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -118,26 +177,29 @@ public class GUIVote extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(GuiVoteSearchField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
+                        .addComponent(GuiVoteElectorPhoto))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jLabel2)))
+                        .addComponent(InfoLabelAboutElector)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Eleitores", jPanel2);
 
-        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        GuiVoteEleicaoNome.setEditable(false);
+        GuiVoteEleicaoNome.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
 
-        jTextField4.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Início"));
+        GuiVoteEleicaoDataInicio.setEditable(false);
+        GuiVoteEleicaoDataInicio.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Início"));
 
-        jTextField5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Fim"));
+        GuiVoteEleicaoDataFim.setEditable(false);
+        GuiVoteEleicaoDataFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data de Fim"));
 
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 
@@ -145,6 +207,11 @@ public class GUIVote extends javax.swing.JDialog {
         jButton2.setText("Abrir");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -153,11 +220,11 @@ public class GUIVote extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3)
+                    .addComponent(GuiVoteEleicaoNome)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5)
+                            .addComponent(GuiVoteEleicaoDataInicio)
+                            .addComponent(GuiVoteEleicaoDataFim)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)))
@@ -167,13 +234,13 @@ public class GUIVote extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GuiVoteEleicaoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GuiVoteEleicaoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GuiVoteEleicaoDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -190,11 +257,103 @@ public class GUIVote extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            ElectionManager electionManager = new ElectionManager();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                electionManager.load(selectedFile);
+                GuiVoteEleicaoNome.setText(ElectionManager.getElection().getName());
+                GuiVoteEleicaoDataInicio.setText(ElectionManager.getElection().getStartDate());
+                GuiVoteEleicaoDataFim.setText(ElectionManager.getElection().getEndDate());
+                updateGUIList();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void GuiVoteSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuiVoteSearchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GuiVoteSearchFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String textToSearch = GuiVoteSearchField.getText();
+
+        int index;
+
+        index = ElectorList.searchElectorByName(textToSearch);
+        if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+            GuiVoteElectorList.setSelectedIndex(index);
+        } else {
+            index = ElectorList.searchElectorByCC(textToSearch);
+            if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                GuiVoteElectorList.setSelectedIndex(index);
+            } else {
+                System.out.println("Não há registos a encontrar para a string: " + textToSearch);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void GuiVoteElectorListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_GuiVoteElectorListValueChanged
+        // TODO add your handling code here:
+        
+        int selections[] = GuiVoteElectorList.getSelectedIndices();
+        
+        InfoLabelAboutElector.setText(ElectorList.getGUIListLine(ElectorList.getList().get(selections[0])));
+        GUIVoteCCElector.setText(String.valueOf(ElectorList.getList().get(selections[0]).getCC()));
+        //foto to label
+        if (ElectorList.getList().get(selections[0]).getPhoto() != null) {
+            GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[0]).getPhoto(), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
+            GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[0]).getPhoto(), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
+        } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
+            GuiVoteElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+            GUIVoteAutenticationElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+        } 
+        
+        
+    }//GEN-LAST:event_GuiVoteElectorListValueChanged
+
+    private void GUIVoteCCElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIVoteCCElectorActionPerformed
+        // TODO add your handling code here:
+        
+        int index = ElectorList.searchElectorByCC(GUIVoteCCElector.getText());
+        
+        InfoLabelAboutElector.setText(ElectorList.getGUIListLine(ElectorList.getList().get(index)));
+        GUIVoteCCElector.setText(String.valueOf(ElectorList.getList().get(index).getCC()));
+        //foto to label
+        if (ElectorList.getList().get(index).getPhoto() != null) {
+            GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(index).getPhoto(), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
+            GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(index).getPhoto(), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
+        } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
+            GuiVoteElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+            GUIVoteAutenticationElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+        } 
+    }//GEN-LAST:event_GUIVoteCCElectorActionPerformed
+
+    private void GuiVotePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuiVotePasswordActionPerformed
+        // TODO add your handling code here:
+        int index = ElectorList.searchElectorByCC(GUIVoteCCElector.getText());
+        String electorPassword = ElectorList.getList().get(index).getPassword();
+        String userInputPassword = GuiVotePassword.getText();
+        
+        if(electorPassword.equals(userInputPassword)){
+            //Abre novo ecrã de login feito
+        }
+    }//GEN-LAST:event_GuiVotePasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,22 +399,24 @@ public class GUIVote extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel GUIVoteAutenticationElectorPhoto;
+    private javax.swing.JTextField GUIVoteCCElector;
+    private javax.swing.JList<String> GuiVoteElectorList;
+    private javax.swing.JLabel GuiVoteElectorPhoto;
+    private javax.swing.JTextField GuiVoteEleicaoDataFim;
+    private javax.swing.JTextField GuiVoteEleicaoDataInicio;
+    private javax.swing.JTextField GuiVoteEleicaoNome;
+    private javax.swing.JTextField GuiVotePassword;
+    private javax.swing.JTextField GuiVoteSearchField;
+    private javax.swing.JLabel InfoLabelAboutElector;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

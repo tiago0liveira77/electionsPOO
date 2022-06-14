@@ -372,6 +372,11 @@ public class GUIElector extends javax.swing.JDialog {
                 GUIElectorTxtBoxBirthFocusLost(evt);
             }
         });
+        GUIElectorTxtBoxBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GUIElectorTxtBoxBirthActionPerformed(evt);
+            }
+        });
 
         GUIElectorTxtBoxPw.setText("123");
         GUIElectorTxtBoxPw.setBorder(javax.swing.BorderFactory.createTitledBorder("Password"));
@@ -577,7 +582,7 @@ public class GUIElector extends javax.swing.JDialog {
 
         try {
             if (deleteUserConfirmation == 0) {
-                ElectorList.deleteElectorFromList(ElectorList.getList(), GUIListSelectedIndex);
+                ElectorList.deleteElectorFromList(GUIListSelectedIndex);
                 updateGUIList();
                 GUIElectorList.setSelectedIndex(0);
             }
@@ -689,11 +694,11 @@ public class GUIElector extends javax.swing.JDialog {
 
         int index;
 
-        index = ElectorList.searchElectorByName(ElectorList.getList(), textToSearch);
+        index = ElectorList.searchElectorByName(textToSearch);
         if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
             GUIElectorList.setSelectedIndex(index);
         } else {
-            index = ElectorList.searchElectorByCC(ElectorList.getList(), textToSearch);
+            index = ElectorList.searchElectorByCC(textToSearch);
             if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
                 GUIElectorList.setSelectedIndex(index);
             } else {
@@ -800,6 +805,10 @@ public class GUIElector extends javax.swing.JDialog {
             updateGUIList();
         }
     }//GEN-LAST:event_GUIElectorGenderItemStateChanged
+
+    private void GUIElectorTxtBoxBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxBirthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GUIElectorTxtBoxBirthActionPerformed
 
     /**
      * @param args the command line arguments

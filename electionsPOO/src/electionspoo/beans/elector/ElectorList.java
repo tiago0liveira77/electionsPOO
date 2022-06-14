@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +22,7 @@ import java.util.Collections;
  *
  * @author User
  */
-public class ElectorList implements FileManager{
+public class ElectorList implements FileManager, Serializable{
 
     //arraylist com os eleitores lidos do ficheiro + os que estão em memória
     private static ArrayList<ElectorBean> electorList;
@@ -29,6 +30,11 @@ public class ElectorList implements FileManager{
     //retorna a arraylist
     public static ArrayList<ElectorBean> getList(){
         return electorList;
+    }
+    
+    //retorna a arraylist
+    public static void setList(ArrayList<ElectorBean> newList){
+        electorList = newList;
     }
     
     //Ordena a arraylist de eleitores por CC
@@ -42,12 +48,12 @@ public class ElectorList implements FileManager{
     }
 
     //apaga um eleitor da arraylist dado o seu index
-    public static void deleteElectorFromList(ArrayList<ElectorBean> electorList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
+    public static void deleteElectorFromList(int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         electorList.remove(id);
     }
 
     //procura um eleitor pelo nome na arraylist
-    public static int searchElectorByName(ArrayList<ElectorBean> electorList, String text) {
+    public static int searchElectorByName(String text) {
 
         for (ElectorBean elector : electorList) {
             if (elector.getName().contains(text)) {
@@ -58,7 +64,7 @@ public class ElectorList implements FileManager{
     }
 
     //procura um eleitor pelo CC na arraylist
-    public static int searchElectorByCC(ArrayList<ElectorBean> electorList, String text) {
+    public static int searchElectorByCC(String text) {
 
         for (ElectorBean elector : electorList) {
             if (String.valueOf(elector.getCC()).contains(text)) {
@@ -98,7 +104,7 @@ public class ElectorList implements FileManager{
             }
         } else {
             electorList = new ArrayList();
-            electorList.add(ElectorBeanBuilder.buildRandomElectorBean());
+            electorList.add(new ElectorBean());
             save(nomeFicheiro);
         }
     }
