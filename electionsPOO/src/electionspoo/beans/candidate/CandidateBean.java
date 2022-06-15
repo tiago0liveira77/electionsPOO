@@ -66,6 +66,10 @@ public class CandidateBean implements Serializable{
     public int getVotes() {
         return votes;
     }
+    
+    public void setVotesFixed(int votes){
+        this.votes = votes;
+    }
 
     public void setVotes(int votes) {
         this.votes += votes;

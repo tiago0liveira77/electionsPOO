@@ -41,10 +41,12 @@ public class GUIVote extends javax.swing.JDialog {
         
         
         GuiVoteElectorList.setModel(MainUtils.listaGUIElector);
-        
-        GuiVoteEleicaoNome.setText(ElectionManager.getElection().getName());
+        if(ElectionManager.getElection()!=null){
+            GuiVoteEleicaoNome.setText(ElectionManager.getElection().getName());
         GuiVoteEleicaoDataInicio.setText(ElectionManager.getElection().getStartDate());
         GuiVoteEleicaoDataFim.setText(ElectionManager.getElection().getStartDate());
+        }
+        
         
         updateGUIList();
     }

@@ -4,7 +4,6 @@
  */
 package electionspoo.beans.election;
 
-
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.interfaces.FileManager;
@@ -19,22 +18,28 @@ import java.io.Serializable;
  *
  * @author User
  */
-public class ElectionManager implements FileManager, Serializable{
-    
+public class ElectionManager implements FileManager, Serializable {
+
     private static ElectionBean election;
-    
-    public static ElectionBean getElection(){
+
+    public static ElectionBean getElection() {
         return election;
     }
-    
-    public static void updateBeanLists(){
+
+    public static void newElection() {
+        CandidateList.resetAllCandidateVotes();
+        ElectorList.resetElectorsVoted();
+        election = new ElectionBean();
+    }
+
+    public static void updateBeanLists() {
         election.setCandidateList(CandidateList.getList());
         election.setElectorList(ElectorList.getList());
     }
-    
+
     @Override
     public void save(String nomeFicheiro) throws Exception {
-        try (ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro))) {
+        try ( ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(nomeFicheiro))) {
             file.writeObject(election);
         }
     }
@@ -42,7 +47,7 @@ public class ElectionManager implements FileManager, Serializable{
     @Override
     public void load(String nomeFicheiro) throws Exception {
         if (new File(nomeFicheiro).exists()) {
-            try (ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro))) {
+            try ( ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro))) {
                 election = (ElectionBean) file.readObject();
                 CandidateList.setList(election.getCandidateList());
                 ElectorList.setList(election.getElectorList());
@@ -52,6 +57,5 @@ public class ElectionManager implements FileManager, Serializable{
             save(nomeFicheiro);
         }
     }
-    
-    
+
 }

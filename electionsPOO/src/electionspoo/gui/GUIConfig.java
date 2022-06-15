@@ -45,10 +45,12 @@ public class GUIConfig extends javax.swing.JFrame {
         initComponents();
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
         GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
-        
-        GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
+        if(ElectionManager.getElection()!=null){
+            GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
         GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
         GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
+        }
+        
         
         updateGUILists();
     }
@@ -535,6 +537,8 @@ public class GUIConfig extends javax.swing.JFrame {
 
     private void GUIConfigBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnNewActionPerformed
         // TODO add your handling code here:
+        ElectionManager.newElection();
+     
         
     }//GEN-LAST:event_GUIConfigBtnNewActionPerformed
 

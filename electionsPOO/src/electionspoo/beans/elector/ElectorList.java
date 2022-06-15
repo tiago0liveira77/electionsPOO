@@ -32,6 +32,13 @@ public class ElectorList implements FileManager, Serializable{
         return electorList;
     }
     
+    public static void resetElectorsVoted(){
+        for(ElectorBean elector: electorList){
+            elector.setVoted(false);
+            elector.setVotedCandidate(null);
+        }
+    }
+    
     //retorna a arraylist
     public static void setList(ArrayList<ElectorBean> newList){
         electorList = newList;

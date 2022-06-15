@@ -45,6 +45,13 @@ public class CandidateList implements FileManager, Serializable{
         return candidate.getVotes();
     }
     
+    public static void resetAllCandidateVotes(){
+        for(CandidateBean candidate: candidateList){
+            candidate.setVotesFixed(0);
+            System.out.println(candidate.getVotes()+"");
+        }
+    }
+    
     public static String getResultsGUILine(CandidateBean candidate){
          return String.format("%s %s %d Votos", candidate.getInitials(), candidate.getName(), getCandidateVotes(candidate));
     }
