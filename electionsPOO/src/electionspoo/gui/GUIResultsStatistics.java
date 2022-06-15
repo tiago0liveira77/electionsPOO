@@ -29,7 +29,6 @@ public class GUIResultsStatistics extends JDialog {
     public void criarGrafico(ElectionBean election){
         DefaultCategoryDataset barra = new DefaultCategoryDataset();
         for (CandidateBean candidate : election.getCandidateList()){
-            System.out.println(candidate.getName());
             barra.setValue(candidate.getVotes(), candidate.getName(), "");
         }
         JFreeChart grafico = ChartFactory.createBarChart("A", "B", "C", barra);

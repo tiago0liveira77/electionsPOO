@@ -5,6 +5,7 @@
 package electionspoo.beans.candidate;
 
 import electionspoo.beans.elector.ElectorBean;
+import electionspoo.utils.MainUtils;
 import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,6 +53,8 @@ public class CandidateList implements FileManager, Serializable{
         }
     }
     
+    
+    
     public static String getResultsGUILine(CandidateBean candidate){
          return String.format("%s %s %d Votos", candidate.getInitials(), candidate.getName(), getCandidateVotes(candidate));
     }
@@ -63,7 +66,7 @@ public class CandidateList implements FileManager, Serializable{
     
     //Object Operations
     public static String getGUIListLine(CandidateBean candidateBean) {
-        return String.format("%s | %s ", candidateBean.getName(), candidateBean.getInitials());
+        return String.format("%-20s | %-10s ", candidateBean.getName(), candidateBean.getInitials());
     }
 
     public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {

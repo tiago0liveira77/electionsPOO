@@ -345,6 +345,7 @@ public class GUIResults extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
           try {
+              dispose();
             GUIResultsStatistics dialog = new GUIResultsStatistics(ElectionManager.getElection());
             dialog.setVisible(true);
         } catch (Exception ex) {

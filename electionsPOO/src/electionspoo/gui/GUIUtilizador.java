@@ -26,7 +26,6 @@ public class GUIUtilizador extends javax.swing.JFrame {
         for (CandidateBean candidate : CandidateList.getList()){
             MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(candidate));
         }
-        MainUtils.listaGUICandidate.addElement(String.format("%s", "Voto em Branco"));
 
     }
     /**
@@ -163,8 +162,7 @@ public class GUIUtilizador extends javax.swing.JFrame {
         
         
         if(GuiUtilizadorCandidateList.getSelectedIndex()==CandidateList.getList().size()){
-            GUIUtilizadorCandidateName.setText("Voto em Branco");
-            GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/blank.png"));
+            
         }else{
             int selections[] = GuiUtilizadorCandidateList.getSelectedIndices();
             if(selections.length>0){
@@ -172,7 +170,7 @@ public class GUIUtilizador extends javax.swing.JFrame {
                 if (CandidateList.getList().get(selections[0]).getPhoto() != null) {
                     GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(CandidateList.getList().get(selections[0]).getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
                 } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
-                    GUIUtilizadorPhotoBranco.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+                    GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(new ImageIcon("src/electionspoo/multimedia/person.png"), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));
                 } 
             }
         }

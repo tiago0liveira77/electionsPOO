@@ -25,6 +25,7 @@ public class MainUtils {
     public static String electorFilePath = "electors.txt";
     public static String candidateFilePath = "candidate.txt";
     public static String electionFilePath = "election.txt";
+    public static String blankCandidateName = "Voto em Branco";
 
     //formatter usado para datas no tipo "dd/MM/yyyy" para LocalDate
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

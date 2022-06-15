@@ -28,7 +28,8 @@ public class GUICandidate extends javax.swing.JDialog {
         int tempSelectedIndex = GUIListSelectedIndex;
         MainUtils.listaGUICandidate.removeAllElements();
         for (int i = 0; i < CandidateList.getList().size(); i++) {
-            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(CandidateList.getList().get(i)));
+            if(!CandidateList.getList().get(i).getName().equals(MainUtils.blankCandidateName))
+                MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(CandidateList.getList().get(i)));
         }
         GUICandList.setSelectedIndex(tempSelectedIndex);
     }

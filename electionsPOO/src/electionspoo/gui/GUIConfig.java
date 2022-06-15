@@ -4,6 +4,7 @@
  */
 package electionspoo.gui;
 
+import electionspoo.beans.candidate.CandidateBean;
 import electionspoo.beans.election.ElectionBean;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.election.ElectionManager;
@@ -33,9 +34,12 @@ public class GUIConfig extends javax.swing.JFrame {
             MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectionManager.getElection().getElectorList().get(i)));
         }
         for (int i = 0; i < CandidateList.getList().size(); i++) {
-            MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));
+            if(!ElectionManager.getElection().getCandidateList().get(i).getName().equals( MainUtils.blankCandidateName))
+                MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));
+                
+            
+                
         }
-
     }
 
     /**
@@ -50,9 +54,7 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
         GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
         }
-        
-        
-        updateGUILists();
+       updateGUILists();
     }
 
     /**
@@ -497,6 +499,9 @@ public class GUIConfig extends javax.swing.JFrame {
         ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
         ElectionManager.getElection().setStarted(true);
         
+        ElectionManager.addBlankCandidate();
+        updateGUILists();
+        
         try {
             electionManager.save(MainUtils.electionFilePath);
         } catch (Exception ex) {
@@ -538,6 +543,7 @@ public class GUIConfig extends javax.swing.JFrame {
     private void GUIConfigBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnNewActionPerformed
         // TODO add your handling code here:
         ElectionManager.newElection();
+        updateGUILists();
      
         
     }//GEN-LAST:event_GUIConfigBtnNewActionPerformed
