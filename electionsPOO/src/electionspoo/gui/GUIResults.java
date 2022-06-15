@@ -14,6 +14,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -44,7 +49,7 @@ public class GUIResults extends javax.swing.JDialog {
     public GUIResults(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        
         GUIResultsEleitorList.setModel(MainUtils.listaGUIElector);
         GUIResultsCandidatesList.setModel(MainUtils.listaGUICandidate);
         GUIResultsList.setModel(MainUtils.listaGUIResults);
@@ -70,6 +75,7 @@ public class GUIResults extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         Votantes = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         GUIResultsList = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
@@ -104,15 +110,28 @@ public class GUIResults extends javax.swing.JDialog {
             }
         });
 
+        jButton3.setText("ABRIR GRÁFICO");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         Votantes.addTab("Gráfico", jPanel1);
@@ -323,6 +342,17 @@ public class GUIResults extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+          try {
+            GUIResultsStatistics dialog = new GUIResultsStatistics(ElectionManager.getElection());
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+   
     /**
      * @param args the command line arguments
      */
@@ -376,6 +406,7 @@ public class GUIResults extends javax.swing.JDialog {
     private javax.swing.JTabbedPane Votantes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
