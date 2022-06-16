@@ -7,8 +7,11 @@ package electionspoo.beans.elector;
 import electionspoo.beans.candidate.CandidateBean;
 import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -24,7 +27,7 @@ public class ElectorBean implements Serializable, Comparable {
     private String password;
     private boolean voted;
     private CandidateBean votedCandidate;
-    private ImageIcon photo;
+    private byte[] photo;
 
     public CandidateBean getVotedCandidate() {
         return votedCandidate;
@@ -35,23 +38,34 @@ public class ElectorBean implements Serializable, Comparable {
     }
 
     public ElectorBean() {
-        this.name = "Nome";
-        this.CC = 123456789;
-        this.gender = 'M';
-        this.birthDate = LocalDate.parse("01/01/1990", MainUtils.formatter);
-        this.password = "123";
-        this.voted = false;
-        this.photo = new ImageIcon(getClass().getResource(Constants.personResource));
+        try {
+            this.name = "Nome";
+            this.CC = 123456789;
+            this.gender = 'M';
+            this.birthDate = LocalDate.parse("01/01/1990", MainUtils.formatter);
+            this.password = "123";
+            this.voted = false;
+            this.photo = MainUtils.iconToByteArray(new ImageIcon(getClass().getResource(Constants.personResource)));
+        } catch (IOException ex) {
+            Logger.getLogger(ElectorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
+    
+    
 
     public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, ImageIcon photo) {
-        this.name = name;
-        this.CC = cc;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.password = password;
-        this.photo = photo;
-        this.voted = false;
+        try {
+            this.name = name;
+            this.CC = cc;
+            this.gender = gender;
+            this.birthDate = birthDate;
+            this.password = password;
+            this.photo =  MainUtils.iconToByteArray(photo);
+            this.voted = false;
+        } catch (IOException ex) {
+            Logger.getLogger(ElectorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public boolean isVoted() {
@@ -107,11 +121,20 @@ public class ElectorBean implements Serializable, Comparable {
     }
 
     public ImageIcon getPhoto() {
-        return photo;
+        try {
+            return MainUtils.byteArrayToIcon(photo);
+        } catch (IOException ex) {
+            Logger.getLogger(ElectorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ImageIcon(getClass().getResource(Constants.personResource));
     }
 
     public void setPhoto(ImageIcon photo) {
-        this.photo = photo;
+        try {
+            this.photo =  MainUtils.iconToByteArray(photo);
+        } catch (IOException ex) {
+            Logger.getLogger(ElectorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
