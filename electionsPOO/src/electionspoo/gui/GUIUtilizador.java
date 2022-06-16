@@ -10,9 +10,11 @@ import electionspoo.beans.elector.ElectorBean;
 import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import electionspoo.utils.enums.Errors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +62,7 @@ public class GUIUtilizador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Exception = new javax.swing.JDialog();
         GUIUtilizadorCCLabel = new javax.swing.JLabel();
         GUIUtilizadorPhoto = new javax.swing.JLabel();
         GUIUtilizadorNome = new javax.swing.JLabel();
@@ -69,7 +72,18 @@ public class GUIUtilizador extends javax.swing.JFrame {
         GuiUtilizadorCandidateList = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
+        Exception.getContentPane().setLayout(ExceptionLayout);
+        ExceptionLayout.setHorizontalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ExceptionLayout.setVerticalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setResizable(false);
         setSize(getPreferredSize());
@@ -129,7 +143,7 @@ public class GUIUtilizador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GuiUtilizadorCandidateList, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,14 +204,17 @@ public class GUIUtilizador extends javax.swing.JFrame {
                 ElectorList.getList().get(i).setVoted(true);
                 ElectorList.getList().get(i).setVotedCandidate(CandidateList.getList().get(selections[0]));
                 CandidateList.getList().get(selections[0]).setVotes(1);
+                
+                JOptionPane.showMessageDialog(Exception, Constants.voteCompleted, Constants.infoDialogPopUpTitle, JOptionPane.OK_OPTION);
                 dispose();
-                GUIVote dialog = null;
                 try {
-                    dialog = new GUIVote(this, true);
+                    GUIVote dialog = new GUIVote(this, true);
+                    dialog.setVisible(true);
                 } catch (Exception ex) {
-                    Logger.getLogger(GUIUtilizador.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                dialog.setVisible(true);
+                break;
             }
         }
       
@@ -237,6 +254,7 @@ public class GUIUtilizador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exception;
     private javax.swing.JLabel GUIUtilizadorCCLabel;
     private javax.swing.JLabel GUIUtilizadorCandidateName;
     private javax.swing.JLabel GUIUtilizadorDataNascimento;

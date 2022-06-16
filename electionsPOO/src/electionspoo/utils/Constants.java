@@ -13,6 +13,9 @@ public class Constants {
     public static final int maxCCNumber = 99999999;
     public static final int minCCNumber = 1000000;
     
+    //Voto
+    public static final String voteCompleted = "Obrigado! O seu voto foi submetido com sucesso!";
+    
     //Eleitor
     public static final String gerarEleitorPopUpText = "Quantos eleitores pretende gerar?";
     public static final String gerarEleitorPopUpTitle = "Gerar eleitores";
@@ -25,6 +28,7 @@ public class Constants {
     
     //Erro dialog
     public static final String exceptionDialogPopUpTitle = "Erro!";
+    public static final String infoDialogPopUpTitle = "Info!";
     
     //Sizes
     public static final int maxSizeForTextBox = 50;

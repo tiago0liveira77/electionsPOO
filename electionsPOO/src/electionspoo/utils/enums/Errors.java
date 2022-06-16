@@ -10,6 +10,7 @@ package electionspoo.utils.enums;
  */
 public enum Errors {
     
+    EmptyLists("As listas de eleitores ou candidatos não podem estar vazias!"),
     AlreadyVoted("Este eleitor já votou!"),
     MoreThan8Chars("Número de cartão de cidadão não pode ter menos que 8 caracteres!"),
     NumberFormatIncorret("Por favor insira um número válido!"),

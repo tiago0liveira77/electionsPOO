@@ -8,7 +8,6 @@ import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.election.ElectionManager;
 import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.Constants;
-import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.Errors;
 import java.util.logging.Level;
 import java.util.logging.Logger;

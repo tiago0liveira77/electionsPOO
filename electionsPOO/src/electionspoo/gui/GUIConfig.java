@@ -115,7 +115,7 @@ public class GUIConfig extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         GUIConfigBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/save_file.png"))); // NOI18N
@@ -510,29 +510,34 @@ public class GUIConfig extends javax.swing.JFrame {
 
     private void GUIConfigBtnStartElectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnStartElectionActionPerformed
         // TODO add your handling code here:
-        try{
-            ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
-            ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
-            
-            ElectionManager electionManager = new ElectionManager();
         
-            ElectionManager.updateBeanLists();
+        try{
+            
+            if(CandidateList.getList().size()>0 && ElectorList.getList().size()>0){
+                ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
+                ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
 
-            if(GUIConfigTxtBoxElectionName.getText().toCharArray().length<Constants.maxSizeForTextBox){
-                ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
+                ElectionManager electionManager = new ElectionManager();
+
+                ElectionManager.updateBeanLists();
+
+                if(GUIConfigTxtBoxElectionName.getText().toCharArray().length<Constants.maxSizeForTextBox){
+                    ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
+                }else{
+                    throw new Exception();
+                }
+
+                ElectionManager.getElection().setStarted(true);
+                ElectionManager.addBlankCandidate();
+                updateGUILists();
+
+                electionManager.save(Constants.electionFilePath);
+
+
+                dispose();
             }else{
-                throw new Exception();
+                JOptionPane.showMessageDialog(Exception, Errors.EmptyLists.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             }
-                
-            ElectionManager.getElection().setStarted(true);
-            ElectionManager.addBlankCandidate();
-            updateGUILists();
-            
-            electionManager.save(Constants.electionFilePath);
-
-
-            dispose();
-            
         }catch(DateTimeParseException e){
             JOptionPane.showMessageDialog(Exception, Errors.DateFormatIncorret.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
@@ -551,19 +556,20 @@ public class GUIConfig extends javax.swing.JFrame {
         // TODO add your handling code here:
        
         try{
-            ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
-            ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
-            ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
-            ElectionManager.updateBeanLists();
+            
+                ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
+                ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
+                ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
+                ElectionManager.updateBeanLists();
 
-            JFileChooser fileChooser = new JFileChooser();
-            ElectionManager electionManager = new ElectionManager();
-            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
-            int result = fileChooser.showOpenDialog(fileChooser);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
-                electionManager.save(selectedFile);
-            }
+                JFileChooser fileChooser = new JFileChooser();
+                ElectionManager electionManager = new ElectionManager();
+                fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
+                int result = fileChooser.showOpenDialog(fileChooser);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
+                    electionManager.save(selectedFile);
+                }
             
         }catch(DateTimeParseException e){
             Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
@@ -575,6 +581,7 @@ public class GUIConfig extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
        
         
