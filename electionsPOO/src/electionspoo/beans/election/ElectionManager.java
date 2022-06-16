@@ -33,16 +33,8 @@ public class ElectionManager implements FileManager, Serializable {
             if(candidate.getName().equals(MainUtils.blankCandidateName)){
                 election.getCandidateList().remove(candidate);
                 break;
-            }
-        
-                
-
-             
-        election.getCandidateList().add(new CandidateBean(MainUtils.blankCandidateName, MainUtils.blankCandidateName, null));
-
-                
-        
-          
+            }          
+        election.getCandidateList().add(new CandidateBean(MainUtils.blankCandidateName, MainUtils.blankCandidateName, null));       
     }
 
     public static void newElection() {

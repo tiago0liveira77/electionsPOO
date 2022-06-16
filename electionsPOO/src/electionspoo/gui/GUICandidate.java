@@ -426,7 +426,7 @@ public class GUICandidate extends javax.swing.JDialog {
         int deleteUserConfirmation = JOptionPane.showConfirmDialog(DialogFileChooser, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
 
         try {
-            CandidateList.deleteCandidateFromList(CandidateList.getList(), GUIListSelectedIndex);
+            CandidateList.deleteCandidateFromList(GUIListSelectedIndex);
             updateGUIList();
             GUICandList.setSelectedIndex(0);
         } catch (IOException ex) {
@@ -505,11 +505,11 @@ public class GUICandidate extends javax.swing.JDialog {
 
         int index;
 
-        index = CandidateList.searchCandidateByName(CandidateList.getList(), textToSearch);
+        index = CandidateList.searchCandidateByName(textToSearch);
         if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
             GUICandList.setSelectedIndex(index);
         } else {
-            index = CandidateList.searchCandidateByInitials(CandidateList.getList(), textToSearch);
+            index = CandidateList.searchCandidateByInitials(textToSearch);
             if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
                 GUICandList.setSelectedIndex(index);
             } else {

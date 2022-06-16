@@ -69,11 +69,11 @@ public class CandidateList implements FileManager, Serializable{
         return String.format("%-20s | %-10s ", candidateBean.getName(), candidateBean.getInitials());
     }
 
-    public static void deleteCandidateFromList(ArrayList<CandidateBean> candidateList, int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
+    public static void deleteCandidateFromList(int id) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         candidateList.remove(id);
     }
 
-    public static int searchCandidateByName(ArrayList<CandidateBean> candidateList, String text) {
+    public static int searchCandidateByName(String text) {
 
         for (CandidateBean candidate : candidateList) {
             if (candidate.getName().contains(text)) {
@@ -83,7 +83,7 @@ public class CandidateList implements FileManager, Serializable{
         return 0;
     }
 
-    public static int searchCandidateByInitials(ArrayList<CandidateBean> candidateList, String text) {
+    public static int searchCandidateByInitials(String text) {
 
         for (CandidateBean candidate : candidateList) {
             if (candidate.getInitials().contains(text)) {

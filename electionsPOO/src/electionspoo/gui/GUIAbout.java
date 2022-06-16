@@ -33,7 +33,8 @@ public class GUIAbout extends javax.swing.JDialog {
 
         MainMenuAcercaDe = new javax.swing.JPanel();
         MainMenuAcercaDeBtnClose = new javax.swing.JButton();
-        MainMenuAcercaDeLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,24 +45,28 @@ public class GUIAbout extends javax.swing.JDialog {
             }
         });
 
-        MainMenuAcercaDeLabel.setText("Esta aplicação está a ser desenvolvida no ambito da disciplina POO");
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Esta aplicação foi desenvolvida no âmbito da unidade curricular: \n\"Programação Orientada a Objetos\" (POO) do curso de LEI do IPT\n no ano letivo 2021-2022 pelos alunos:\n\n21607 - Tiago Cardoso\n21606 - Tiago Oliveira\n\n");
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout MainMenuAcercaDeLayout = new javax.swing.GroupLayout(MainMenuAcercaDe);
         MainMenuAcercaDe.setLayout(MainMenuAcercaDeLayout);
         MainMenuAcercaDeLayout.setHorizontalGroup(
             MainMenuAcercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainMenuAcercaDeLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainMenuAcercaDeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(MainMenuAcercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MainMenuAcercaDeBtnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MainMenuAcercaDeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
+                .addGroup(MainMenuAcercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(MainMenuAcercaDeBtnClose, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
                 .addContainerGap())
         );
         MainMenuAcercaDeLayout.setVerticalGroup(
             MainMenuAcercaDeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainMenuAcercaDeLayout.createSequentialGroup()
-                .addComponent(MainMenuAcercaDeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(MainMenuAcercaDeBtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -139,6 +144,7 @@ public class GUIAbout extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainMenuAcercaDe;
     private javax.swing.JButton MainMenuAcercaDeBtnClose;
-    private javax.swing.JLabel MainMenuAcercaDeLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
