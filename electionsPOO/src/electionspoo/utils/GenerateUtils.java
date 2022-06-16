@@ -53,7 +53,7 @@ public class GenerateUtils {
     }
     
     //funcao que obtem uma foto de 1 pessoa random de acordo com o genero e intervalo de idade
-    public static ImageIcon getRandomPhoto(char gender, int idade) throws IOException {
+    public static byte[] getRandomPhoto(char gender, int idade) throws IOException {
         //verifica genero
         String genderFinal = "male";
         if (gender == ('M') || gender == ('m')) {
@@ -74,7 +74,7 @@ public class GenerateUtils {
         String url = json.substring(json.indexOf("https://"), json.lastIndexOf(".jpg") + 4);
         
         //converte o url em ImageIcon 
-        ImageIcon imageIcon = new ImageIcon(new URL(url));
-        return imageIcon;
+        //ImageIcon imageIcon = new ImageIcon(new URL(url));
+        return MainUtils.imageFromURLToByteArray(new URL(url));
     }
 }

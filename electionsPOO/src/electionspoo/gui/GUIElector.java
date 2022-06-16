@@ -10,6 +10,7 @@ import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.Errors;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -97,6 +99,7 @@ public class GUIElector extends javax.swing.JDialog {
         GUIElectorTxtBoxBirth = new javax.swing.JTextField();
         GUIElectorTxtBoxPw = new javax.swing.JTextField();
         GUIElectorTxtBoxPw2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         GUIElectorPanelElectorNum = new javax.swing.JPanel();
         GUIElectorNumLbl = new javax.swing.JLabel();
         GUIElectorTxtBoxSearch = new javax.swing.JTextField();
@@ -250,7 +253,7 @@ public class GUIElector extends javax.swing.JDialog {
                 .addComponent(GUIElectorBtnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GUIElectorBtnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(GUIElectorBtnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GUIElectorBtnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,6 +411,13 @@ public class GUIElector extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("Ler Imagem");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout GUIElectorPanelElectorLayout = new javax.swing.GroupLayout(GUIElectorPanelElector);
         GUIElectorPanelElector.setLayout(GUIElectorPanelElectorLayout);
         GUIElectorPanelElectorLayout.setHorizontalGroup(
@@ -429,7 +439,8 @@ public class GUIElector extends javax.swing.JDialog {
                         .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(GUIElectorPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(GUIElectorIdadeLbl)
-                            .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -455,7 +466,9 @@ public class GUIElector extends javax.swing.JDialog {
                         .addGap(27, 27, 27)
                         .addComponent(GUIElectorTxtBoxPw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GUIElectorBtnRandomElector)
+                .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIElectorBtnRandomElector)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(GUIElectorPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GUIElectorBtnDeleteElector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -864,6 +877,20 @@ public class GUIElector extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_GUIElectorTxtBoxBirthActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        if(fc.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
+            try {
+                Image img = ImageIO.read(fc.getSelectedFile());
+                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(new ImageIcon(img), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
+                ElectorList.getList().get(GUIListSelectedIndex).setPhoto(new ImageIcon(img));
+            } catch (IOException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -947,5 +974,6 @@ public class GUIElector extends javax.swing.JDialog {
     private javax.swing.JTextField GUIElectorTxtBoxPw2;
     private javax.swing.JTextField GUIElectorTxtBoxSearch;
     private javax.swing.JDialog chooseFileDialog;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

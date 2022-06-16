@@ -262,7 +262,7 @@
                   <Component id="GUIElectorBtnFirst" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="GUIElectorBtnPrev" min="-2" pref="87" max="-2" attributes="0"/>
-                  <EmptySpace pref="117" max="32767" attributes="0"/>
+                  <EmptySpace pref="138" max="32767" attributes="0"/>
                   <Component id="GUIElectorBtnNext" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="GUIElectorBtnLast" min="-2" pref="87" max="-2" attributes="0"/>
@@ -373,6 +373,7 @@
                               <Component id="GUIElectorPanelImage" max="32767" attributes="0"/>
                               <Component id="GUIElectorIdadeLbl" min="-2" max="-2" attributes="0"/>
                               <Component id="GUIElectorBtnDeleteElector" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -406,7 +407,10 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="GUIElectorBtnRandomElector" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="GUIElectorBtnRandomElector" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="44" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="GUIElectorBtnDeleteElector" max="32767" attributes="0"/>
@@ -584,6 +588,14 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="GUIElectorTxtBoxPw2FocusLost"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ler Imagem"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

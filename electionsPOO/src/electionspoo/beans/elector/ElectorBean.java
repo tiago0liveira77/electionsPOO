@@ -32,6 +32,7 @@ public class ElectorBean implements Serializable, Comparable {
     public CandidateBean getVotedCandidate() {
         return votedCandidate;
     }
+    
 
     public void setVotedCandidate(CandidateBean votedCandidate) {
         this.votedCandidate = votedCandidate;
@@ -52,6 +53,15 @@ public class ElectorBean implements Serializable, Comparable {
 
     }
     
+    public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, byte[] photo) {
+        this.name = name;
+            this.CC = cc;
+            this.gender = gender;
+            this.birthDate = birthDate;
+            this.password = password;
+            this.photo =  photo;
+            this.voted = false;
+    }
     
 
     public ElectorBean(String name, int cc, char gender, LocalDate birthDate, String password, ImageIcon photo) {
