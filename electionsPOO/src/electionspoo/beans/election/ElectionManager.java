@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -40,6 +41,8 @@ public class ElectionManager implements FileManager, Serializable {
     public static void newElection() {
         CandidateList.resetAllCandidateVotes();
         ElectorList.resetElectorsVoted();
+        CandidateList.setList(new ArrayList<>());
+        ElectorList.setList(new ArrayList<>());
         election = new ElectionBean();
     }
 
