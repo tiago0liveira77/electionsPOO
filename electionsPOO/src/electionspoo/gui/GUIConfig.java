@@ -35,11 +35,14 @@ public class GUIConfig extends javax.swing.JFrame {
         }
         for (int i = 0; i < CandidateList.getList().size(); i++) {
             if(!ElectionManager.getElection().getCandidateList().get(i).getName().equals(Constants.blankCandidateName))
-                MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));
-                
-            
-                
+                MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));       
         }
+    }
+    
+    private void updateTextBoxes() {
+         GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
+        GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
+        GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
     }
 
     /**
@@ -51,9 +54,7 @@ public class GUIConfig extends javax.swing.JFrame {
         GUIConfigJListElector.setModel(MainUtils.listaGUIElector);
         GUIConfigJListCandidate.setModel(MainUtils.listaGUICandidate);
         if(ElectionManager.getElection()!=null){
-            GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
-        GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
-        GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
+           updateTextBoxes();
         }
        updateGUILists();
     }
@@ -588,9 +589,7 @@ public class GUIConfig extends javax.swing.JFrame {
         // TODO add your handling code here:
         ElectionManager.newElection();
         updateGUILists();
-        GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
-        GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
-        GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
+        updateTextBoxes();
     }//GEN-LAST:event_GUIConfigBtnNewActionPerformed
 
     private void GUIConfigBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenActionPerformed
@@ -604,9 +603,7 @@ public class GUIConfig extends javax.swing.JFrame {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
                 electionManager.load(selectedFile);
                 updateGUILists();
-                GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
-                GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
-                GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
+                updateTextBoxes();
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
