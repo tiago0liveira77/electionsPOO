@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -34,7 +35,7 @@ public class ElectionManager implements FileManager, Serializable {
                 election.getCandidateList().remove(candidate);
                 break;
             }          
-        election.getCandidateList().add(new CandidateBean(MainUtils.blankCandidateName, MainUtils.blankCandidateName, null));       
+        election.getCandidateList().add(new CandidateBean(MainUtils.blankCandidateName, MainUtils.blankCandidateName));  
     }
 
     public static void newElection() {

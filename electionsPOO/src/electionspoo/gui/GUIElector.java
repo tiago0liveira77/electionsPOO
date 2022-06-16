@@ -633,8 +633,8 @@ public class GUIElector extends javax.swing.JDialog {
             //foto to label
             if (ElectorList.getList().get(selections[i]).getPhoto() != null) {
                 GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[i]).getPhoto(), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
-            } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
-                GUIElectorLabel2Image.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+            } else if (new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")) != null) {
+                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
             } 
 
         }

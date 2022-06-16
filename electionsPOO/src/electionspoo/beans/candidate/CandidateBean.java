@@ -21,7 +21,7 @@ public class CandidateBean implements Serializable{
     public CandidateBean(){
         this.name = "Exemplo";
         this.initials = "EXEM";
-        this.photo = new ImageIcon("src/electionspoo/multimedia/person.png");
+        this.photo = new ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_candidates.png"));
         this.votes = 0;
     }
     
@@ -32,10 +32,11 @@ public class CandidateBean implements Serializable{
         this.votes = 0;
     }
     
+    
      public CandidateBean(String name, String initials){
         this.name = name;
         this.initials = initials;
-        this.photo = null;
+        this.photo = new ImageIcon(getClass().getResource("/electionspoo/multimedia/blank.png"));
         this.votes = 0;
     }
 

@@ -329,9 +329,9 @@ public class GUIVote extends javax.swing.JDialog {
             if (ElectorList.getList().get(selections[0]).getPhoto() != null) {
                 GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[0]).getPhoto(), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
                 GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[0]).getPhoto(), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
-            } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
-                GuiVoteElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
-                GUIVoteAutenticationElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+            } else {
+                 GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
+                GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
             } 
         }
         
@@ -348,9 +348,9 @@ public class GUIVote extends javax.swing.JDialog {
         if (ElectorList.getList().get(index).getPhoto() != null) {
             GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(index).getPhoto(), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
             GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(index).getPhoto(), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
-        } else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
-            GuiVoteElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
-            GUIVoteAutenticationElectorPhoto.setIcon(new ImageIcon("src/electionspoo/multimedia/person.png"));
+        } else {
+            GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
+            GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
         } 
         
     }//GEN-LAST:event_GUIVoteCCElectorActionPerformed
