@@ -32,7 +32,9 @@ public class GUIResults extends javax.swing.JDialog {
         MainUtils.listaGUIResults.removeAllElements();
         
         for (int i = 0; i < ElectorList.getList().size(); i++) {
-            MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectionManager.getElection().getElectorList().get(i)));
+            if(ElectorList.getList().get(i).isVoted()){
+                MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectionManager.getElection().getElectorList().get(i)));
+            }
         }
         for (int i = 0; i < CandidateList.getList().size(); i++) {
             MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));

@@ -29,6 +29,10 @@ public class ElectionManager implements FileManager, Serializable {
         return election;
     }
     
+    public static boolean electionStarted(){
+        return election.isStarted();
+    }
+    
     public static void addBlankCandidate(){
         for(CandidateBean candidate : election.getCandidateList())
             if(candidate.getName().equals(Constants.blankCandidateName)){

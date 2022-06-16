@@ -394,19 +394,23 @@ public class GUIVote extends javax.swing.JDialog {
         String electorPassword = ElectorList.getList().get(index).getPassword();
         String userInputPassword = GuiVotePassword.getText();
         
-        if(!ElectorList.getList().get(index).isVoted()){
-            if(electorPassword.equals(userInputPassword)){
-                try {
-                    // TODO add your handling code here:
-                    GUIUtilizador dialog = new GUIUtilizador(ElectorList.getList().get(index));
-                    dialog.setVisible(true);
-                    dispose();
-                } catch (Exception ex) {
-                    Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        if(ElectionManager.electionStarted()){
+            if(!ElectorList.getList().get(index).isVoted()){
+                if(electorPassword.equals(userInputPassword)){
+                    try {
+                        // TODO add your handling code here:
+                        GUIUtilizador dialog = new GUIUtilizador(ElectorList.getList().get(index));
+                        dialog.setVisible(true);
+                        dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+            }else{
+                JOptionPane.showMessageDialog(Exception, Errors.AlreadyVoted.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             }
         }else{
-            JOptionPane.showMessageDialog(Exception, Errors.AlreadyVoted.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(Exception, Errors.ElectionNotStarted.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_GuiVotePasswordActionPerformed
 
