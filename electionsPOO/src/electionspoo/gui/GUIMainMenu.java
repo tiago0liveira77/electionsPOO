@@ -7,9 +7,12 @@ package electionspoo.gui;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.election.ElectionManager;
 import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import electionspoo.utils.enums.Errors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +23,7 @@ public class GUIMainMenu extends javax.swing.JFrame {
    
     /**
      * Creates new form Menu
+     * @throws java.lang.Exception
      */
     public GUIMainMenu() throws Exception {
         initComponents();
@@ -27,9 +31,9 @@ public class GUIMainMenu extends javax.swing.JFrame {
         CandidateList candidateList = new CandidateList();  
         ElectionManager electionManager = new ElectionManager();
         
-        electorList.load(MainUtils.electorFilePath);
-        candidateList.load(MainUtils.candidateFilePath);
-        electionManager.load(MainUtils.electionFilePath);
+        electorList.load(Constants.electorFilePath);
+        candidateList.load(Constants.candidateFilePath);
+        electionManager.load(Constants.electionFilePath);
     }
 
     /**
@@ -41,6 +45,7 @@ public class GUIMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Exception = new javax.swing.JDialog();
         MainMenu = new javax.swing.JPanel();
         MainMenuBtnConfi = new javax.swing.JButton();
         MainMenuBtnVotar = new javax.swing.JButton();
@@ -54,6 +59,17 @@ public class GUIMainMenu extends javax.swing.JFrame {
         MenuBarEleicoesSair = new javax.swing.JMenuItem();
         MenuBarApp = new javax.swing.JMenu();
         MenuBarAppAcerca = new javax.swing.JMenuItem();
+
+        javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
+        Exception.getContentPane().setLayout(ExceptionLayout);
+        ExceptionLayout.setHorizontalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ExceptionLayout.setVerticalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,7 +188,8 @@ public class GUIMainMenu extends javax.swing.JFrame {
             GUIVote dialog = new GUIVote(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MenuBarEleicoesVotarActionPerformed
 
@@ -182,7 +199,8 @@ public class GUIMainMenu extends javax.swing.JFrame {
             GUIAbout dialog = new GUIAbout(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MenuBarAppAcercaActionPerformed
 
@@ -197,7 +215,8 @@ public class GUIMainMenu extends javax.swing.JFrame {
             GUIVote dialog = new GUIVote(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
-            ex.printStackTrace();
+             JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MainMenuBtnVotarActionPerformed
 
@@ -211,7 +230,8 @@ public class GUIMainMenu extends javax.swing.JFrame {
             GUIConfig dialog = new GUIConfig();
             dialog.setVisible(true);
         } catch (Exception ex) {
-            Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MainMenuBtnConfiActionPerformed
 
@@ -222,15 +242,22 @@ public class GUIMainMenu extends javax.swing.JFrame {
             GUIConfig dialog = new GUIConfig();
             dialog.setVisible(true);
         } catch (Exception ex) {
-            Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_MenuBarEleicoesConfigActionPerformed
 
     private void MainMenuBtnResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuBtnResultsActionPerformed
         // TODO add your handling code here:
-        GUIResults dialog = new GUIResults(this, true);
-        dialog.setVisible(true);
+        try{
+            GUIResults dialog = new GUIResults(this, true);
+            dialog.setVisible(true);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
+        }
+    
       
     }//GEN-LAST:event_MainMenuBtnResultsActionPerformed
 
@@ -263,18 +290,17 @@ public class GUIMainMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new GUIMainMenu().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new GUIMainMenu().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(GUIMainMenu.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exception;
     private javax.swing.JPanel MainMenu;
     private javax.swing.JButton MainMenuBtnConfi;
     private javax.swing.JButton MainMenuBtnResults;

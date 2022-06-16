@@ -22,8 +22,7 @@ import javax.swing.ImageIcon;
 public class GenerateUtils {
        
     
-    private static int maxCCNumber = 99999999;
-    private static int minCCNumber = 1000000;
+    
 
     public static FirstNamesEnum getRandomFirstName(Random rd){
         return FirstNamesEnum.values()[rd.nextInt(50)];
@@ -34,7 +33,7 @@ public class GenerateUtils {
     }
      
     public static int getRandom8DigitNumber(Random rd){  
-        return randBetween(minCCNumber, maxCCNumber);
+        return randBetween(Constants.minCCNumber, Constants.maxCCNumber);
     }
     
     public static LocalDate getRandomBirthDate() throws ParseException{

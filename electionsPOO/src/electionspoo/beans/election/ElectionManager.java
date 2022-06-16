@@ -7,7 +7,7 @@ package electionspoo.beans.election;
 import electionspoo.beans.candidate.CandidateBean;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.elector.ElectorList;
-import electionspoo.utils.MainUtils;
+import electionspoo.utils.Constants;
 import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -31,11 +30,11 @@ public class ElectionManager implements FileManager, Serializable {
     
     public static void addBlankCandidate(){
         for(CandidateBean candidate : election.getCandidateList())
-            if(candidate.getName().equals(MainUtils.blankCandidateName)){
+            if(candidate.getName().equals(Constants.blankCandidateName)){
                 election.getCandidateList().remove(candidate);
                 break;
             }          
-        election.getCandidateList().add(new CandidateBean(MainUtils.blankCandidateName, MainUtils.blankCandidateName));  
+        election.getCandidateList().add(new CandidateBean(Constants.blankCandidateName, Constants.blankCandidateName));  
     }
 
     public static void newElection() {

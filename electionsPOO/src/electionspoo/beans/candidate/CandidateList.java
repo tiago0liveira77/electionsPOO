@@ -4,8 +4,6 @@
  */
 package electionspoo.beans.candidate;
 
-import electionspoo.beans.elector.ElectorBean;
-import electionspoo.utils.MainUtils;
 import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,16 +29,6 @@ public class CandidateList implements FileManager, Serializable{
     public static ArrayList<CandidateBean> getList(){
         return candidateList;
     }
-    /*
-    public static int getTotalVotes(){
-        int totalVotes = 0;
-        
-        for(CandidateBean candidate : candidateList){
-            totalVotes+=candidate.getVotes();
-        }
-        
-        return totalVotes;
-    }*/
     
     public static int getCandidateVotes(CandidateBean candidate){
         return candidate.getVotes();
@@ -49,11 +37,8 @@ public class CandidateList implements FileManager, Serializable{
     public static void resetAllCandidateVotes(){
         for(CandidateBean candidate: candidateList){
             candidate.setVotesFixed(0);
-            System.out.println(candidate.getVotes()+"");
         }
     }
-    
-    
     
     public static String getResultsGUILine(CandidateBean candidate){
          return String.format("%s %s %d Votos", candidate.getInitials(), candidate.getName(), getCandidateVotes(candidate));
@@ -117,9 +102,9 @@ public class CandidateList implements FileManager, Serializable{
     @Override
     public void load(String nomeFicheiro) throws Exception {
         if (new File(nomeFicheiro).exists()) {
-            ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro));
-            candidateList = (ArrayList<CandidateBean>) file.readObject();
-            file.close();
+            try (ObjectInputStream file = new ObjectInputStream(new FileInputStream(nomeFicheiro))) {
+                candidateList = (ArrayList<CandidateBean>) file.readObject();
+            }
         } else {
             candidateList = new ArrayList();
             candidateList.add(new CandidateBean());

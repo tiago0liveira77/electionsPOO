@@ -5,7 +5,6 @@
 package electionspoo.beanbuilder;
 
 import electionspoo.beans.elector.ElectorBean;
-import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.GenerateUtils;
 import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.FirstNamesEnum;

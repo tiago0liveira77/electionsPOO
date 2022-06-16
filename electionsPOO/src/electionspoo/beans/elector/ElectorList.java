@@ -4,7 +4,6 @@
  */
 package electionspoo.beans.elector;
 
-import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.utils.interfaces.FileManager;
 import java.io.File;
 import java.io.FileInputStream;

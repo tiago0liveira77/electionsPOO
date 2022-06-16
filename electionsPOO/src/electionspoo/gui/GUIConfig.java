@@ -4,20 +4,20 @@
  */
 package electionspoo.gui;
 
-import electionspoo.beans.candidate.CandidateBean;
-import electionspoo.beans.election.ElectionBean;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.election.ElectionManager;
 import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import electionspoo.utils.enums.Errors;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,7 +34,7 @@ public class GUIConfig extends javax.swing.JFrame {
             MainUtils.listaGUIElector.addElement(ElectorList.getGUIListLine(ElectionManager.getElection().getElectorList().get(i)));
         }
         for (int i = 0; i < CandidateList.getList().size(); i++) {
-            if(!ElectionManager.getElection().getCandidateList().get(i).getName().equals( MainUtils.blankCandidateName))
+            if(!ElectionManager.getElection().getCandidateList().get(i).getName().equals(Constants.blankCandidateName))
                 MainUtils.listaGUICandidate.addElement(CandidateList.getGUIListLine(ElectionManager.getElection().getCandidateList().get(i)));
                 
             
@@ -44,6 +44,7 @@ public class GUIConfig extends javax.swing.JFrame {
 
     /**
      * Creates new form GUIConfig
+     * @throws java.lang.Exception
      */
     public GUIConfig() throws Exception {
         initComponents();
@@ -67,6 +68,7 @@ public class GUIConfig extends javax.swing.JFrame {
     private void initComponents() {
 
         chooseElectorFile = new javax.swing.JDialog();
+        Exception = new javax.swing.JDialog();
         GUIConfigBtnSave = new javax.swing.JButton();
         GUIConfigBtnOpen = new javax.swing.JButton();
         GUIConfigBtnNew = new javax.swing.JButton();
@@ -98,6 +100,17 @@ public class GUIConfig extends javax.swing.JFrame {
         );
         chooseElectorFileLayout.setVerticalGroup(
             chooseElectorFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
+        Exception.getContentPane().setLayout(ExceptionLayout);
+        ExceptionLayout.setHorizontalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ExceptionLayout.setVerticalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
@@ -436,7 +449,8 @@ public class GUIConfig extends javax.swing.JFrame {
             GUICandidate dialog = new GUICandidate(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIConfigBtnOpenCandidateMenuActionPerformed
 
@@ -446,7 +460,8 @@ public class GUIConfig extends javax.swing.JFrame {
             GUIElector dialog = new GUIElector(this, true);
             dialog.setVisible(true);
         } catch (Exception ex) {
-            ex.printStackTrace();
+             JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIConfigBtnOpenjElectorMenuActionPerformed
 
@@ -454,7 +469,7 @@ public class GUIConfig extends javax.swing.JFrame {
         try {
             JFileChooser fileChooser = new JFileChooser();
             CandidateList candidateList = new CandidateList();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
@@ -462,82 +477,111 @@ public class GUIConfig extends javax.swing.JFrame {
                 updateGUILists();
             }
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIConfigBtnOpenCandidateFileActionPerformed
 
     private void GUIConfigBtnOpenElectorFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenElectorFileActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        CandidateList candidateList = new CandidateList();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        int result = fileChooser.showOpenDialog(fileChooser);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                candidateList.load(fileChooser.getSelectedFile().getAbsolutePath());
-                updateGUILists();
-            } catch (Exception ex) {
-                Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
+       try{
+            JFileChooser fileChooser = new JFileChooser();
+            CandidateList candidateList = new CandidateList();
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
+            int result = fileChooser.showOpenDialog(fileChooser);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                    candidateList.load(fileChooser.getSelectedFile().getAbsolutePath());
+                    updateGUILists();
             }
-
-        }
-
+       }catch(IOException e){
+           Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
+           JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+       }catch(Exception ex) {
+           Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+       }
     }//GEN-LAST:event_GUIConfigBtnOpenElectorFileActionPerformed
 
     private void GUIConfigBtnStartElectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnStartElectionActionPerformed
         // TODO add your handling code here:
+        try{
+            ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
+            ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
+            
+            ElectionManager electionManager = new ElectionManager();
         
-        ElectionManager electionManager = new ElectionManager();
-        
-        ElectionManager.updateBeanLists();
-        
-        ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
-        ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
-        ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
-        ElectionManager.getElection().setStarted(true);
-        
-        ElectionManager.addBlankCandidate();
-        updateGUILists();
-        
-        try {
-            electionManager.save(MainUtils.electionFilePath);
-        } catch (Exception ex) {
-            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
+            ElectionManager.updateBeanLists();
+
+            if(GUIConfigTxtBoxElectionName.getText().toCharArray().length<Constants.maxSizeForTextBox){
+                ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
+            }else{
+                throw new Exception();
+            }
+                
+            ElectionManager.getElection().setStarted(true);
+            ElectionManager.addBlankCandidate();
+            updateGUILists();
+            
+            electionManager.save(Constants.electionFilePath);
+
+
+            dispose();
+            
+        }catch(DateTimeParseException e){
+            JOptionPane.showMessageDialog(Exception, Errors.DateFormatIncorret.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
         }
-       
-        dispose();
+        
         
     }//GEN-LAST:event_GUIConfigBtnStartElectionActionPerformed
 
     private void GUIConfigBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnSaveActionPerformed
         // TODO add your handling code here:
-        
-       String nome = GUIConfigTxtBoxElectionName.getText();
-       String dtInicio = GUIConfigTxtBoxElectionStartDate.getText();
-       String dtFim = GUIConfigTxtBoxElectionEndDate.getText();
-        
-        ElectionManager.updateBeanLists();
-        ElectionManager.getElection().setName(nome);
-        ElectionManager.getElection().setStartDate(LocalDate.parse(dtInicio, MainUtils.formatter));
-        ElectionManager.getElection().setEndDate(LocalDate.parse(dtFim, MainUtils.formatter));
-        
-        try {
+       
+        try{
+            ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
+            ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
+            ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
+            ElectionManager.updateBeanLists();
+
             JFileChooser fileChooser = new JFileChooser();
             ElectionManager electionManager = new ElectionManager();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
                 electionManager.save(selectedFile);
             }
-        } catch (IOException | ClassNotFoundException | ParseException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }catch(DateTimeParseException e){
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(Exception, Errors.DateFormatIncorret.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+        }catch(IOException e){
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         } catch (Exception ex) {
-            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+       
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_GUIConfigBtnSaveActionPerformed
 
     private void GUIConfigBtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnNewActionPerformed
@@ -553,7 +597,7 @@ public class GUIConfig extends javax.swing.JFrame {
          try {
             JFileChooser fileChooser = new JFileChooser();
             ElectionManager electionManager = new ElectionManager();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
@@ -564,10 +608,13 @@ public class GUIConfig extends javax.swing.JFrame {
                 GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
             }
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIConfigBtnOpenActionPerformed
@@ -609,18 +656,17 @@ public class GUIConfig extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new GUIConfig().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new GUIConfig().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exception;
     private javax.swing.JButton GUIConfigBtnClose;
     private javax.swing.JButton GUIConfigBtnNew;
     private javax.swing.JButton GUIConfigBtnOpen;

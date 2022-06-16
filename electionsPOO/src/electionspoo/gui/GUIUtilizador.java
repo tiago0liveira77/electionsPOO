@@ -8,6 +8,7 @@ import electionspoo.beans.candidate.CandidateBean;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.elector.ElectorBean;
 import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,9 +45,8 @@ public class GUIUtilizador extends javax.swing.JFrame {
         GUIUtilizadorDataNascimento.setText(electorLogged.getBirthDate());
         if (electorLogged.getPhoto() != null) {
             GUIUtilizadorPhoto.setIcon(MainUtils.resizeIcon(electorLogged.getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
-        } //else if (new ImageIcon("src/electionspoo/multimedia/person.png") != null) {
-        else {
-            GUIUtilizadorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
+        } else {
+            GUIUtilizadorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.personResource)), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
         } 
         
         updateGUIList();
@@ -171,7 +171,7 @@ public class GUIUtilizador extends javax.swing.JFrame {
                 if (CandidateList.getList().get(selections[0]).getPhoto() != null) {
                     GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(CandidateList.getList().get(selections[0]).getPhoto(), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
                 } else {
-                    GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/blank.png")), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
+                    GUIUtilizadorPhotoBranco.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.blankResource)), GUIUtilizadorPhoto.getWidth(), GUIUtilizadorPhoto.getHeight()));   
                 } 
             }
         }
@@ -231,10 +231,8 @@ public class GUIUtilizador extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIUtilizador(electorLogged).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new GUIUtilizador(electorLogged).setVisible(true);
         });
     }
 

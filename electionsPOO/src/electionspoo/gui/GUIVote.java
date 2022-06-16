@@ -4,16 +4,18 @@
  */
 package electionspoo.gui;
 
-import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.election.ElectionManager;
 import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import electionspoo.utils.enums.Errors;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,13 +33,16 @@ public class GUIVote extends javax.swing.JDialog {
     }
     /**
      * Creates new form Vote
+     * @param parent
+     * @param modal
+     * @throws java.lang.Exception
      */
     public GUIVote(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
       
         ElectionManager elec = new ElectionManager();
-        elec.save(MainUtils.electionFilePath);
+        elec.save(Constants.electionFilePath);
         
         
         GuiVoteElectorList.setModel(MainUtils.listaGUIElector);
@@ -60,6 +65,7 @@ public class GUIVote extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Exception = new javax.swing.JDialog();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         GUIVoteCCElector = new javax.swing.JTextField();
@@ -79,6 +85,17 @@ public class GUIVote extends javax.swing.JDialog {
         GuiVoteEleicaoDataFim = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
+        Exception.getContentPane().setLayout(ExceptionLayout);
+        ExceptionLayout.setHorizontalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ExceptionLayout.setVerticalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -275,10 +292,11 @@ public class GUIVote extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
         try {
             JFileChooser fileChooser = new JFileChooser();
             ElectionManager electionManager = new ElectionManager();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
@@ -288,11 +306,17 @@ public class GUIVote extends javax.swing.JDialog {
                 GuiVoteEleicaoDataFim.setText(ElectionManager.getElection().getEndDate());
                 updateGUIList();
             }
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void GuiVoteSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuiVoteSearchFieldActionPerformed
@@ -303,18 +327,27 @@ public class GUIVote extends javax.swing.JDialog {
         // TODO add your handling code here:
         String textToSearch = GuiVoteSearchField.getText();
 
-        int index;
+        try{
+            if(textToSearch.toCharArray().length<Constants.maxSizeForTextBox){
+                int index;
 
-        index = ElectorList.searchElectorByName(textToSearch);
-        if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
-            GuiVoteElectorList.setSelectedIndex(index);
-        } else {
-            index = ElectorList.searchElectorByCC(textToSearch);
-            if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
-                GuiVoteElectorList.setSelectedIndex(index);
-            } else {
-                System.out.println("Não há registos a encontrar para a string: " + textToSearch);
+                index = ElectorList.searchElectorByName(textToSearch);
+                if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                    GuiVoteElectorList.setSelectedIndex(index);
+                } else {
+                    index = ElectorList.searchElectorByCC(textToSearch);
+                    if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                        GuiVoteElectorList.setSelectedIndex(index);
+                    } else {
+                        JOptionPane.showMessageDialog(Exception, Errors.NoRecordsFound.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+                    }
+                }
+            }else{
+                throw new Exception();
             }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(Exception, Errors.MoreThan50Chars.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -330,8 +363,8 @@ public class GUIVote extends javax.swing.JDialog {
                 GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[0]).getPhoto(), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
                 GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[0]).getPhoto(), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
             } else {
-                 GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
-                GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
+                GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.personResource)), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
+                GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.personResource)), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
             } 
         }
         
@@ -349,8 +382,8 @@ public class GUIVote extends javax.swing.JDialog {
             GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(index).getPhoto(), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
             GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(index).getPhoto(), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
         } else {
-            GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
-            GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
+            GuiVoteElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.personResource)), GuiVoteElectorPhoto.getWidth(), GuiVoteElectorPhoto.getHeight()));
+            GUIVoteAutenticationElectorPhoto.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.personResource)), GUIVoteAutenticationElectorPhoto.getWidth(), GUIVoteAutenticationElectorPhoto.getHeight()));
         } 
         
     }//GEN-LAST:event_GUIVoteCCElectorActionPerformed
@@ -373,7 +406,7 @@ public class GUIVote extends javax.swing.JDialog {
                 }
             }
         }else{
-            System.out.println("Já Votou");
+            JOptionPane.showMessageDialog(Exception, Errors.AlreadyVoted.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_GuiVotePasswordActionPerformed
 
@@ -406,26 +439,25 @@ public class GUIVote extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                GUIVote dialog = null;
-                try {
-                    dialog = new GUIVote(new javax.swing.JFrame(), true);
-                } catch (Exception ex) {
-                    Logger.getLogger(GUIVote.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+        java.awt.EventQueue.invokeLater(() -> {
+            GUIVote dialog = null;
+            try {
+                dialog = new GUIVote(new javax.swing.JFrame(), true);
+            } catch (Exception ex) {
+                Logger.getLogger(GUIVote.class.getName()).log(Level.SEVERE, null, ex);
             }
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exception;
     private javax.swing.JLabel GUIVoteAutenticationElectorPhoto;
     private javax.swing.JTextField GUIVoteCCElector;
     private javax.swing.JList<String> GuiVoteElectorList;

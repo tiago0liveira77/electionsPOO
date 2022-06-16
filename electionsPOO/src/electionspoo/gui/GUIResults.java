@@ -8,12 +8,15 @@ package electionspoo.gui;
 import electionspoo.beans.candidate.CandidateList;
 import electionspoo.beans.election.ElectionManager;
 import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import electionspoo.utils.enums.Errors;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -41,6 +44,8 @@ public class GUIResults extends javax.swing.JDialog {
     }
     /**
      * Creates new form GUIResults
+     * @param parent
+     * @param modal
      */
     public GUIResults(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -67,6 +72,7 @@ public class GUIResults extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Exception = new javax.swing.JDialog();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         Votantes = new javax.swing.JTabbedPane();
@@ -87,6 +93,17 @@ public class GUIResults extends javax.swing.JDialog {
         GUIResultsEleicaoDataInicio = new javax.swing.JTextField();
         GUIResultsEleicaoDataFim = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
+        Exception.getContentPane().setLayout(ExceptionLayout);
+        ExceptionLayout.setHorizontalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ExceptionLayout.setVerticalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -294,19 +311,28 @@ public class GUIResults extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         String textToSearch = GUIUtilizadorEleitorSearch.getText();
+        
+        try{
+            if(textToSearch.toCharArray().length<Constants.maxSizeForTextBox){
+                int index;
 
-        int index;
-
-        index = ElectorList.searchElectorByName(textToSearch);
-        if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
-            GUIResultsEleitorList.setSelectedIndex(index);
-        } else {
-            index = ElectorList.searchElectorByCC(textToSearch);
-            if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
-                GUIResultsEleitorList.setSelectedIndex(index);
-            } else {
-                System.out.println("Não há registos a encontrar para a string: " + textToSearch);
+                index = ElectorList.searchElectorByName(textToSearch);
+                if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                    GUIResultsEleitorList.setSelectedIndex(index);
+                } else {
+                    index = ElectorList.searchElectorByCC(textToSearch);
+                    if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                        GUIResultsEleitorList.setSelectedIndex(index);
+                    } else {
+                        JOptionPane.showMessageDialog(Exception, Errors.NoRecordsFound.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+                    }
+                }
+            }else{
+                throw new Exception();
             }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(Exception, Errors.MoreThan50Chars.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -316,7 +342,7 @@ public class GUIResults extends javax.swing.JDialog {
         try {
             JFileChooser fileChooser = new JFileChooser();
             ElectionManager electionManager = new ElectionManager();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(fileChooser);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
@@ -326,9 +352,14 @@ public class GUIResults extends javax.swing.JDialog {
                 GUIResultsEleicaoDataFim.setText(ElectionManager.getElection().getEndDate());
                 updateGUILists();
             }
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
+        } catch (ClassNotFoundException ex){
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -341,11 +372,12 @@ public class GUIResults extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
           try {
-              dispose();
+            dispose();
             GUIResultsStatistics dialog = new GUIResultsStatistics(ElectionManager.getElection());
             dialog.setVisible(true);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(Exception, Errors.OpeningNewPanelError.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -378,21 +410,20 @@ public class GUIResults extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                GUIResults dialog = new GUIResults(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            GUIResults dialog = new GUIResults(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exception;
     private javax.swing.JList<String> GUIResultsCandidatesList;
     private javax.swing.JTextField GUIResultsEleicaoDataFim;
     private javax.swing.JTextField GUIResultsEleicaoDataInicio;

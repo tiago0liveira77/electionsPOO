@@ -7,12 +7,15 @@ package electionspoo.gui;
 import electionspoo.beanbuilder.ElectorBeanBuilder;
 import electionspoo.beans.elector.ElectorBean;
 import electionspoo.beans.elector.ElectorList;
+import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
+import electionspoo.utils.enums.Errors;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -44,7 +47,6 @@ public class GUIElector extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
-     * @param ElectorBO.getList()
      * @throws java.io.IOException
      * @throws java.io.FileNotFoundException
      * @throws java.lang.ClassNotFoundException
@@ -68,6 +70,7 @@ public class GUIElector extends javax.swing.JDialog {
     private void initComponents() {
 
         chooseFileDialog = new javax.swing.JDialog();
+        Exception = new javax.swing.JDialog();
         GUIElectorBtnSave = new javax.swing.JButton();
         GUIElectorBtnOpen = new javax.swing.JButton();
         GUIElectorBtnNew = new javax.swing.JButton();
@@ -106,6 +109,17 @@ public class GUIElector extends javax.swing.JDialog {
         );
         chooseFileDialogLayout.setVerticalGroup(
             chooseFileDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
+        Exception.getContentPane().setLayout(ExceptionLayout);
+        ExceptionLayout.setHorizontalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        ExceptionLayout.setVerticalGroup(
+            ExceptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
@@ -546,15 +560,9 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnRandomElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnRandomElectorActionPerformed
 
-        int quantidadeEleitores;
         try {
-            quantidadeEleitores = Integer.parseInt(JOptionPane.showInputDialog(chooseFileDialog,
-                    "Quantos eleitores pretende gerar?", "Gerar Eleitores", JOptionPane.QUESTION_MESSAGE));
-        } catch (NumberFormatException e) {
-            quantidadeEleitores = 0;
-        }
-        try {
-            // TODO add your handling code here:
+            int quantidadeEleitores = Integer.parseInt(JOptionPane.showInputDialog(chooseFileDialog,
+                    Constants.gerarEleitorPopUpText, Constants.gerarEleitorPopUpTitle, JOptionPane.QUESTION_MESSAGE));
 
             //Create Elector bean
             for (int i = 0; i < quantidadeEleitores; i++) {
@@ -562,14 +570,16 @@ public class GUIElector extends javax.swing.JDialog {
 
                 //Save elector to the list
                 ElectorList.getList().add(electorBean);
-
+                
                 updateGUIList();
                 GUIElectorList.setSelectedIndex(ElectorList.getList().size() - 1);
+               
             }
-
-        } catch (ParseException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException | ParseException e){
+            JOptionPane.showMessageDialog(Exception, Errors.NumberFormatIncorret.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -578,19 +588,22 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnDeleteElectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnDeleteElectorActionPerformed
 
-        int deleteUserConfirmation = JOptionPane.showConfirmDialog(chooseFileDialog, "Tem a certeza que pretende eliminar este registo?", "Eliminar eleitor", JOptionPane.YES_NO_OPTION);
+        boolean deleteUserConfirmation = JOptionPane.showConfirmDialog(chooseFileDialog, Constants.eliminarEleitorPopUpText, Constants.gerarEleitorPopUpTitle, JOptionPane.YES_NO_OPTION) == 0;
 
         try {
-            if (deleteUserConfirmation == 0) {
+            if(deleteUserConfirmation){
                 ElectorList.deleteElectorFromList(GUIListSelectedIndex);
                 updateGUIList();
                 GUIElectorList.setSelectedIndex(0);
             }
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIElectorBtnDeleteElectorActionPerformed
@@ -633,8 +646,8 @@ public class GUIElector extends javax.swing.JDialog {
             //foto to label
             if (ElectorList.getList().get(selections[i]).getPhoto() != null) {
                 GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(ElectorList.getList().get(selections[i]).getPhoto(), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
-            } else if (new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")) != null) {
-                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource("/electionspoo/multimedia/person.png")), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
+            } else {
+                GUIElectorLabel2Image.setIcon(MainUtils.resizeIcon(new ImageIcon(getClass().getResource(Constants.personResource)), GUIElectorLabel2Image.getWidth(), GUIElectorLabel2Image.getHeight()));
             } 
 
         }
@@ -660,17 +673,20 @@ public class GUIElector extends javax.swing.JDialog {
         try {
             JFileChooser fileChooser = new JFileChooser();
             ElectorList electorList = new ElectorList();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String selectedFile = fileChooser.getSelectedFile().getAbsolutePath();
                 electorList.save(selectedFile);
             }
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException | ParseException ex) {
-            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_GUIElectorBtnSaveActionPerformed
@@ -690,20 +706,31 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIElectorBtnSearchActionPerformed
         // TODO add your handling code here:
-        String textToSearch = GUIElectorTxtBoxSearch.getText();
+        
+        try{
+            String textToSearch = GUIElectorTxtBoxSearch.getText();
 
-        int index;
+            if(textToSearch.toCharArray().length<Constants.maxSizeForTextBox){
+                int index;
 
-        index = ElectorList.searchElectorByName(textToSearch);
-        if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
-            GUIElectorList.setSelectedIndex(index);
-        } else {
-            index = ElectorList.searchElectorByCC(textToSearch);
-            if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
-                GUIElectorList.setSelectedIndex(index);
-            } else {
-                System.out.println("Não há registos a encontrar para a string: " + textToSearch);
+                index = ElectorList.searchElectorByName(textToSearch);
+                if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                    GUIElectorList.setSelectedIndex(index);
+                } else {
+                    index = ElectorList.searchElectorByCC(textToSearch);
+                    if (!(MainUtils.isNullOrEmpty(String.valueOf(index)))) {
+                        GUIElectorList.setSelectedIndex(index);
+                    } else {
+                        JOptionPane.showMessageDialog(Exception, Errors.NoRecordsFound.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+                    }
+                }
+            }else{
+                throw new Exception();
             }
+            
+        }catch(Exception e){
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(Exception, Errors.MoreThan50Chars.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_GUIElectorBtnSearchActionPerformed
 
@@ -716,7 +743,7 @@ public class GUIElector extends javax.swing.JDialog {
         try {
             JFileChooser fileChooser = new JFileChooser();
             ElectorList electorList = new ElectorList();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty(Constants.userSystemDir)));
             int result = fileChooser.showOpenDialog(chooseFileDialog);
             if (result == JFileChooser.APPROVE_OPTION) {
                 electorList.load(fileChooser.getSelectedFile().getAbsolutePath());
@@ -724,10 +751,13 @@ public class GUIElector extends javax.swing.JDialog {
             }
         } catch (IOException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Exception, Errors.ErrorExecutingAction.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         } catch (Exception ex) {
             Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
         }
 
     }//GEN-LAST:event_GUIElectorBtnOpenActionPerformed
@@ -739,20 +769,38 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxNameFocusLost
         // Quando GUIElectorTxtBoxName perde o focus
-        if (ElectorList.getList().get(GUIListSelectedIndex).getName() != GUIElectorTxtBoxName.getText()) {
-            ElectorList.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
-            updateGUIList();
+        
+        try{
+            if(GUIElectorTxtBoxName.getText().toCharArray().length<Constants.maxSizeForTextBox){
+                if (!ElectorList.getList().get(GUIListSelectedIndex).getName().equals(GUIElectorTxtBoxName.getText())) {
+                    ElectorList.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
+                    updateGUIList();
+                }
+            }else{
+                throw new Exception();
+            }
+        }catch(Exception e){
+           Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
+           JOptionPane.showMessageDialog(Exception, Errors.MoreThan50Chars.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION); 
         }
-
     }//GEN-LAST:event_GUIElectorTxtBoxNameFocusLost
 
     private void GUIElectorTxtBoxCCFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxCCFocusLost
         // TODO add your handling code here:
-        if (ElectorList.getList().get(GUIListSelectedIndex).getCC() != Integer.parseInt(GUIElectorTxtBoxCC.getText())) {
-            ElectorList.getList().get(GUIListSelectedIndex).setCC(Integer.parseInt(GUIElectorTxtBoxCC.getText()));
-            updateGUIList();
+           
+        try{
+            if(GUIElectorTxtBoxCC.getText().toCharArray().length==Constants.maxSizeForCC){
+                if (ElectorList.getList().get(GUIListSelectedIndex).getCC() != Integer.parseInt(GUIElectorTxtBoxCC.getText())) {
+                    ElectorList.getList().get(GUIListSelectedIndex).setCC(Integer.parseInt(GUIElectorTxtBoxCC.getText()));
+                    updateGUIList();
+                }
+            }else{
+                throw new Exception();
+            }
+        }catch(Exception e){
+            Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(Exception, Errors.MoreThan8Chars.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION); 
         }
-
     }//GEN-LAST:event_GUIElectorTxtBoxCCFocusLost
 
     private void GUIElectorGenderInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_GUIElectorGenderInputMethodTextChanged
@@ -766,16 +814,22 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxBirthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxBirthFocusLost
         // TODO add your handling code here:
-        if (ElectorList.getList().get(GUIListSelectedIndex).getBirthDateLikeADate() != LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter)) {
-            ElectorList.getList().get(GUIListSelectedIndex).setBirthDate(LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter));
-            updateGUIList();
-        }
+                
+            try{
+                if (ElectorList.getList().get(GUIListSelectedIndex).getBirthDateLikeADate() != LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter)) {
+                    ElectorList.getList().get(GUIListSelectedIndex).setBirthDate(LocalDate.parse(GUIElectorTxtBoxBirth.getText(), MainUtils.formatter));
+                    updateGUIList();
+                }
+            }catch(DateTimeParseException e){
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(Exception, Errors.DateFormatIncorret.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION); 
+            }
     }//GEN-LAST:event_GUIElectorTxtBoxBirthFocusLost
 
     private void GUIElectorTxtBoxPw2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPw2FocusLost
         // TODO add your handling code here:
 
-        if (ElectorList.getList().get(GUIListSelectedIndex).getPassword() != GUIElectorTxtBoxPw2.getText())
+        if (ElectorList.getList().get(GUIListSelectedIndex).getPassword().equals(GUIElectorTxtBoxPw2.getText()))
             if (GUIElectorTxtBoxPw2.getText().equals(GUIElectorTxtBoxPw.getText())) {
                 ElectorList.getList().get(GUIListSelectedIndex).setPassword(GUIElectorTxtBoxPw2.getText());
                 updateGUIList();
@@ -784,7 +838,7 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxNameKeyReleased
         // TODO add your handling code here:
-        if (ElectorList.getList().get(GUIListSelectedIndex).getName() != GUIElectorTxtBoxName.getText()) {
+        if (ElectorList.getList().get(GUIListSelectedIndex).getName().equals(GUIElectorTxtBoxName.getText())) {
             ElectorList.getList().get(GUIListSelectedIndex).setName(GUIElectorTxtBoxName.getText());
             updateGUIList();
         }
@@ -839,34 +893,30 @@ public class GUIElector extends javax.swing.JDialog {
 
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                GUIElector dialog = null;
-                try {
-                    dialog = new GUIElector(new javax.swing.JFrame(), true);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-
+        java.awt.EventQueue.invokeLater(() -> {
+            GUIElector dialog = null;
+            try {
+                dialog = new GUIElector(new javax.swing.JFrame(), true);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException | ParseException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
             }
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exception;
     private javax.swing.JButton GUIElectorBtnClose;
     private javax.swing.JButton GUIElectorBtnDeleteElector;
     private javax.swing.JButton GUIElectorBtnFirst;

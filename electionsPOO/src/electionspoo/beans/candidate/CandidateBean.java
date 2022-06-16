@@ -4,7 +4,7 @@
  */
 package electionspoo.beans.candidate;
 
-import java.awt.Image;
+import electionspoo.utils.Constants;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
@@ -19,9 +19,10 @@ public class CandidateBean implements Serializable{
     private ImageIcon photo;
     
     public CandidateBean(){
+        //TODO: Generate?
         this.name = "Exemplo";
         this.initials = "EXEM";
-        this.photo = new ImageIcon(getClass().getResource("/electionspoo/multimedia/menu_candidates.png"));
+        this.photo = new ImageIcon(getClass().getResource(Constants.manuCandidatosResource));
         this.votes = 0;
     }
     
@@ -36,7 +37,7 @@ public class CandidateBean implements Serializable{
      public CandidateBean(String name, String initials){
         this.name = name;
         this.initials = initials;
-        this.photo = new ImageIcon(getClass().getResource("/electionspoo/multimedia/blank.png"));
+        this.photo = new ImageIcon(getClass().getResource(Constants.blankResource));
         this.votes = 0;
     }
 
