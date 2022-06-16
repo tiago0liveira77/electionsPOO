@@ -4,8 +4,13 @@
  */
 package electionspoo.beans.candidate;
 
+import electionspoo.beans.elector.ElectorBean;
 import electionspoo.utils.Constants;
+import electionspoo.utils.MainUtils;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,29 +21,41 @@ public class CandidateBean implements Serializable{
     private String name;
     private String initials;
     private int votes;
-    private ImageIcon photo;
+    private byte[] photo;
     
     public CandidateBean(){
-        //TODO: Generate?
-        this.name = "Exemplo";
-        this.initials = "EXEM";
-        this.photo = new ImageIcon(getClass().getResource(Constants.manuCandidatosResource));
-        this.votes = 0;
+        try {
+            //TODO: Generate?
+            this.name = "Exemplo";
+            this.initials = "EXEM";
+            this.photo = MainUtils.iconToByteArray(new ImageIcon(getClass().getResource(Constants.manuCandidatosResource)));
+            this.votes = 0;
+        } catch (IOException ex) {
+            Logger.getLogger(CandidateBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public CandidateBean(String name, String initials, ImageIcon photo){
-        this.name = name;
-        this.initials = initials;
-        this.photo = photo;
-        this.votes = 0;
+        try {
+            this.name = name;
+            this.initials = initials;
+            this.photo = MainUtils.iconToByteArray(photo);
+            this.votes = 0;
+        } catch (IOException ex) {
+            Logger.getLogger(CandidateBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
      public CandidateBean(String name, String initials){
-        this.name = name;
-        this.initials = initials;
-        this.photo = new ImageIcon(getClass().getResource(Constants.blankResource));
-        this.votes = 0;
+        try {
+            this.name = name;
+            this.initials = initials;
+            this.photo = MainUtils.iconToByteArray(new ImageIcon(getClass().getResource(Constants.blankResource)));
+            this.votes = 0;
+        } catch (IOException ex) {
+            Logger.getLogger(CandidateBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getName() {
@@ -58,11 +75,20 @@ public class CandidateBean implements Serializable{
     }
 
     public ImageIcon getPhoto() {
-        return photo;
+        try {
+            return MainUtils.byteArrayToIcon(photo);
+        } catch (IOException ex) {
+            Logger.getLogger(ElectorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ImageIcon(getClass().getResource(Constants.personResource));
     }
 
     public void setPhoto(ImageIcon photo) {
-        this.photo = photo;
+        try {
+            this.photo =  MainUtils.iconToByteArray(photo);
+        } catch (IOException ex) {
+            Logger.getLogger(ElectorBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public int getVotes() {

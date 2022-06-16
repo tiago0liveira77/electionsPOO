@@ -6,14 +6,18 @@ package electionspoo.gui;
 
 import electionspoo.beans.candidate.CandidateBean;
 import electionspoo.beans.candidate.CandidateList;
+import electionspoo.beans.elector.ElectorList;
 import electionspoo.utils.Constants;
 import electionspoo.utils.MainUtils;
 import electionspoo.utils.enums.Errors;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -83,6 +87,7 @@ public class GUICandidate extends javax.swing.JDialog {
         GUICandLabel2Image = new javax.swing.JLabel();
         GUICandBtnUp = new javax.swing.JButton();
         GUICandBtnDown = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         GUICandTxtBoxSearch = new javax.swing.JTextField();
 
         javax.swing.GroupLayout DialogFileChooserLayout = new javax.swing.GroupLayout(DialogFileChooser.getContentPane());
@@ -314,6 +319,13 @@ public class GUICandidate extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("Ler Imagem");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout GUICandPanelElectorLayout = new javax.swing.GroupLayout(GUICandPanelElector);
         GUICandPanelElector.setLayout(GUICandPanelElectorLayout);
         GUICandPanelElectorLayout.setHorizontalGroup(
@@ -333,8 +345,10 @@ public class GUICandidate extends javax.swing.JDialog {
                                     .addComponent(GUICandBtnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(GUICandPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(GUICandPanelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -352,7 +366,9 @@ public class GUICandidate extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(GUICandBtnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GUICandPanelImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(GUICandPanelElectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(GUICandBtnDeleteCand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(GUICandBtnNewCand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -464,6 +480,7 @@ public class GUICandidate extends javax.swing.JDialog {
         for (int i = 0, n = selections.length; i < n; i++) {
             GUICandTxtBoxName.setText(CandidateList.getList().get(selections[i]).getName());
             GUICandTxtBoxInitials.setText(CandidateList.getList().get(selections[i]).getInitials());
+            GUICandLabel2Image.setIcon(MainUtils.resizeIcon(CandidateList.getList().get(selections[i]).getPhoto(), GUICandLabel2Image.getWidth(), GUICandLabel2Image.getHeight()));
         }
     }//GEN-LAST:event_GUICandListValueChanged
 
@@ -628,6 +645,20 @@ public class GUICandidate extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_GUICandTxtBoxInitialsKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        if(fc.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
+            try {
+                Image img = ImageIO.read(fc.getSelectedFile());
+                GUICandLabel2Image.setIcon(MainUtils.resizeIcon(new ImageIcon(img), GUICandLabel2Image.getWidth(), GUICandLabel2Image.getHeight()));
+                CandidateList.getList().get(GUIListSelectedIndex).setPhoto(new ImageIcon(img));
+            } catch (IOException ex) {
+                Logger.getLogger(GUIElector.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -696,5 +727,6 @@ public class GUICandidate extends javax.swing.JDialog {
     private javax.swing.JButton GUIElectorBtnLast;
     private javax.swing.JButton GUIElectorBtnNext;
     private javax.swing.JButton GUIElectorBtnPrev;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
