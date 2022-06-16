@@ -588,8 +588,9 @@ public class GUIConfig extends javax.swing.JFrame {
         // TODO add your handling code here:
         ElectionManager.newElection();
         updateGUILists();
-     
-        
+        GUIConfigTxtBoxElectionName.setText(ElectionManager.getElection().getName());
+        GUIConfigTxtBoxElectionStartDate.setText(ElectionManager.getElection().getStartDate());
+        GUIConfigTxtBoxElectionEndDate.setText(ElectionManager.getElection().getEndDate());
     }//GEN-LAST:event_GUIConfigBtnNewActionPerformed
 
     private void GUIConfigBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIConfigBtnOpenActionPerformed
