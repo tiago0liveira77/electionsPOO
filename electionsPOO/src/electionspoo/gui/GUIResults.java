@@ -67,22 +67,22 @@ public class GUIResults extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        GUIResultsBtnOpen = new javax.swing.JButton();
+        GUIResultsBtnClose = new javax.swing.JButton();
         Votantes = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        GUIResultsPanelGraficos = new javax.swing.JPanel();
+        GUIResultsBtnOpenGraficos = new javax.swing.JButton();
+        GUIResultsPanelResults = new javax.swing.JPanel();
         GUIResultsList = new javax.swing.JList<>();
-        jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        GUIResultsPanelVoters = new javax.swing.JPanel();
+        GUIResultsSearch = new javax.swing.JButton();
         GUIUtilizadorEleitorSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         GUIResultsEleitorList = new javax.swing.JList<>();
-        jPanel4 = new javax.swing.JPanel();
+        GUIResultsPanelCandidates = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         GUIResultsCandidatesList = new javax.swing.JList<>();
-        jPanel5 = new javax.swing.JPanel();
+        GUIResultsPanelElection = new javax.swing.JPanel();
         GUIResultsNomeEleicao = new javax.swing.JTextField();
         GUIResultsEleicaoDataInicio = new javax.swing.JTextField();
         GUIResultsEleicaoDataFim = new javax.swing.JTextField();
@@ -90,71 +90,71 @@ public class GUIResults extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
-        jButton1.setText("Abrir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        GUIResultsBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/open_file.png"))); // NOI18N
+        GUIResultsBtnOpen.setText("Abrir");
+        GUIResultsBtnOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GUIResultsBtnOpenActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/exit.png"))); // NOI18N
-        jButton2.setText("Sair");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        GUIResultsBtnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/exit.png"))); // NOI18N
+        GUIResultsBtnClose.setText("Sair");
+        GUIResultsBtnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                GUIResultsBtnCloseActionPerformed(evt);
             }
         });
 
-        jButton3.setText("ABRIR GRÁFICO");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        GUIResultsBtnOpenGraficos.setText("ABRIR GRÁFICO");
+        GUIResultsBtnOpenGraficos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                GUIResultsBtnOpenGraficosActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout GUIResultsPanelGraficosLayout = new javax.swing.GroupLayout(GUIResultsPanelGraficos);
+        GUIResultsPanelGraficos.setLayout(GUIResultsPanelGraficosLayout);
+        GUIResultsPanelGraficosLayout.setHorizontalGroup(
+            GUIResultsPanelGraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIResultsPanelGraficosLayout.createSequentialGroup()
                 .addGap(94, 94, 94)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GUIResultsBtnOpenGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(132, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        GUIResultsPanelGraficosLayout.setVerticalGroup(
+            GUIResultsPanelGraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIResultsPanelGraficosLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GUIResultsBtnOpenGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(104, Short.MAX_VALUE))
         );
 
-        Votantes.addTab("Gráfico", jPanel1);
+        Votantes.addTab("Gráfico", GUIResultsPanelGraficos);
 
         GUIResultsList.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultados"));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout GUIResultsPanelResultsLayout = new javax.swing.GroupLayout(GUIResultsPanelResults);
+        GUIResultsPanelResults.setLayout(GUIResultsPanelResultsLayout);
+        GUIResultsPanelResultsLayout.setHorizontalGroup(
+            GUIResultsPanelResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(GUIResultsList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        GUIResultsPanelResultsLayout.setVerticalGroup(
+            GUIResultsPanelResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(GUIResultsList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
-        Votantes.addTab("Resultados", jPanel2);
+        Votantes.addTab("Resultados", GUIResultsPanelResults);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_find.png"))); // NOI18N
-        jButton4.setText("Pesquisar");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        GUIResultsSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/electionspoo/multimedia/nav_find.png"))); // NOI18N
+        GUIResultsSearch.setText("Pesquisar");
+        GUIResultsSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        GUIResultsSearch.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        GUIResultsSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        GUIResultsSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                GUIResultsSearchActionPerformed(evt);
             }
         });
 
@@ -167,50 +167,50 @@ public class GUIResults extends javax.swing.JDialog {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista Eleitoral"));
         jScrollPane1.setViewportView(GUIResultsEleitorList);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout GUIResultsPanelVotersLayout = new javax.swing.GroupLayout(GUIResultsPanelVoters);
+        GUIResultsPanelVoters.setLayout(GUIResultsPanelVotersLayout);
+        GUIResultsPanelVotersLayout.setHorizontalGroup(
+            GUIResultsPanelVotersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIResultsPanelVotersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(GUIResultsPanelVotersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GUIResultsPanelVotersLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addGroup(GUIResultsPanelVotersLayout.createSequentialGroup()
+                        .addComponent(GUIResultsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(GUIUtilizadorEleitorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        GUIResultsPanelVotersLayout.setVerticalGroup(
+            GUIResultsPanelVotersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIResultsPanelVotersLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
+                .addGroup(GUIResultsPanelVotersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GUIResultsSearch)
                     .addComponent(GUIUtilizadorEleitorSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        Votantes.addTab("Votantes", jPanel3);
+        Votantes.addTab("Votantes", GUIResultsPanelVoters);
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Candidatos"));
         jScrollPane2.setViewportView(GUIResultsCandidatesList);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout GUIResultsPanelCandidatesLayout = new javax.swing.GroupLayout(GUIResultsPanelCandidates);
+        GUIResultsPanelCandidates.setLayout(GUIResultsPanelCandidatesLayout);
+        GUIResultsPanelCandidatesLayout.setHorizontalGroup(
+            GUIResultsPanelCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        GUIResultsPanelCandidatesLayout.setVerticalGroup(
+            GUIResultsPanelCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
-        Votantes.addTab("Candidatos", jPanel4);
+        Votantes.addTab("Candidatos", GUIResultsPanelCandidates);
 
         GUIResultsNomeEleicao.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
         GUIResultsNomeEleicao.setEnabled(false);
@@ -223,30 +223,30 @@ public class GUIResults extends javax.swing.JDialog {
 
         jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Fotografia"));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout GUIResultsPanelElectionLayout = new javax.swing.GroupLayout(GUIResultsPanelElection);
+        GUIResultsPanelElection.setLayout(GUIResultsPanelElectionLayout);
+        GUIResultsPanelElectionLayout.setHorizontalGroup(
+            GUIResultsPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIResultsPanelElectionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(GUIResultsPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GUIResultsNomeEleicao)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(GUIResultsPanelElectionLayout.createSequentialGroup()
+                        .addGroup(GUIResultsPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(GUIResultsEleicaoDataInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                             .addComponent(GUIResultsEleicaoDataFim))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        GUIResultsPanelElectionLayout.setVerticalGroup(
+            GUIResultsPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GUIResultsPanelElectionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(GUIResultsNomeEleicao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(GUIResultsPanelElectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GUIResultsPanelElectionLayout.createSequentialGroup()
                         .addComponent(GUIResultsEleicaoDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(GUIResultsEleicaoDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -254,7 +254,7 @@ public class GUIResults extends javax.swing.JDialog {
                 .addContainerGap(132, Short.MAX_VALUE))
         );
 
-        Votantes.addTab("Eleição", jPanel5);
+        Votantes.addTab("Eleição", GUIResultsPanelElection);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,9 +264,9 @@ public class GUIResults extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GUIResultsBtnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(GUIResultsBtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(Votantes)))
@@ -277,8 +277,8 @@ public class GUIResults extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(GUIResultsBtnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GUIResultsBtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(Votantes)
                 .addContainerGap())
@@ -291,7 +291,7 @@ public class GUIResults extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_GUIUtilizadorEleitorSearchActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void GUIResultsSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIResultsSearchActionPerformed
         // TODO add your handling code here:
         String textToSearch = GUIUtilizadorEleitorSearch.getText();
 
@@ -308,9 +308,9 @@ public class GUIResults extends javax.swing.JDialog {
                 System.out.println("Não há registos a encontrar para a string: " + textToSearch);
             }
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_GUIResultsSearchActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void GUIResultsBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIResultsBtnOpenActionPerformed
         // TODO add your handling code here:
         
         try {
@@ -331,14 +331,14 @@ public class GUIResults extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(GUICandidate.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_GUIResultsBtnOpenActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void GUIResultsBtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIResultsBtnCloseActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_GUIResultsBtnCloseActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void GUIResultsBtnOpenGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GUIResultsBtnOpenGraficosActionPerformed
         // TODO add your handling code here:
           try {
               dispose();
@@ -347,7 +347,7 @@ public class GUIResults extends javax.swing.JDialog {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_GUIResultsBtnOpenGraficosActionPerformed
 
    
     /**
@@ -393,24 +393,24 @@ public class GUIResults extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton GUIResultsBtnClose;
+    private javax.swing.JButton GUIResultsBtnOpen;
+    private javax.swing.JButton GUIResultsBtnOpenGraficos;
     private javax.swing.JList<String> GUIResultsCandidatesList;
     private javax.swing.JTextField GUIResultsEleicaoDataFim;
     private javax.swing.JTextField GUIResultsEleicaoDataInicio;
     private javax.swing.JList<String> GUIResultsEleitorList;
     private javax.swing.JList<String> GUIResultsList;
     private javax.swing.JTextField GUIResultsNomeEleicao;
+    private javax.swing.JPanel GUIResultsPanelCandidates;
+    private javax.swing.JPanel GUIResultsPanelElection;
+    private javax.swing.JPanel GUIResultsPanelGraficos;
+    private javax.swing.JPanel GUIResultsPanelResults;
+    private javax.swing.JPanel GUIResultsPanelVoters;
+    private javax.swing.JButton GUIResultsSearch;
     private javax.swing.JTextField GUIUtilizadorEleitorSearch;
     private javax.swing.JTabbedPane Votantes;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
