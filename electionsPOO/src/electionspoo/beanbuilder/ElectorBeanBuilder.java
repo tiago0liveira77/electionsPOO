@@ -36,9 +36,11 @@ public class ElectorBeanBuilder {
 
         LocalDate date = GenerateUtils.getRandomBirthDate(); //Generate random birth date
 
-        int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
+        //int password = GenerateUtils.getRandom8DigitNumber(rd); //Generate random password(8 digits)
                 
         byte[] photo = GenerateUtils.getRandomPhoto(gender, MainUtils.getPersonAge(date.format(MainUtils.formatter)));
+        
+        int password = 123;
         
         //int age = MainUtils.getPersonsAge(sdf.format(date));
         

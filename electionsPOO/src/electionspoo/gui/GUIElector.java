@@ -841,11 +841,12 @@ public class GUIElector extends javax.swing.JDialog {
 
     private void GUIElectorTxtBoxPw2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GUIElectorTxtBoxPw2FocusLost
         // TODO add your handling code here:
-
-        if (ElectorList.getList().get(GUIListSelectedIndex).getPassword().equals(GUIElectorTxtBoxPw2.getText()))
+        System.out.println("entrou");
+        if (!ElectorList.getList().get(GUIListSelectedIndex).getPassword().equals(GUIElectorTxtBoxPw2.getText()))
             if (GUIElectorTxtBoxPw2.getText().equals(GUIElectorTxtBoxPw.getText())) {
                 ElectorList.getList().get(GUIListSelectedIndex).setPassword(GUIElectorTxtBoxPw2.getText());
                 updateGUIList();
+                System.out.println("mudou");
             } 
     }//GEN-LAST:event_GUIElectorTxtBoxPw2FocusLost
 
