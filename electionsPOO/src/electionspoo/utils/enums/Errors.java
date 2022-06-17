@@ -22,8 +22,8 @@ public enum Errors {
     MoreThan50Chars("Nome não pode ter mais que 50 caracteres!"),
     NoRecordsFound("Não foram encontrados registos com esse nome!"),
     UnavailableFunctionality("Funcionalidade indisponivel!"),
-    FileManipulation("Ocorreu um erro ao tentar abrir/fechar os ficheiros, por favor, tente novamente.");
-    
+    FileManipulation("Ocorreu um erro ao tentar abrir/fechar os ficheiros, por favor, tente novamente."),
+    ElectionDatesWrong("Não podes iniciar este eleição porque ainda não está no dia correto!");
     
     private final String erro;
 

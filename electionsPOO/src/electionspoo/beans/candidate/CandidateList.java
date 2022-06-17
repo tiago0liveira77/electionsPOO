@@ -41,7 +41,7 @@ public class CandidateList implements FileManager, Serializable{
     }
     
     public static String getResultsGUILine(CandidateBean candidate){
-         return String.format("%s %s %d Votos", candidate.getInitials(), candidate.getName(), getCandidateVotes(candidate));
+         return String.format("%-15s %-50s %d Votos", candidate.getInitials(), candidate.getName(), getCandidateVotes(candidate));
     }
     
     //retorna a arraylist

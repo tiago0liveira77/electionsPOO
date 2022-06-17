@@ -86,6 +86,8 @@ public class GUIVote extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
+        Exception.setAlwaysOnTop(true);
+
         javax.swing.GroupLayout ExceptionLayout = new javax.swing.GroupLayout(Exception.getContentPane());
         Exception.getContentPane().setLayout(ExceptionLayout);
         ExceptionLayout.setHorizontalGroup(

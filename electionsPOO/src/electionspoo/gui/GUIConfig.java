@@ -514,9 +514,18 @@ public class GUIConfig extends javax.swing.JFrame {
         try{
             
             if(CandidateList.getList().size()>0 && ElectorList.getList().size()>0){
-                ElectionManager.getElection().setStartDate(LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter));
-                ElectionManager.getElection().setEndDate(LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter));
-
+                
+                LocalDate initDate = LocalDate.parse(GUIConfigTxtBoxElectionStartDate.getText(), MainUtils.formatter);
+                LocalDate endDate = LocalDate.parse(GUIConfigTxtBoxElectionEndDate.getText(), MainUtils.formatter);
+                LocalDate todayDate = LocalDate.now();
+                
+                if(todayDate.isAfter(initDate) && todayDate.isBefore(endDate)){
+                    ElectionManager.getElection().setStartDate(initDate);
+                    ElectionManager.getElection().setEndDate(endDate);
+                }else{
+                    JOptionPane.showMessageDialog(Exception, Errors.ElectionDatesWrong.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
+                    throw new Exception();
+                }
                 ElectionManager electionManager = new ElectionManager();
 
                 ElectionManager.updateBeanLists();
@@ -524,6 +533,7 @@ public class GUIConfig extends javax.swing.JFrame {
                 if(GUIConfigTxtBoxElectionName.getText().toCharArray().length<Constants.maxSizeForTextBox){
                     ElectionManager.getElection().setName(GUIConfigTxtBoxElectionName.getText());
                 }else{
+                    JOptionPane.showMessageDialog(Exception, Errors.MoreThan50Chars.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
                     throw new Exception();
                 }
 
@@ -545,7 +555,6 @@ public class GUIConfig extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(Exception, Errors.FileManipulation.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
         }catch(Exception e){
-            JOptionPane.showMessageDialog(Exception, Errors.UnavailableFunctionality.getErro(), Constants.exceptionDialogPopUpTitle, JOptionPane.OK_OPTION);
             Logger.getLogger(GUIConfig.class.getName()).log(Level.SEVERE, null, e);
         }
         
